@@ -1,0 +1,17 @@
+.nameCampos{
+    background-color: #FFFFFF;
+    border-radius: 1rem;
+    padding: 0.5rem;
+    margin-bottom: 5px;
+    box-shadow: 0 5px 5px rgba(212, 185, 150, .5);
+    transition: .5s;
+    position: relative;
+    font-family: 'Lato', sans-serif;
+    font-size: 90%;
+    text-align: center;
+}
+
+.nameCampos:hover{
+    transform: scale(0.9);
+    background-color:#585d5e;
+}
