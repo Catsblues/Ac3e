@@ -1,0 +1,118 @@
+.formulario{
+    width: 29%;
+    min-width: 370px;
+    margin-top: 20px;
+    margin-left: 30%;
+    margin-right: 30%;
+    border-radius: 10px;
+    background-color: rgb(214, 211, 207);
+    padding: 50px;
+    box-shadow: rgba(0, 0, 0, 0.16) 0px 1px 4px;
+    text-align: center;
+    
+
+}
+
+
+.formulario label {
+	font-weight: 600;
+	font-size: 15px;
+	margin-bottom: 5px;
+	color: #1f1f1f;
+}
+
+.formulario input {
+    font-family: 'Open Sans', sans-serif;
+    border-radius: 5px;
+    border: 2px solid #e2e2e2;
+    font-size: 13px;
+    margin-bottom: 5px;
+    color: #1f1f1f;
+
+}
+
+.formulario input:focus {
+	outline: none;
+	border: 2px solid #0085FF;
+}
+
+
+.volumen , .first , .last{
+    width: 80px;
+    margin-left: 27px;
+    margin-right: 27px;
+    padding: 2px;
+
+}
+
+
+.no{
+    width: 60px;
+    margin-left: 0px;
+    margin-right: 15px;
+    padding: 2px;
+}
+
+.autor{
+    width: 320px;
+    margin-left: 0px;
+    margin-right: 15px;
+    padding: 2px;
+}
+.titulo{
+    width: 403px;
+    margin-left: 0px;
+    margin-right: 15px;
+    padding: 2px;
+}
+
+.journal{
+    width: 190px;
+    margin-left: 0px;
+    margin-right: 15px;
+    padding: 2px;
+}
+
+.doi{
+    width: 190px;
+    margin-left: 0px;
+    margin-right: 15px;
+    padding: 2px;
+}
+
+.sending {
+    margin-left: 10px;
+    padding: 2px;
+}
+.date{
+    margin-left: 70px;
+    padding: 2px;
+}
+
+ .comentario{
+    width: 370px;
+    margin-left: 0px;
+    padding: 20px;
+}
+
+
+
+.formulario button[type="submit"] {
+	background: #303336;
+	font-weight: 600;
+	font-family: 'Open Sans', sans-serif;
+	border: none;
+	cursor: pointer;
+	width: 70px;
+	padding: 10px;
+	border-radius: 5px;
+	color: #fff;
+	font-size: 16px;
+    margin-top: 20px;
+	transition: .3s ease all;
+}
+
+.formulario button[type="submit"]:hover {
+	background: #040404;
+}
+

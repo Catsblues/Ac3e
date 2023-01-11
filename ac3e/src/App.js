@@ -1,27 +1,24 @@
-import "./App.css";
-import "./Components_app/Campos";
-import Campos from "./Components_app/Campos";
+import React from "react";
 
-const App=()=> {
-  return (
-    <>
-    
-    <div className='header'> 
-      <img className="logo" src={"/ac3e.png"}/>
-      <div className='usuario'>
-        <h1>Bienvenido/a xxxxxx</h1>
-      </div>
-      <button className="statistics">Estadisticas</button>
-    </div>
-    <h1 className="title">Reporte de indicadores</h1>
-    <h3 className="text">Eliga la opción e ingrese su reporte</h3>
+import {
+  BrowserRouter as Router,
+  Routes,
+  Route,
+} from "react-router-dom";
 
-    <div className="modalcampos">
-      {<Campos/>} 
-      </div>
+import Inicio from "./Inicio/Inicio";
+import A1 from "./A1/A1";
 
-    </>
-  );
+function App() {
+  return(
+    <Router>
+        <Routes>
+          <Route path="/" element={<Inicio/>}></Route>
+          <Route path="/a1" element={<A1/>}></Route>
+        </Routes>
+
+    </Router>
+  )
 }
 
 export default App;
