@@ -7,9 +7,9 @@ import React from "react";
 const A1=()=> {
 
 
- var actualData = localStorage.getItem("data");
- actualData = JSON.parse(actualData);
- console.log(actualData);
+  var actualData = localStorage.getItem("data");
+  actualData = JSON.parse(actualData);
+  console.log(actualData);
 
 
   const writeJson = (newAutor, newTitulo, newJournal, newDoi, newVolume, newFirst, newLast, newYearPublished) =>{
@@ -91,7 +91,7 @@ const A1=()=> {
       <h1 className="title">Visualización de datos</h1>
       <h3 className="text">Seleccione su campo de búsqueda e ingrese el dato correspondiente:</h3>
         {<Buscador/>}
-        {<datos/>}
+        {<datos c={1}/>}
 
         <div className="tabla"> 
         <table className="table table-success table-striped">
