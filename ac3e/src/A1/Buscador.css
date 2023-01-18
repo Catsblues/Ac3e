@@ -1,15 +1,19 @@
 .buscador{
+
     text-align: center;
+    margin-top: 40px;
+    margin-bottom: 20px;
 }
 .buscador select {
     font-family: 'Open Sans', sans-serif;
     border-radius: 5px;
     border: 2px solid #e2e2e2;
-    font-size: 13px;
+    font-size: 15px;
     padding: 2px;
     margin-bottom: 5px;
     color: #1f1f1f;
     margin-right: 50px;
+    width: 250px;
 
 }
 

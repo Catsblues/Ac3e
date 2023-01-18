@@ -6,15 +6,26 @@ import {
   Route,
 } from "react-router-dom";
 
+import Login from "./Login/Login";
 import Inicio from "./Inicio/Inicio";
 import A1 from "./A1/A1";
+import InicioAdmin from "./Admin/InicioAdmin";
+import PlanillaInv from "./Admin/PlanillaInv";
+import EditarPerfil from "./Admin/EditarPerfil";
+import PlanillaGen from "./Admin/PlanillaGen";
 
 function App() {
+  
   return(
     <Router>
         <Routes>
-          <Route path="/" element={<Inicio/>}></Route>
-          <Route path="/a1" element={<A1/>}></Route>
+          <Route exact path="/" element={<Login/>}></Route>
+          <Route exact path="/Inicio" element={<Inicio/>}></Route>
+          <Route exact path="/Inicio/a1" element={<A1/>}></Route>
+          <Route exact path="/InicioAdmin" element={<InicioAdmin/>}></Route>
+          <Route exact path="/InicioAdmin/PlanillaGen" element={<PlanillaGen/>}></Route>
+          <Route exact path="/InicioAdmin/PlanillaInv" element={<PlanillaInv/>}></Route>
+          <Route exact path="/PlanillaInv/EditarPerfil" element={<EditarPerfil/>}></Route>
         </Routes>
 
     </Router>

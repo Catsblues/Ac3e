@@ -1,0 +1,31 @@
+.tabla{
+    margin-top: 10px;
+    margin-left: 20px;
+    margin-right: 20px;
+}
+
+.edit{
+    background-color: rgb(5, 194, 252);
+    border-radius: 7px;
+    box-shadow: 0 5px 5px rgba(97, 96, 93, 0.5);
+    color:rgb(0, 0, 0);
+    transition: .5s;
+    margin-right: 5px;
+}
+
+.edit:hover{
+    transform: scale(0.9);background-color: rgb(3, 164, 212);
+  }
+
+
+  .delete{
+    background-color: rgb(255, 61, 2);
+    border-radius: 7px;
+    box-shadow: 0 5px 5px rgba(97, 96, 93, 0.5);
+    color:rgb(0, 0, 0);
+    transition: .5s;
+}
+
+.delete:hover{
+    transform: scale(0.9); background-color: rgb(189, 45, 1);
+  }

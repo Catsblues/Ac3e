@@ -1,3 +1,4 @@
+import React from "react";
 import { Link } from "react-router-dom";
 import "./Campos.css"
 
@@ -8,7 +9,7 @@ const Campos =()=> {
             {
                 campo.map(item=>{
                     let nombre=item[0];
-                    let path="/"+item[1];
+                    let path="/Inicio/"+item[1];
                     return(
                         <>
                         <Link to={path} className="nameCampos"> {nombre} </Link>

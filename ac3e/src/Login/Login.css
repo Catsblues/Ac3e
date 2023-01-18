@@ -1,0 +1,89 @@
+.contenedor {
+    width: 35%;
+    height: 120px;
+    min-width: 320px;
+    margin: 0 auto;
+    border-radius:  10px 10px 0 0;
+    background-color: #ffffff;
+    box-shadow: rgba(75, 70, 70, 0.16) 4px 4px 0px;
+    margin-top: 10%;
+    margin-bottom: 0px;
+
+}
+
+.formulario1{
+    width: 35%;
+    height: 200px;
+    min-width: 320px;
+    margin: 0 auto;
+    border-radius: 0 0 10px 10px;
+    background-color: #ffffff;
+    box-shadow: rgba(75, 70, 70, 0.16) 4px 4px 0px;
+    text-align: center;
+    margin-top: 0px;
+    
+
+}
+
+.titleform{
+    height: 60px;
+    font-family: Arial black;
+    color: black;
+    font-size: 40px;
+    text-align: center;
+  }
+
+.formulario1 input {
+    font-family: 'Open Sans', sans-serif;
+    border-radius: 8px;
+    border: 2px solid #000000;
+    font-size: 16px;
+    margin-bottom: 15px;
+    color: #1f1f1f;
+
+
+}
+
+.formulario1 label {
+	font-weight: 700;
+	font-size: 16px;
+	margin-bottom: 5px;
+	color: #1f1f1f;
+}
+
+.formulario1 input:focus {
+	outline: none;
+	border: 2px solid rgb(11, 118, 225);
+}
+
+
+
+.formulario1 .mail {
+    margin-left: 64px;
+    margin-top: 5%;
+}
+
+.formulario1 .password {
+    margin-left: 30px;
+}
+
+.formulario1 button[type="submit"] {
+	background: #323232;;
+	font-weight: 600;
+	font-family: 'Open Sans', sans-serif;
+	border: none;
+	cursor: pointer;
+	width: 100px;
+	padding: 10px;
+	border-radius: 5px;
+	color: #fff;
+	font-size: 16px;
+    margin-top: 20px;
+	transition: .3s ease all;
+}
+
+.formulario1 button[type="submit"]:hover {
+	background: #000000;
+}
+
+
