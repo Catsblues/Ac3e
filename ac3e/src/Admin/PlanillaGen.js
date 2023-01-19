@@ -2,15 +2,31 @@ import "./PlanillaGen.css";
 import React, { useState } from "react";
 
 const PlanillaGen = () => {
-    const [campo, setCampo] = useState("default");
+    const [campo, setCampo] = useState(localStorage.getItem("campo"));
     const [register, setRegister] = useState("default");
     const [filtroSelect, setFiltroSelect] = useState("hidden");
     const [inputText, setInputText] = useState("hidden");
-    const [inputDate, setInputDate] = useState("hidden");
     const [search, setSearch] = useState("");
+    const [check, setCheck] = useState(localStorage.getItem("checkGen"));
 
-    const handleChange = (e) => {
-        setCampo(e.target.value);
+    const handleChange = (valor) => {
+        setCampo(valor);
+        console.log(valor);
+        if(valor === "A1"){
+          console.log("entrar");
+          localStorage.setItem("campo","A1");
+          localStorage.setItem("showGen",(localStorage.getItem("data")));
+          console.log(localStorage.getItem("showGen"));
+          window.location.reload();
+          
+        }
+        else{
+          console.log("entre aqui");
+          let newReport = {autor: "", title: "", journal: "no hay datos", doi: "", volume:"" , firstPage: "" , lastPage:""  , yearPublished:"" };
+          let lis = [];
+          lis.push(newReport);
+          localStorage.setItem("showGen",JSON.stringify(lis));
+        }
     }
 
     const handleRegisterChange = (e) => {
@@ -20,32 +36,136 @@ const PlanillaGen = () => {
     }
 
     const filtroChange = (e) => {
-        setRegister("default");
-        if(filtroSelect==="hidden"){
-            setFiltroSelect("visible");
-            
+      setRegister("default");
+      console.log(check);
+      if(check === ""){
+        localStorage.setItem("checkGen", "checked");
+        setCheck("checked");
+        console.log("entre a checked");
+        setFiltroSelect("visible");
+        setInputText("text");   
+      }
+      else {
+          setFiltroSelect("hidden");
+          localStorage.setItem("checkGen", "");
+          setCheck("");
+          var data = JSON.parse(localStorage.getItem("data"));
+          localStorage.setItem("showGen", JSON.stringify(data));
+          localStorage.setItem("checkGen", "")
+          window.location.reload();
+
+      }
+  }
+
+
+  const deleteJson = (reporte) => {
+    var data = JSON.parse(localStorage.getItem("data"));
+    let newList = [];
+    for(var i = 0; i < data.length; i++){
+      if(compare(reporte, data[i]) === false){
+        newList.push(data[i]);
+      }
+    }
+    localStorage.clear();
+    if(newList.length === 0){
+      let newReport = {autor: "", title: "", journal: "no hay datos", doi: "", volume:"" , firstPage: "" , lastPage:""  , yearPublished:"" };
+      newList.push(newReport);
+    }
+    localStorage.setItem("data",JSON.stringify(newList));
+    window.location.reload();
+    
+  }
+
+  const inicial = () => {
+    if( (JSON.parse(localStorage.getItem("data"))).length === 0){
+      let newReport = {autor: "", title: "", journal: "no hay datos", doi: "", volume:"" , firstPage: "" , lastPage:""  , yearPublished:"" };
+      let lis = [];
+      lis.push(newReport);
+      localStorage.setItem("data",JSON.stringify(lis));
+      }
+    else{
+      if(check === ""){
+        if(campo !== "A1"){
+          let newReport = {autor: "", title: "", journal: "no hay datos", doi: "", volume:"" , firstPage: "" , lastPage:""  , yearPublished:"" };
+          let lis = [];
+          lis.push(newReport);
+          localStorage.setItem("showGen",JSON.stringify(lis));
+          localStorage.setItem("campo","default");
         }
-        else {
-            setFiltroSelect("hidden");
+        else{
+          var data = JSON.parse(localStorage.getItem("data"));
+          localStorage.setItem("showGen",JSON.stringify(data))
+        }
+      }
+      
+      else if(check !=="checked"){
+        
+        localStorage.setItem("checkGen","");
+        setCheck("");
+        let newReport = {autor: "", title: "", journal: "no hay datos", doi: "", volume:"" , firstPage: "" , lastPage:""  , yearPublished:"" };
+        let lis = [];
+        lis.push(newReport);
+        localStorage.setItem("showGen",JSON.stringify(lis));
+      }
+      
+      
+    }
+    
+    
+  }
+
+  const compare = (reportA, reportB) => {
+    var Akeys = Object.keys(reportA);
+    var Bkeys = Object.keys(reportB);
+
+    if(Akeys.join("") !== Bkeys.join("")){
+      return false;
+    }
+    for(var i = 0; i < Akeys.length; i++){
+      if(reportA[Akeys[i]] !== reportB[Bkeys[i]]){
+        return false;
+      }
+    }
+    return true;
+  }
+
+  const busqueda = (e) =>{ 
+    console.log("entre");
+    var data = JSON.parse(localStorage.getItem("data"));
+    let show = [];
+    for(var i = 0; i < data.length; i++){
+        if(register==="doi"){
+          console.log("entre a doi");
+            if(data[i].doi===search){
+                show.push(data[i])
+            }
+        }
+        else if(register==="autor"){
+            if(data[i].autor===search){
+                show.push(data[i])
+            }
+        }
+        else if(register==="journal"){
+          if(data[i].journal===search){
+              show.push(data[i])
+          }
+      }
+        else{
+            if(data[i].articulo===search){
+                show.push(data[i])
+            } 
         }
     }
+    console.log("sali de busqueda");
+    localStorage.setItem("showGen",JSON.stringify(show));
+    window.location.reload();
+  
+    
+}
 
-    const optionChange = (e) => {
-        if(filtroSelect==="visible"){
-            if(e.target.value==="sending" || e.target.value==="date"){
-                setInputDate("date");
-                setInputText("hidden")
-            }
-            else if (e.target.value==="doi" || e.target.value==="autor" || e.target.value==="articulo"){
-                setInputText("text");
-                setInputDate("hidden")
-
-            }
-            else{setInputText("hidden");
-                setInputDate("hidden")}
-            
-        }
-    }
+ console.log("hola2");
+  inicial();
+  console.log("hola3")
 
     
 
@@ -58,18 +178,18 @@ const PlanillaGen = () => {
       <div className='usuario'>
         <h1 className="titulo1">Sesión Administrador </h1>
       </div>
-      <a className="statistics" href="https://app.powerbi.com/view?r=eyJrIjoiOGFhN2I3MzQtY2FlZS00YjQzLWIzNTktNTgwNDNmMWU1MTQxIiwidCI6IjAyNjI1Njc2LTMyMjctNDQwYS05YzY4LWJiNmQyOWRlNDIwNiIsImMiOjR9">Estadísticas</a>  
+      <a className="statistics" href="https://app.powerbi.com/view?r=eyJrIjoiOGFhN2I3MzQtY2FlZS00YjQzLWIzNTktNTgwNDNmMWU1MTQxIiwidCI6IjAyNjI1Njc2LTMyMjctNDQwYS05YzY4LWJiNmQyOWRlNDIwNiIsImMiOjR9" target="_blank">Estadísticas</a>  
     </div>
     
     <h1 className="title">Planilla general de últimos reportes</h1>   
 
-    <div className="formulario2">
-            <form onSubmit={ev => {ev.preventDefault();setSearch(ev.target.search.value)}} onChange={optionChange}>
+    <div className="buscador">
+            <form onSubmit={ev => {ev.preventDefault()}}>
             <div>
 
 
                 <label>Ingrese el campo que desee ver:</label>
-                <select name="selectcampo" id="selectcampo" defaultValue={campo} onChange={handleChange}>
+                <select name="selectcampo" id="selectcampo" defaultValue={campo} onChange={e => handleChange(e.target.value)}>
                     <option value="default" disabled hidden>Seleccione Campo de Reporte</option>
                     <option value="A1">A1 Isi publications</option>
                     <option value="A2">A2 Non Isi Publications</option>
@@ -89,7 +209,7 @@ const PlanillaGen = () => {
                 </select>
 
                 <label>Desea filtrar los datos?</label>
-                <input type="checkbox" id="filtro" onChange={filtroChange}></input>
+            <input type="checkbox" id="filtro" checked={check} onChange={filtroChange}></input>
                 
                 
                 <select name="selectbuscador" style={{visibility:filtroSelect}} id="selectbuscador" value={register} onChange={handleRegisterChange}>
@@ -101,9 +221,8 @@ const PlanillaGen = () => {
                 </select>
 
                 <input type= {inputText} name="buscar" id="buscar" autoComplete="off" onChange={ev => setSearch(ev.target.value)} ></input>
-                <input type={inputDate} name="buscardate" id="buscardate" autoComplete="off"></input>
-            
-                <button type="submit">Buscar</button>
+               
+                <button type="submit" onClick={()=>{busqueda()}}>Buscar</button>
             </div>
             </form>    
         </div>
@@ -123,85 +242,28 @@ const PlanillaGen = () => {
 </tr>
 </thead>
 <tbody>
-<tr className="tabla-borrador">
-  <th scope="row">10.1080/00207179.2014.745630</th>
-  <td>Novel Insights on the Stabilizing Solution to the Continuous Time Algebraic Riccati Equation</td>
-  <td>Rojas, A</td>
-  <td>International Journal of Control</td>
-  <td>2011</td>
-  <td>4/11/2022</td>
-  <div className="botones">
-  <button className="edit"><i class="fa-solid fa-pen-to-square"></i></button>
-          
-  <button className="delete"><i class="fa-solid fa-trash"></i></button>
-  </div>
-  
-</tr>
-<tr>
-  <th scope="row">10.1080/54327179.2014.924630</th>
-  <td>Novel Insights on the Stabilizing Solution to the Continuous Time Algebraic Riccati Equation</td>
-  <td>Rojas, A</td>
-  <td>International Journal of Control</td>
-  <td>2011</td>
-  <td>4/11/2022</td>
-  <div className="botones">
-  <button className="edit"><i class="fa-solid fa-pen-to-square"></i></button>
-          
-  <button className="delete"><i class="fa-solid fa-trash"></i></button>
-  </div>
-</tr>
-<tr>
-  <th scope="row">10.1080/00207179.2054.945630</th>
-  <td>Novel Insights on the Stabilizing Solution to the Continuous Time Algebraic Riccati Equation</td>
-  <td>Rojas, A</td>
-  <td>International Journal of Control</td>
-  <td>2011</td>
-  <td>4/11/2022</td>
-  <div className="botones">
-  <button className="edit"><i class="fa-solid fa-pen-to-square"></i></button>
-          
-  <button className="delete"><i class="fa-solid fa-trash"></i></button>
-  </div>
-</tr>
-<tr>
-  <th scope="row">10.1080/00207179.2054.945630</th>
-  <td>Novel Insights on the Stabilizing Solution to the Continuous Time Algebraic Riccati Equation </td>
-  <td>Rojas, A</td>
-  <td>International Journal of Control</td>
-  <td>2011</td>
-  <td>4/11/2022</td>
-  <div className="botones">
-  <button className="edit"><i class="fa-solid fa-pen-to-square"></i></button>
-          
-  <button className="delete"><i class="fa-solid fa-trash"></i></button>
-  </div>
-</tr>
-<tr>
-  <th scope="row">10.1080/00207179.2054.945630</th>
-  <td >Novel Insights on the Stabilizing Solution to the Continuous Time Algebraic Riccati Equation</td>
-  <td>Rojas, A</td>
-  <td>International Journal of Control</td>
-  <td>2011</td>
-  <td>4/11/2022</td>
-  <div className="botones">
-  <button className="edit"><i class="fa-solid fa-pen-to-square"></i></button>
-          
-  <button className="delete"><i class="fa-solid fa-trash"></i></button>
-  </div>
-</tr>
-<tr>
-  <th scope="row">10.1080/00207179.2054.945630</th>
-  <td > Novel Insights on the Stabilizing Solution to the Continuous Time Algebraic Riccati Equation</td>
-  <td>Rojas, A</td>
-  <td>International Journal of Control</td>
-  <td>2011</td>
-  <td>4/11/2022</td>
-  <div className="botones">
-  <button className="edit"><i class="fa-solid fa-pen-to-square"></i></button>
-          
-  <button className="delete"><i class="fa-solid fa-trash"></i></button>
-  </div>
-</tr>
+{
+      
+      JSON.parse(localStorage.getItem("showGen")).map((reporte) => {
+        return(
+          <>
+            <tr>
+              <th scope="row">{reporte.doi}</th>
+              <td>{reporte.title}</td>
+              <td>{reporte.autor}</td>
+              <td>{reporte.journal}</td>
+              <td>{reporte.yearPublished}</td>
+              <td>{reporte.uploadDay}</td>
+              <div className="botones">
+                <button className="edit"><i class="fa-solid fa-pen-to-square"></i></button>
+                <button className="delete" onClick={()=>{deleteJson(reporte)}}><i class="fa-solid fa-trash"></i></button>
+              </div>
+            </tr>
+          </>
+        )
+      }
+      )
+    }
 
 
 </tbody>

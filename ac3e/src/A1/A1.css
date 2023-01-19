@@ -49,6 +49,7 @@
     width: 350px;
     padding: 2px;
     background-color: rgb(255, 215, 166);
+    margin-right: 5px;
 }
 
 .journal, .doi{
@@ -117,4 +118,74 @@
 .delete:hover{
     transform: scale(0.9); background-color: rgb(189, 45, 1);
   }
+
+
+  .buscador{
+
+    text-align: center;
+    margin-top: 40px;
+    margin-bottom: 20px;
+}
+.buscador select {
+    font-family: 'Open Sans', sans-serif;
+    border-radius: 5px;
+    border: 2px solid #e2e2e2;
+    font-size: 15px;
+    padding: 2px;
+    margin-bottom: 5px;
+    color: #1f1f1f;
+    margin-right: 50px;
+    width: 250px;
+
+}
+
+
+.buscador input {
+    font-family: 'Open Sans', sans-serif;
+    border-radius: 5px;
+    border: 2px solid #e2e2e2;
+    font-size: 13px;
+    padding: 2px;
+    margin-bottom: 5px;
+    color: #1f1f1f;
+    margin-right: 50px;
+
+}
+
+.buscador input:focus {
+	outline: none;
+	border: 2px solid #0085FF;
+}
+
+.buscador button[type="submit"] {
+	background: #303336;
+	font-weight: 600;
+	font-family: 'Open Sans', sans-serif;
+	border: none;
+	cursor: pointer;
+	width: 72px;
+	padding: 10px;
+	border-radius: 5px;
+	color: #fff;
+	font-size: 16px;
+    margin-top: 20px;
+	transition: .3s ease all;
+}
+
+.buscador button[type="submit"]:hover {
+	background: #040404;
+}
+
+
+.table {
+    background: transparent;
+    background-color: transparent;
+}
+
+
+
+table.table-sucess.table-tripped {
+    border-radius: 10px;
+   
+}
   
