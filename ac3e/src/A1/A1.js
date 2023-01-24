@@ -28,11 +28,9 @@ const A1=()=> {
 
     const filtroChange = (e) => {
         setRegister("default");
-        console.log(check);
         if(check === ""){
           localStorage.setItem("check", "checked");
           setCheck("checked");
-          console.log("entre a checked");
           setFiltroSelect("visible");
           setInputText("text");
 
@@ -51,10 +49,9 @@ const A1=()=> {
     }
 
 
-  const writeJson = (newAutor, newCoautor, newTitulo, newJournal, newDoi, newVolume, newFirst, newLast, newYearPublished) => {
-    let newReport = {autor: newAutor, coautor: newCoautor,title: newTitulo, journal: newJournal, doi: newDoi, volume: newVolume, firstPage: newFirst , lastPage: newLast , yearPublished: newYearPublished};
+  const writeJson = (newAutor, newCoautor, newTitulo, newJournal, newDoi, newVolume, newFirst, newLast, newYearPublished, newuploadDay) => {
+    let newReport = {autor: newAutor, coautor: newCoautor,title: newTitulo, journal: newJournal, doi: newDoi, volume: newVolume, firstPage: newFirst , lastPage: newLast , yearPublished: newYearPublished, uploadDay: newuploadDay};
     var data = JSON.parse(localStorage.getItem("data"));
-    console.log(data);
     if((data.find(reporte => reporte.journal === "no hay datos")) !== undefined){
       data=[];
     }
@@ -83,7 +80,6 @@ const A1=()=> {
 
   const inicial = () => {
     if( (JSON.parse(localStorage.getItem("data"))) === null){
-      console.log("holi");
       let newReport = {autor: "", title: "", journal: "no hay datos", doi: "", volume:"" , firstPage: "" , lastPage:""  , yearPublished:"" };
       let lis = [];
       lis.push(newReport);
@@ -97,14 +93,12 @@ const A1=()=> {
       }
       
       else if(check !=="checked"){
-        console.log("hola");
         localStorage.setItem("check","");
         setCheck("");
         var data = JSON.parse(localStorage.getItem("data"));
         localStorage.setItem("show", JSON.stringify(data));
       }
       else{
-        console.log("hol2");
         
       }
     }
@@ -128,12 +122,10 @@ const A1=()=> {
   }
 
   const busqueda = (e) =>{ 
-    console.log("entre");
     var data = JSON.parse(localStorage.getItem("data"));
     let show = [];
     for(var i = 0; i < data.length; i++){
         if(register==="doi"){
-          console.log("entre a doi");
             if(data[i].doi===search){
                 show.push(data[i])
             }
@@ -149,7 +141,6 @@ const A1=()=> {
             } 
         }
     }
-    console.log("sali de busqueda");
     localStorage.setItem("show",JSON.stringify(show));
     window.location.reload();
   
@@ -191,27 +182,75 @@ const A1=()=> {
             const first = ev.target.first.value;
             const last = ev.target.last.value;
             const date = ev.target.date.value;
+            const fecha = new Date();
+            const añoActual = fecha.getFullYear();
+            const mesActual = fecha.getMonth()+1;
+            const uploadDay = {añoActual}+","+{mesActual};
 
 
-            writeJson(autor, coautor, titulo, journal, doi, volumen, first,last,date);
+            writeJson(autor, coautor, titulo, journal, doi, volumen, first,last,date,uploadDay);
             window.location.reload();
             }}>
           <div>
+          
 					  <input type="text" name="autor" id="autor" className="autor" autoComplete="off" placeholder="Autor(s)"/>
-            <label>¿Hay algún coautor de AC3E?</label>
+            <span className="item"><i class="fa-solid fa-circle-question"></i>
+              <span class="innerText">
+                texto
+              </span>
+            </span>
+            </div>
+
+            <label>¿Coautor de AC3E?</label>
+            <span className="item"><i class="fa-solid fa-circle-question"></i>
+              <div class="innerText">
+                texto
+              </div>
+            </span> 
             <input type="checkbox" name="checkCoautor" id="checkCoautor" onChange={coautorChange}></input>
-            <input type={coautors} name="coautor" id="coautor" placeholder="Coauthor(s)"></input>
-          </div>
+            <input type={coautors} name="coautor" id="coautor" autoComplete="off" placeholder="Coauthor(s)"></input>
+          
           <div>
           <input type="text" name="titulo" id="titulo" className="titulo" autoComplete="off" placeholder="Article Title"/>
+          <span className="item"><i class="fa-solid fa-circle-question"></i>
+              <div class="innerText">
+                texto
+              </div>
+            </span>
 					  <input type="text" name="journal" id="journal" className="journal" autoComplete="off" placeholder="Journal Name"/>
+            <span className="item"><i class="fa-solid fa-circle-question"></i>
+              <div class="innerText">
+                texto
+              </div>
+            </span>
             <input type="text" name="doi" id="doi" className="doi" autoComplete="off" placeholder="Digital Object Identifier (DOI)"/>
+            <span className="item"><i class="fa-solid fa-circle-question"></i>
+              <div class="innerText">
+                texto
+              </div>
+            </span>
           </div>
           <div>
-					  <input type="text" name="volumen" id="volumen" className="volumen" autoComplete="off" placeholder="Volume"/>
-            <input type="text" name="first" id="first" className="first" autoComplete="off" placeholder="First page"/>
-            <input type="text" name="last" id="last" className="last" autoComplete="off" placeholder="Last page"/>
-            <input type="text" name="publish" id="date" className="date" autoComplete="off" placeholder="Year Published"/>
+					  <input type="text" name="volumen" id="volumen" className="volumen" autoComplete="off" placeholder="Volume"/> <span className="item"><i class="fa-solid fa-circle-question"></i>
+              <div class="innerText">
+                texto
+              </div>
+            </span>
+            <input type="text" name="first" id="first" className="first" autoComplete="off" placeholder="First page"/> <span className="item"><i class="fa-solid fa-circle-question"></i>
+              <div class="innerText">
+                texto
+              </div>
+            </span>
+            <input type="text" name="last" id="last" className="last" autoComplete="off" placeholder="Last page"/><span className="item"><i class="fa-solid fa-circle-question"></i>
+              <div class="innerText">
+                texto
+              </div>
+            </span>
+            <input type="text" name="publish" id="date" className="date" autoComplete="off" placeholder="Year Published"/><span className="item"><i class="fa-solid fa-circle-question"></i>
+              <div class="innerText">
+                texto
+              </div>
+            </span>
           </div>
           <div>
             <input type="text" name="comentario" className="comentario" autoComplete="off" placeholder="Comment"></input>
@@ -238,7 +277,7 @@ const A1=()=> {
                     <option value="doi">Digital Object Identifier (DOI)</option>
                     <option value="autor">Autor(s)</option>
                     <option value="articulo">Article Name</option>
-                    <option value="date">Upload Day</option>
+                    
                 </select>
 
                 <input type= {inputText} name="buscar" id="buscar" autoComplete="off" onChange={ev => setSearch(ev.target.value)} ></input>
@@ -260,7 +299,6 @@ const A1=()=> {
       <th scope="col">Autor(s)</th>
       <th scope="col">Journal Name</th>
       <th scope="col">Year Published</th>
-      <th scope="col">Upload day</th>
       <th scope="col"></th>
 
     </tr>
@@ -277,7 +315,6 @@ const A1=()=> {
               <td>{reporte.autor}</td>
               <td>{reporte.journal}</td>
               <td>{reporte.yearPublished}</td>
-              <td>{reporte.uploadDay}</td>
               <div className="botones">
                 <button className="edit"><i class="fa-solid fa-pen-to-square"></i></button>
                 <button className="delete" onClick={()=>{deleteJson(reporte)}}><i class="fa-solid fa-trash"></i></button>

@@ -16,7 +16,7 @@ const PlanillaInv=()=> {
     const printInv = () => {
         var data = JSON.parse(localStorage.getItem("data"));
         if(data !== null){
-            if(searchInv === "Investigador1"){
+            if(searchInv === "Zañartu, M"){
                 localStorage.setItem("showInv",JSON.stringify(data));
             }
             else if(searchInv === null){
@@ -38,31 +38,26 @@ const PlanillaInv=()=> {
                   localStorage.setItem("showInv",JSON.stringify(lis));
                 }
                 else{
-                  console.log("final");
+                  
                   var final = new Array();
-                  console.log(final);
-                  console.log("a");
+                  
                   while(report!=undefined){
-                    console.log(final);
-                    console.log("b");
+                    
                     final.push(report);
-                    console.log(final);
-                    console.log("c");
+                    
                     let auxiliarList= [];
                     for(var i = 0; i < newList.length; i++){
                       if(compare(report, newList[i]) === false){
                         auxiliarList.push(newList[i]);
-                        console.log(auxiliarList);
+                       
                       }
                     }
                     newList=auxiliarList;
-                    console.log(newList);
                     report = newList.find(reporte => reporte.coautor === searchInv);
-                    console.log(report);
+                    
 
                   }
-                  console.log("sali");
-                  console.log(final);
+                  
                   localStorage.setItem("showInv", JSON.stringify(final));
                 }
 
@@ -75,17 +70,13 @@ const PlanillaInv=()=> {
 
     const handleChange = (valor) => {
         setCampo(valor);
-        console.log(valor);
         if(valor === "A1"){
-          console.log("entrar");
           localStorage.setItem("campo","A1");
           localStorage.setItem("showInv",(localStorage.getItem("data")));
-          console.log(localStorage.getItem("showInv"));
           window.location.reload();
           
         }
         else{
-          console.log("entre aqui");
           let newReport = {autor: "", conautor: "",title: "", journal: "no hay datos", doi: "", volume:"" , firstPage: "" , lastPage:""  , yearPublished:"" };
           let lis = [];
           lis.push(newReport);
@@ -101,11 +92,9 @@ const PlanillaInv=()=> {
 
     const filtroChange = (e) => {
       setRegister("default");
-      console.log(check);
       if(check === ""){
         localStorage.setItem("checkInv", "checked");
         setCheck("checked");
-        console.log("entre a checked");
         setFiltroSelect("visible");
         setInputText("text");   
       }
@@ -188,22 +177,19 @@ const PlanillaInv=()=> {
   }
 
   const compare = (reportA, reportB) => {
-    console.log(reportA);
-    console.log(reportB);
+    
     var Akeys = Object.keys(reportA);
     var Bkeys = Object.keys(reportB);
 
     if(Akeys.join("") !== Bkeys.join("")){
-      console.log("retorna falso");
       return false;
     }
     for(var i = 0; i < Akeys.length; i++){
       if(reportA[Akeys[i]] !== reportB[Bkeys[i]]){
-        console.log("retorna falso");
         return false;
       }
     }
-    console.log("retorna true");
+    
     return true;
   }
 
@@ -213,7 +199,6 @@ const PlanillaInv=()=> {
     let show = [];
     for(var i = 0; i < data.length; i++){
         if(register==="doi"){
-          console.log("entre a doi");
             if(data[i].doi===search){
                 show.push(data[i])
             }
@@ -223,13 +208,14 @@ const PlanillaInv=()=> {
                 show.push(data[i])
             }
         }
-        else{
-            if(data[i].articulo===search){
+        else if(register==="articulo"){
+            if(data[i].title===search){
                 show.push(data[i])
             } 
         }
+        
     }
-    console.log("sali de busqueda");
+    
     localStorage.setItem("showInv",JSON.stringify(show));
     window.location.reload();
   
@@ -290,7 +276,6 @@ const PlanillaInv=()=> {
                     <option value="doi">Digital Object Identifier (DOI)</option>
                     <option value="autor">Autor(s)</option>
                     <option value="articulo">Article Name</option>
-                    <option value="date">Upload Day</option>
                 </select>
 
                 <input type= {inputText} name="buscar" id="buscar" autoComplete="off" onChange={ev => setSearch(ev.target.value)} ></input>
@@ -309,7 +294,6 @@ const PlanillaInv=()=> {
   <th scope="col">Autor(s)</th>
   <th scope="col">Journal Name</th>
   <th scope="col">Year Published</th>
-  <th scope="col">Upload day</th>
   <th scope="col"></th>
 
 </tr>
@@ -326,7 +310,6 @@ const PlanillaInv=()=> {
               <td>{reporte.autor}</td>
               <td>{reporte.journal}</td>
               <td>{reporte.yearPublished}</td>
-              <td>{reporte.uploadDay}</td>
               <div className="botones">
                 <button className="edit"><i class="fa-solid fa-pen-to-square"></i></button>
                 <button className="delete" onClick={()=>{deleteJson(reporte)}}><i class="fa-solid fa-trash"></i></button>

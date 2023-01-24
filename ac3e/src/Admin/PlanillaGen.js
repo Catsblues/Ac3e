@@ -11,17 +11,13 @@ const PlanillaGen = () => {
 
     const handleChange = (valor) => {
         setCampo(valor);
-        console.log(valor);
         if(valor === "A1"){
-          console.log("entrar");
           localStorage.setItem("campo","A1");
           localStorage.setItem("showGen",(localStorage.getItem("data")));
-          console.log(localStorage.getItem("showGen"));
           window.location.reload();
           
         }
         else{
-          console.log("entre aqui");
           let newReport = {autor: "", title: "", journal: "no hay datos", doi: "", volume:"" , firstPage: "" , lastPage:""  , yearPublished:"" };
           let lis = [];
           lis.push(newReport);
@@ -37,11 +33,9 @@ const PlanillaGen = () => {
 
     const filtroChange = (e) => {
       setRegister("default");
-      console.log(check);
       if(check === ""){
         localStorage.setItem("checkGen", "checked");
         setCheck("checked");
-        console.log("entre a checked");
         setFiltroSelect("visible");
         setInputText("text");   
       }
@@ -130,12 +124,10 @@ const PlanillaGen = () => {
   }
 
   const busqueda = (e) =>{ 
-    console.log("entre");
     var data = JSON.parse(localStorage.getItem("data"));
     let show = [];
     for(var i = 0; i < data.length; i++){
         if(register==="doi"){
-          console.log("entre a doi");
             if(data[i].doi===search){
                 show.push(data[i])
             }
@@ -145,27 +137,23 @@ const PlanillaGen = () => {
                 show.push(data[i])
             }
         }
-        else if(register==="journal"){
-          if(data[i].journal===search){
+        else if(register==="articulo"){
+          console.log("Ingrese");
+          if(data[i].title===search){
               show.push(data[i])
           }
       }
-        else{
-            if(data[i].articulo===search){
-                show.push(data[i])
-            } 
-        }
+        
     }
-    console.log("sali de busqueda");
     localStorage.setItem("showGen",JSON.stringify(show));
     window.location.reload();
   
     
 }
 
- console.log("hola2");
+ 
   inicial();
-  console.log("hola3")
+  
 
     
 
@@ -217,7 +205,6 @@ const PlanillaGen = () => {
                     <option value="doi">Digital Object Identifier (DOI)</option>
                     <option value="autor">Autor(s)</option>
                     <option value="articulo">Article Name</option>
-                    <option value="date">Upload Day</option>
                 </select>
 
                 <input type= {inputText} name="buscar" id="buscar" autoComplete="off" onChange={ev => setSearch(ev.target.value)} ></input>
@@ -236,7 +223,6 @@ const PlanillaGen = () => {
   <th scope="col">Autor(s)</th>
   <th scope="col">Journal Name</th>
   <th scope="col">Year Published</th>
-  <th scope="col">Upload day</th>
   <th scope="col"></th>
 
 </tr>
@@ -253,7 +239,6 @@ const PlanillaGen = () => {
               <td>{reporte.autor}</td>
               <td>{reporte.journal}</td>
               <td>{reporte.yearPublished}</td>
-              <td>{reporte.uploadDay}</td>
               <div className="botones">
                 <button className="edit"><i class="fa-solid fa-pen-to-square"></i></button>
                 <button className="delete" onClick={()=>{deleteJson(reporte)}}><i class="fa-solid fa-trash"></i></button>
