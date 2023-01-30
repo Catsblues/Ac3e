@@ -1,19 +1,33 @@
-import "./A1.css";
+import "./A8.css";
 import React ,{useState}from "react";
 
 
-const A1=()=> {
+const A8=()=> {
 
-    const [register, setRegister] = useState("default");
+    const [gender, setGender] = useState("default");
+    const [status, setStatus] = useState("default");
+    const [academic, setAcademic] = useState("default");
     const [filtroSelect, setFiltroSelect] = useState("hidden");
     const [inputText, setInputText] = useState("hidden");
     const [search, setSearch] = useState("");
     const [check, setCheck] = useState(localStorage.getItem("check"));
     const [coautors, setCoautors] = useState("hidden");
 
-    const handleRegisterChange = (e) => {
+    const handleGenderChange = (e) => {
     
-        setRegister(e.target.value)
+        setGender(e.target.value)
+        
+    }
+
+    const handleStatusChange = (e) => {
+    
+        setStatus(e.target.value)
+        
+    }
+
+    const handleAcademicChange = (e) => {
+    
+        setAcademic(e.target.value)
         
     }
 
@@ -192,44 +206,68 @@ const A1=()=> {
             window.location.reload();
             }}>
           
-					  <input type="text" name="autor" id="autor" className="autor" autoComplete="off" placeholder="Autor(s)"/>
+		    <input type="text" name="autor" id="autor" className="autor" autoComplete="off" placeholder="Student Name"/>
             <span className="item"><i class="fa-solid fa-circle-question"></i>
               <div class="innerText">
                 texto
               </div>
-            </span> 
+            </span>
+
+
+            <input type="text" name="rut" id="rut" className="rut" autoComplete="off" placeholder="RUN or Passport"/>
+            <span className="item"><i class="fa-solid fa-circle-question"></i>
+              <div class="innerText">
+                texto
+              </div>
+            </span>
+
+            <select name="selectgender" id="selectgender" value={gender} onChange={handleGenderChange}>
+                <option value="default" disabled hidden>Gender</option>
+                <option value="m">Male</option>
+                <option value="f">Female</option>
+            </select>
             
+            
+            <input type="text" name="mail" id="mail" className="mail" autoComplete="off" placeholder="Student Mail"/>
+            <span className="item"><i class="fa-solid fa-circle-question"></i>
+              <div class="innerText">
+                texto
+              </div>
+            </span>
+
+            <select name="selectstatus" id="selectstatus" value={status} onChange={handleStatusChange}>
+                <option value="default" disabled hidden>Thesis Status</option>
+                <option value="1">Finished</option>
+                <option value="2">In Progress</option>
+            </select>
+        
+          
+            <input type="text" name="titulo" id="titulo" className="titulo" autoComplete="off" placeholder="Article Title"/>
+            <span className="item"><i class="fa-solid fa-circle-question"></i>
+              <div class="innerText">
+                texto
+              </div>
+            </span>
+
+            <select name="selectacademic" id="selectacademic" value={academic} onChange={handleAcademicChange}>
+                <option value="default" disabled hidden>Thesis Status</option>
+                <option value="1"> Undergraduate degree or profesional title</option>
+                <option value="2">Master o equivalent</option>
+                <option value="3">PhD degree</option>
+            </select>
+
+					  
+            <input type="text" name="degree" id="degree" className="degree" autoComplete="off" placeholder="Degree Denomination"/>
+            <span className="item"><i class="fa-solid fa-circle-question"></i>
+              <div class="innerText">
+                texto
+              </div>
+            </span>
+          
+
             
 
-            <label>¿Coautor de AC3E?</label>
-            <span className="item"><i class="fa-solid fa-circle-question"></i>
-              <div class="innerText">
-                texto
-              </div>
-            </span> 
-            <input type="checkbox" name="checkCoautor" id="checkCoautor" onChange={coautorChange}></input>
-            <input type={coautors} name="coautor" id="coautor" autoComplete="off" placeholder="Coauthor(s)"></input>
-          
-          <div>
-          <input type="text" name="titulo" id="titulo" className="titulo" autoComplete="off" placeholder="Article Title"/>
-          <span className="item"><i class="fa-solid fa-circle-question"></i>
-              <div class="innerText">
-                texto
-              </div>
-            </span>
-					  <input type="text" name="journal" id="journal" className="journal" autoComplete="off" placeholder="Journal Name"/>
-            <span className="item"><i class="fa-solid fa-circle-question"></i>
-              <div class="innerText">
-                texto
-              </div>
-            </span>
-            <input type="text" name="doi" id="doi" className="doi" autoComplete="off" placeholder="Digital Object Identifier (DOI)"/>
-            <span className="item"><i class="fa-solid fa-circle-question"></i>
-              <div class="innerText">
-                texto
-              </div>
-            </span>
-          </div>
+
           <div>
 					  <input type="text" name="volumen" id="volumen" className="volumen" autoComplete="off" placeholder="Volume"/> <span className="item"><i class="fa-solid fa-circle-question"></i>
               <div class="innerText">
@@ -332,4 +370,4 @@ const A1=()=> {
     );
   }
   
-  export default A1;
+  export default A8;
