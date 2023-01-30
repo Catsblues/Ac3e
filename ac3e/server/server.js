@@ -9,6 +9,6 @@ const server = http.createServer((req, res) => {
 });
 
 server.listen(port, () => {
-    console.log('el servidor esta corriendo en el puerto gato:${port}');
+    console.log('el servidor esta corriendo en el puerto gato');
 
 });
