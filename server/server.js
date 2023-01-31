@@ -12,7 +12,7 @@ const dbOptions = {
     port:3306,
     user: 'root',
     password: 'Admin@0301',
-    database: 'investigadores'
+    database: 'reportes'
 }
 app.use(myconn(mysql, dbOptions,'single'))
 
