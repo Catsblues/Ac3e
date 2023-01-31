@@ -15,10 +15,10 @@ const dbOptions = {
     database: 'reportes'
 }
 app.use(myconn(mysql, dbOptions,'single'))
-
+app.use(express.json())
 
 app.get('/',(req,res)=>{
-    res.send('hola');
+    res.send('Welcome to de api');
 })
 app.use('/api',routes)
 
