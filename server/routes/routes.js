@@ -18,7 +18,7 @@ routes.post('/', (req,res) => {
     req.getConnection((err,conn) => {
         if(err) return res.send(err);
 
-        conn.query('INSERT INTO reportes set ?',[req.body] ,(err,rows) => {
+        conn.query('INSERT INTO a8 set ?',[req.body] ,(err,rows) => {
             if(err) return res.send(err)
 
             res.send('dato insertado');
