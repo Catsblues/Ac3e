@@ -5,12 +5,12 @@ const myconn = require('express-myconnection')
 const routes = require('./routes/routes')
 
 const app = express()
-app.set('port', process.env.PORT || 9000)
+app.set('port', process.env.PORT || 3000)
 
 const dbOptions = {
-    host: '3.22.99.91' ,
+    host: 'localhost' ,
     port:3306,
-    user: 'remoteUser',
+    user: 'root',
     password: 'Admin@0301',
     database: 'investigadores'
 }
@@ -22,6 +22,6 @@ app.get('/',(req,res)=>{
 })
 app.use('/api',routes)
 
-app.listen(9000, () => {
+app.listen(app.get('port'), () => {
     console.log('server running on', app.get('port'))
 })
