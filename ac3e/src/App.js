@@ -13,7 +13,7 @@ import InicioAdmin from "./Admin/InicioAdmin";
 import PlanillaInv from "./Admin/PlanillaInv";
 import EditarPerfil from "./Admin/EditarPerfil";
 import PlanillaGen from "./Admin/PlanillaGen";
-import A8 from "./A8/A8";
+
 
 function App() {
   
@@ -23,7 +23,6 @@ function App() {
           <Route exact path="/" element={<Login/>}></Route>
           <Route exact path="/Inicio" element={<Inicio/>}></Route>
           <Route exact path="/Inicio/a1" element={<A1/>}></Route>
-          <Route exact path="/Inicio/a8" element={<A8/>}></Route>
           <Route exact path="/InicioAdmin" element={<InicioAdmin/>}></Route>
           <Route exact path="/InicioAdmin/PlanillaGen" element={<PlanillaGen/>}></Route>
           <Route exact path="/InicioAdmin/PlanillaInv" element={<PlanillaInv/>}></Route>
