@@ -250,14 +250,22 @@ const handlePosteriorChange = (e) => {
             const InstitutionPosterior = ev.target.InstitutionPosterior.value;
             const comentario = ev.target.comentario.value;
             const filee = "";
-            
+            var erased;
+            if(name==="" || run==="" || gender==="0" || title===""|| selectAcademic==="0"|| tutor===""|| startThesis===""|| (selectThesis==="2" && (selectPosterior==="0" || InstitutionPosterior===""))){
+               erased = "1";
+               console.log("entre a borrador");
+            }
+            else{
+               erased = "0";
+               console.log("no entre a borrador");
+            }
 
             console.log("holito");
             console.log(selectAcademic);
             if(selectAcademic === "4"){
               console.log("holis");
               //Consulta POST profesional title
-              let newReport1 = {name :name, run: run, gender : gender, mail: mail, thesis_status :selectThesis, title:title, academic_degree: "1", degree_domination: denomination, tutor:tutor, autor_institution: tutorInstitution ,cotutor:coautor,coautor_institution:coautorInstitution ,other:other, other_institution: otherInstitution,degree_u:degreeUniversity, program_starts: startProgram, thesis_starts:startThesis, thesis_end:endThesis, resourse_center:selectResource, posterior_working:selectPosterior,institution_working:InstitutionPosterior,inv:comentario, file: filee}
+              let newReport1 = {name :name, run: run, gender : gender, mail: mail, thesis_status :selectThesis, title:title, academic_degree: "1", degree_domination: denomination, tutor:tutor, autor_institution: tutorInstitution ,cotutor:coautor,coautor_institution:coautorInstitution ,other:other, other_institution: otherInstitution,degree_u:degreeUniversity, program_starts: startProgram, thesis_starts:startThesis, thesis_end:endThesis, resourse_center:selectResource, posterior_working:selectPosterior,institution_working:InstitutionPosterior,inv:comentario, file: filee, borrador: erased}
             const requestInit1 = {
               method:'POST',
               headers: {'Content-Type':'application/json'},
@@ -269,7 +277,7 @@ const handlePosteriorChange = (e) => {
             .then(res => console.log('hola'))
             //Consulta POST master
             console.log("hola miau");
-            let newReport2 = {name :name, run: run, gender : gender, mail: mail, thesis_status :selectThesis, title:title, academic_degree: "2", degree_domination: denomination, tutor:tutor, cotutor:coautor, other:other, degree_u:degreeUniversity, program_starts: startProgram, thesis_starts:startThesis, thesis_end:endThesis, resourse_center:selectResource, posterior_working:selectPosterior,institution_working:InstitutionPosterior,inv:comentario, file: filee}
+            let newReport2 = {name :name, run: run, gender : gender, mail: mail, thesis_status :selectThesis, title:title, academic_degree: selectAcademic, degree_domination: denomination, tutor:tutor, autor_institution: tutorInstitution ,cotutor:coautor,coautor_institution:coautorInstitution ,other:other, other_institution: otherInstitution,degree_u:degreeUniversity, program_starts: startProgram, thesis_starts:startThesis, thesis_end:endThesis, resourse_center:selectResource, posterior_working:selectPosterior,institution_working:InstitutionPosterior,inv:comentario, file: filee, borrador: erased}
             const requestInit2 = {
               method:'POST',
               headers: {'Content-Type':'application/json'},
@@ -281,8 +289,7 @@ const handlePosteriorChange = (e) => {
             .then(res => console.log('hola'))
             }
             else{
-              let newReport = {name :name, run: run, gender : gender, mail: mail, thesis_status :selectThesis, title:title, academic_degree: selectAcademic, degree_domination: denomination, tutor:tutor, cotutor:coautor, other:other, degree_u:degreeUniversity, program_starts: startProgram, thesis_starts:startThesis, thesis_end:endThesis, resourse_center:selectResource, posterior_working:selectPosterior,institution_working:InstitutionPosterior,inv:comentario, file: filee};
-            //Consulta POST
+              let newReport = {name :name, run: run, gender : gender, mail: mail, thesis_status :selectThesis, title:title, academic_degree: "1", degree_domination: denomination, tutor:tutor, autor_institution: tutorInstitution ,cotutor:coautor,coautor_institution:coautorInstitution ,other:other, other_institution: otherInstitution,degree_u:degreeUniversity, program_starts: startProgram, thesis_starts:startThesis, thesis_end:endThesis, resourse_center:selectResource, posterior_working:selectPosterior,institution_working:InstitutionPosterior,inv:comentario, file: filee, borrador: erased}
             const requestInit = {
               method:'POST',
               headers: {'Content-Type':'application/json'},
@@ -293,16 +300,17 @@ const handlePosteriorChange = (e) => {
             .then(res => console.log(res))
             .then(res => console.log('hola'))
             }
-            
+            window.location.reload();
             }}>
-          <div>
+          <span>
 					  <input type="text" name="name" id="name" className="autor" autoComplete="off" placeholder="Student Name"/>
             <span className="item"><i class="fa-solid fa-circle-question"></i>
                 <div class="innerText">
                 First name and last name.
                 </div>
               </span>
-            </div>
+              
+            </span>
             <div>
             <input type="text" name="run" id="run" className="titulo" autoComplete="off" placeholder="Run o Passport"/>
               <span className="item"><i class="fa-solid fa-circle-question"></i>
@@ -362,6 +370,7 @@ const handlePosteriorChange = (e) => {
             </div>
             <div>
             <input type="text" name="startProgram" id="startProgram" className="journal" autoComplete="off" placeholder="Year student starts program"/>
+            
             <input type="text" name="startThesis" id="startThesis" className="journal" autoComplete="off" placeholder="Year student starts thesis"/>
             <input type="text" name="endThesis" id="endThesis" className="journal" autoComplete="off" placeholder="Year student end thesis"/>
             </div>
@@ -457,6 +466,7 @@ const handlePosteriorChange = (e) => {
       <th scope="col">Student Name</th>
       <th scope="col">Thesis Title</th>
       <th scope="col">Academic Degree</th>
+      <th scope="col">Save Type</th>
       <th scope="col"></th>
 
     </tr>
@@ -489,6 +499,13 @@ const handlePosteriorChange = (e) => {
         else{
           var degr = "";
         }
+        var clas;
+        if(reporte.borrador==="1"){
+          clas="erased";
+        }
+        else{
+          clas="save"
+        }
 
 
         return(
@@ -499,13 +516,14 @@ const handlePosteriorChange = (e) => {
               <td>{nomStu}</td>
               <td>{nomThe}</td>
               <td>{degr}</td>
+              <td>{clas}</td>
               <div className="botones">
                 <button className="edit" onClick={()=>{setShow(true); }}><i class="fa-solid fa-pen-to-square"></i></button>
                 <button className="delete" onClick={()=>{deletereport(id)}}><i class="fa-solid fa-trash"></i></button>
               </div>
             </tr>
             
-              < Modal sshow={sshow}  data={[reporte.id,reporte.name,reporte.run,reporte.gender,reporte.mail,reporte.thesis_status,reporte.title,reporte.academic_degree,reporte.degree_domination,reporte.tutor,reporte.coautor,reporte.other,reporte.degree_u,reporte.program_starts,reporte.thesis_starts,reporte.thesis_end,reporte.resourse_center,reporte.posterior_working,reporte.institution_working,reporte.inv,reporte.file,reporte.autor_institution, reporte.coautor_institution, reporte.other_institution]} onClose={()=>setShow(false)}/>
+              < Modal sshow={sshow}  data={[reporte.id,reporte.name,reporte.run,reporte.gender,reporte.mail,reporte.thesis_status,reporte.title,reporte.academic_degree,reporte.degree_domination,reporte.tutor,reporte.cotutor,reporte.other,reporte.degree_u,reporte.program_starts,reporte.thesis_starts,reporte.thesis_end,reporte.resourse_center,reporte.posterior_working,reporte.institution_working,reporte.inv,reporte.file,reporte.autor_institution, reporte.coautor_institution, reporte.other_institution]} onClose={()=>setShow(false)}/>
           
           </>
         )

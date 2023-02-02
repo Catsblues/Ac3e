@@ -30,9 +30,8 @@ const modal = ({ sshow, data, onClose }) => {
     if (!sshow) {
         return null;
     }
-    console.log(data);
     const id = data[0];
-    console.log(data);
+    console.log(data[10]);
     const handleGenderChange = (e) => {
         console.log(e.target.value);
         setGender(e.target.value)
@@ -235,16 +234,23 @@ const modal = ({ sshow, data, onClose }) => {
                          ev.preventDefault();
                         formFunction(ev);
                     }}>
-
+                        <div>
                         <input type="text" name="name" id="name" className="autor" autoComplete="off" defaultValue={data[1]} placeholder="Student Name" />
-
+                        <span className="item"><i class="fa-solid fa-circle-question"></i>
+                            <div class="innerText">
+                                First name and last name.
+                            </div>
+                        </span>
+                        </div>
+                        <div>
                         <input type="text" name="run" id="run" className="titulo" autoComplete="off" defaulValue={data[2]} placeholder="Run o Passport" />
                         <span className="item"><i class="fa-solid fa-circle-question"></i>
                             <div class="innerText">
                                 Writing without point and with script
                             </div>
                         </span>
-
+                        </div>
+                        <div>
                         <select name="selectbuscador" id="selectbuscador" defaultValue={data[3]} onChange={e => handleGenderChange(e)}>
                             <option value='0' disabled hidden>Gender</option>
                             <option value='1'>Femenino</option>
@@ -252,9 +258,11 @@ const modal = ({ sshow, data, onClose }) => {
                         </select>
 
                         <input type="text" name="mail" id="mail" className="journal" autoComplete="off" defaultValue={data[4]} placeholder="mail" />
-
+                        </div>
+                        <div>
                         <input type="text" name="title" id="title" className="journal" autoComplete="off"  defaultValue={data[6]} placeholder="Thesis Title" />
-
+                        </div>
+                        <div>
                         <select name="selectAcademic" id="selectAcademic" defaultValue={data[7]} onChange={e => handleAcademicChange(e)}>
                             <option value="0" disabled hidden>Academic Degree</option>
                             <option value="1">Undergraduate degree or profesional title</option>
@@ -264,24 +272,37 @@ const modal = ({ sshow, data, onClose }) => {
                         </select>
 
                         <input type="text" name="denomination" id="denomination" className="journal" autoComplete="off" defaultValue={data[8]} placeholder="Degree Denomination" />
-
+                        </div>
+                        <div>
                         <input type="text" name="tutor" id="tutor" className="journal" autoComplete="off" defaultValue={data[9]} placeholder="Tutor" />
+                        <span className="item"><i class="fa-solid fa-circle-question"></i>
+                            <div class="innerText">
+                                Last name followed by "," and first name initial.
+                            </div>
+                        </span>
                         <input type="text" name="tutorInstitution" id="tutorInstitution" className="journal" defaultValue={data[21]} autoComplete="off" placeholder="Tutor Intitution" />
-
+                        </div>
+                        <div>
                         <label>Co-autor?</label>
                         <input type="checkbox" name="checkCoautor" id="checkCoautor" onChange={coautorChange}></input>
                         <input type={coautors} name="coautor" id="coautor" defaultValue={data[10]} autoComplete="off" placeholder="Co-Tutor"></input>
                         <input type={coautors} name="coautorInstitution" id="coautorInstitution" autoComplete="off" defaultValue={data[22]} placeholder="Co-Tutor's Institution"></input>
-
+                        </div>
+                        <div>
                         <label>Other?</label>
                         <input type="checkbox" name="checkOther" id="checkOther" onChange={otherChange}></input>
                         <input type={other} name="other" id="other" autoComplete="off" defaultValue={data[11]} placeholder="Other"></input>
                         <input type={other} name="otherInstitution" id="otherInstitution" autoComplete="off"defaultValue={data[23]}  placeholder="Other's Institution"></input>
+                        </div>
+                        <div>
                         <input type="text" name="degreeUniversity" id="degreeUniversity" className="journal" defaultValue={data[12]} autoComplete="off" placeholder="University that gives the degree" />
+                        </div>
+                        <div>
                         <input type="text" name="startProgram" id="startProgram" className="journal" defaultValue={data[13]} autoComplete="off" placeholder="Year student starts program" />
                         <input type="text" name="startThesis" id="startThesis" className="journal" defaultValue={data[14]} autoComplete="off" placeholder="Year student starts thesis" />
                         <input type="text" name="endThesis" id="endThesis" className="journal"defaultValue={data[15]}  autoComplete="off" placeholder="Year student end thesis" />
-
+                        </div>
+                        <div>
                         <select name="selectResource" id="selectResource" defaultValue={data[16]} onChange={e => handleResourceChange(e)}>
                             <option value="0" disabled hidden>Resources provide by the center</option>
                             <option value="1">Equipment</option>
@@ -289,16 +310,23 @@ const modal = ({ sshow, data, onClose }) => {
                             <option value="3">Infraestructure</option>
                             <option value="4">Other</option>
                         </select>
+                        </div>
 
 
-
+                        <div>
                         <select name="selectThesis" id="selectThesis" defaultValue={data[5]} onChange={e => handleStatusChange(e)}>
                             <option value="0" disabled hidden>Thesis Status</option>
                             <option value="1">In Progress</option>
                             <option value="2">Finished</option>
                         </select>
-
+                        </div>
+                        <div>
                         <input type={archivo} name="archivo" id="archivo" onChange={e => fileChange(e)} ></input>
+                        <span className="item"><i class="fa-solid fa-circle-question"></i>
+                            <div class="innerText" style={{visibility:posteriorSelect}}>
+                                Only pdf, if it weighs more than 20 megabytes attach pdf with cover, index and abstract.
+                            </div>
+                        </span>
 
                         <select name="selectPosterior" id="selectPosterior" style={{ visibility: posteriorSelect }} defaultValue={data[17]} onChange={e => handlePosteriorChange(e)}>
                             <option value="0" disabled hidden>Posterior working</option>
@@ -313,6 +341,12 @@ const modal = ({ sshow, data, onClose }) => {
                         </select>
 
                         <input type={ins} name="InstitutionPosterior" id="InstitutionPosterior" defaultValue={data[18]} className="journal" autoComplete="off" placeholder="Institution of Posterior working area" />
+                        <span className="item"><i class="fa-solid fa-circle-question"></i>
+                            <div class="innerText" style={{visibility:posteriorSelect}}>
+                                Institute where it is inserted. If you are unemployed indicate.
+                            </div>
+                        </span>
+                        </div>
 
                         <div>
                             <input type="text" name="comentario" className="comentario" autoComplete="off" defalutValue={data[19]} placeholder="Comment"></input>
