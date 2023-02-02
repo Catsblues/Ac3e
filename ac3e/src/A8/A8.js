@@ -429,34 +429,7 @@ const handlePosteriorChange = (e) => {
       </div>
 
       <h1 className="title">Visualización de datos</h1>
-      <h3 className="text">Seleccione su campo de búsqueda e ingrese el dato correspondiente:</h3>
-        
-      <div className="buscador">
-            <form onSubmit={ev => {ev.preventDefault()}}>
-            <div>
-            <label>Desea filtrar los datos?</label>
-            <input type="checkbox" id="filtro" checked={check} onChange={filtroChange}></input>
-            
-            <select name="selectbuscador" style={{visibility:filtroSelect}} id="selectbuscador" value={register} onChange={handleRegisterChange}>
-                    <option value="default" disabled hidden>Seleccione opción de búsqueda</option>
-                    <option value="status">Thesis Status</option>
-                    <option value="student">Student Name</option>
-                    <option value="thesis">Thesis Name</option>
-                    <option value="degree">Academic Degree</option>
-                    
-                </select>
-                
-              
-
-                <input type= {inputText} name="buscar" id="buscar" autoComplete="off" onChange={ev => setSearch(ev.target.value)} ></input>
-            
-                <button type="submit" onClick={()=>{busqueda()}}>Buscar</button>
-            </div>
-            </form> 
-
-
-            
-        </div>
+      <h3 className="text">Aquí observará los datos ya se envió anteriormente.</h3>
 
         <div className="tabla"> 
         <table className="table table-success table-striped rounded">
