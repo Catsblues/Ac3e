@@ -1,5 +1,19 @@
 const express = require('express')
 const routes = express.Router()
+const multer = require('multer');
+const path = require('path');
+
+const diskstorage = multer.diskStorage({
+    destination: path.join(__dirname, '../respaldos'),
+    filename: (req, file, cb) => {
+        cb(null, Date.now() + '-' + file.originalname)
+    }
+})
+
+const fileUpload = multer({
+    storage: diskstorage
+}).single('respaldo')
+
 
 routes.get('/', (req, res)=>{
     req.getConnection((err, conn)=>{
@@ -54,9 +68,14 @@ routes.put('/:id', (req, res)=>{
         conn.query('UPDATE a8 set ? WHERE id = ?', [req.body, req.params.id], (err, rows)=>{
             if(err) return res.send(err)
 
-            res.send('book updated!')
+            
         })
     })
+})
+
+
+routes.post('/respaldo/post', fileUpload,(req, res)=>{
+    console.log(req.files)
 })
 
 module.exports = routes

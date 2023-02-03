@@ -3,7 +3,7 @@ import React, { useState, useEffect } from "react";
 
 
 
-const modal = ({ sshow, data, onClose }) => {
+const modal = ({ sshow, data, post ,onClose }) => {
 
     const [gender, setGender] = useState("0");
     const [thesisStatus, setThesisStatus] = useState("0");
@@ -24,14 +24,11 @@ const modal = ({ sshow, data, onClose }) => {
 
     const [showw, setShoww] = useState(false);
 
-
     
 
     if (!sshow) {
         return null;
     }
-    const id = data[0];
-    console.log(data[10]);
     const handleGenderChange = (e) => {
         console.log(e.target.value);
         setGender(e.target.value)
@@ -166,42 +163,153 @@ const modal = ({ sshow, data, onClose }) => {
                         const InstitutionPosterior = ev.target.InstitutionPosterior.value;
                         const comentario = ev.target.comentario.value;
                         const filee = "";
+                        
+                        console.log("nombre: " + name );
+                        console.log("run: " + run );
+                        console.log("gender:" + gender);
+                        console.log("mail: " + mail);
+                        console.log("selectThesis: " + selectThesis);
+                        console.log("title: " + title);
+                        console.log("selectAcademic: " + selectAcademic);
+                        console.log("denomination: " + denomination);
+                        console.log("tutor: " + tutor);
+                        console.log("tutorInstitution: " + tutorInstitution);
+                        console.log("degreeUniversity: " + degreeUniversity);
+                        console.log("startProgram: " + startProgram);
+                        console.log("startThesis: " + startThesis);
+                        console.log("endThesis: " + endThesis);
+                        console.log("selectResource: " + selectResource);
+                        console.log("selectPosterior: " + selectPosterior);
+                        console.log("InstitutionPosterior: " + InstitutionPosterior);
+                        console.log("comentario: " + comentario);
+                        console.log("coautor: " + coautor);
+                        console.log("coautorInstitution: " + coautorInstitution);
+                        console.log("other: " + other);
+                        console.log("otherInstitution: " + otherInstitution);
+                        console.log("file: " + filee);
+
+
+                        var erased;
+                        if(name==="" || run==="" || gender==="0" || title===""|| selectAcademic==="0"|| tutor===""|| startThesis===""|| (selectThesis==="2" && (selectPosterior==="0" || InstitutionPosterior==="" || ev.target.archivo.value===null ))){
+                            
+                            erased = "1";
+                            console.log("entre a borrador");
+                            }
+                            else{
+                            erased = "0";
+                            console.log("no entre a borrador");
+                            }
 
 
                         if(selectAcademic === "4"){
                                 //Consulta PUT profesional title
 
-                            let newReport1 = {name :name, run: run, gender : gender, mail: mail, thesis_status :selectThesis, title:title, academic_degree: "1", degree_domination: denomination, tutor:tutor, cotutor:coautor, other:other, degree_u:degreeUniversity, program_starts: startProgram, thesis_starts:startThesis, thesis_end:endThesis, resourse_center:selectResource, posterior_working:selectPosterior,institution_working:InstitutionPosterior,inv:comentario, file: filee}
+                            let newReport1 = {
+                                name :name, 
+                                run: run, 
+                                gender : gender, 
+                                mail: mail, 
+                                thesis_status :selectThesis, 
+                                title:title, 
+                                academic_degree: "1", 
+                                degree_domination: denomination, 
+                                tutor:tutor, 
+                                cotutor:coautor, 
+                                other:other, 
+                                autor_institution: tutorInstitution,
+                                coautor_institution: coautorInstitution,
+                                other_institution: otherInstitution,
+                                degree_u:degreeUniversity, 
+                                program_starts: startProgram, 
+                                thesis_starts:startThesis, 
+                                thesis_end:endThesis, 
+                                resourse_center:selectResource, 
+                                posterior_working:selectPosterior,
+                                institution_working:InstitutionPosterior,
+                                inv:comentario, 
+                                file: filee, 
+                                borrador:erased
+                            }
                             const requestInit1 = {
                                 method:'PUT',
                                 headers: {'Content-Type':'application/json'},
                                 body: JSON.stringify(newReport1)
                               }
-                              fetch('http://localhost:9000/api/'+id, requestInit1)
+                              fetch('http://localhost:9000/api/'+data.id, requestInit1)
                               .then(res => res.json())
                               .then(res => console.log(res))
                               .then(res => console.log('hola'))
                               //Consulta PUT master
-                              let newReport2 = {name :name, run: run, gender : gender, mail: mail, thesis_status :selectThesis, title:title, academic_degree: "2", degree_domination: denomination, tutor:tutor, cotutor:coautor, other:other, degree_u:degreeUniversity, program_starts: startProgram, thesis_starts:startThesis, thesis_end:endThesis, resourse_center:selectResource, posterior_working:selectPosterior,institution_working:InstitutionPosterior,inv:comentario, file: filee}
+                              let newReport2 = {
+                                name :name, 
+                                run: run, 
+                                gender : gender, 
+                                mail: mail, 
+                                thesis_status :selectThesis, 
+                                title:title, 
+                                academic_degree: "2", 
+                                degree_domination: denomination, 
+                                tutor:tutor, 
+                                cotutor:coautor, 
+                                other:other, 
+                                autor_institution: tutorInstitution,
+                                coautor_institution: coautorInstitution,
+                                other_institution: otherInstitution,
+                                degree_u:degreeUniversity, 
+                                program_starts: startProgram, 
+                                thesis_starts:startThesis, 
+                                thesis_end:endThesis, 
+                                resourse_center:selectResource, 
+                                posterior_working:selectPosterior,
+                                institution_working:InstitutionPosterior,
+                                inv:comentario, 
+                                file: filee, 
+                                borrador:erased
+                              }
                               const requestInit2 = {
                                 method:'PUT',
                                 headers: {'Content-Type':'application/json'},
                                 body: JSON.stringify(newReport2)
                               }
-                              fetch('http://localhost:9000/api/'+id, requestInit2)
+                              fetch('http://localhost:9000/api/'+data.id, requestInit2)
                               .then(res => res.json())
                               .then(res => console.log(res))
                               .then(res => console.log('hola'))
                               }
                               else{
-                                let newReport = {name :name, run: run, gender : gender, mail: mail, thesis_status :selectThesis, title:title, academic_degree: selectAcademic, degree_domination: denomination, tutor:tutor, cotutor:coautor, other:other, degree_u:degreeUniversity, program_starts: startProgram, thesis_starts:startThesis, thesis_end:endThesis, resourse_center:selectResource, posterior_working:selectPosterior,institution_working:InstitutionPosterior,inv:comentario, file: filee};
+                                let newReport = {
+                                    name :name, 
+                                run: run, 
+                                gender : gender, 
+                                mail: mail, 
+                                thesis_status :selectThesis, 
+                                title:title, 
+                                academic_degree: selectAcademic, 
+                                degree_domination: denomination, 
+                                tutor:tutor, 
+                                cotutor:coautor, 
+                                other:other, 
+                                autor_institution: tutorInstitution,
+                                coautor_institution: coautorInstitution,
+                                other_institution: otherInstitution,
+                                degree_u:degreeUniversity, 
+                                program_starts: startProgram, 
+                                thesis_starts:startThesis, 
+                                thesis_end:endThesis, 
+                                resourse_center:selectResource, 
+                                posterior_working:selectPosterior,
+                                institution_working:InstitutionPosterior,
+                                inv:comentario, 
+                                file: filee, 
+                                borrador:erased
+                                };
                               //Consulta PUT
                               const requestInit = {
                                 method:'PUT',
                                 headers: {'Content-Type':'application/json'},
                                 body: JSON.stringify(newReport)
                               }
-                              fetch('http://localhost:9000/api/'+id, requestInit)
+                              fetch('http://localhost:9000/api/'+data.id, requestInit)
                               .then(res => res.json())
                               .then(res => console.log(res))
                               .then(res => console.log('hola'))
@@ -235,100 +343,170 @@ const modal = ({ sshow, data, onClose }) => {
                         formFunction(ev);
                     }}>
                         <div>
-                        <input type="text" name="name" id="name" className="autor" autoComplete="off" defaultValue={data[1]} placeholder="Student Name" />
-                        <span className="item"><i class="fa-solid fa-circle-question"></i>
-                            <div class="innerText">
+                        <label >
+            <span style={{color:"red", marginRight:"5px"}}>
+            *
+          </span>
+                        <input type="text" name="name" id="name" className="autor" autoComplete="off" defaultValue={data.name} placeholder="Student Name" />
+                        </label>
+                        <span className="item"><i class="fa-solid fa-circle-question"><div class="innerText">
                                 First name and last name.
-                            </div>
+                            </div><div class="innerText">
+                                First name and last name.
+                            </div></i>
+                            
                         </span>
                         </div>
                         <div>
-                        <input type="text" name="run" id="run" className="titulo" autoComplete="off" defaulValue={data[2]} placeholder="Run o Passport" />
-                        <span className="item"><i class="fa-solid fa-circle-question"></i>
-                            <div class="innerText">
+                        <label >
+            <span style={{color:"red", marginRight:"5px"}}>
+            *
+          </span>
+                        <input type="text" name="run" id="run" className="autor" autoComplete="off" defaultValue={data.run} placeholder="Run o passport" />
+                        </label>
+                        <span className="item"><i class="fa-solid fa-circle-question"><div class="innerText">
                                 Writing without point and with script
-                            </div>
+                            </div></i>
+                            
                         </span>
                         </div>
                         <div>
-                        <select name="selectbuscador" id="selectbuscador" defaultValue={data[3]} onChange={e => handleGenderChange(e)}>
+                        <label >
+            <span style={{color:"red", marginRight:"5px"}}>
+            *
+          </span>
+                        <select name="selectbuscador" id="selectbuscador" defaultValue={data.gender} onChange={e => handleGenderChange(e)}>
                             <option value='0' disabled hidden>Gender</option>
                             <option value='1'>Femenino</option>
                             <option value='2'>Masculino</option>
                         </select>
+                        </label>
 
-                        <input type="text" name="mail" id="mail" className="journal" autoComplete="off" defaultValue={data[4]} placeholder="mail" />
+                        <input type="text" name="mail" id="mail" className="journal" autoComplete="off" defaultValue={data.mail} placeholder="mail" />
                         </div>
                         <div>
-                        <input type="text" name="title" id="title" className="journal" autoComplete="off"  defaultValue={data[6]} placeholder="Thesis Title" />
+                        <label >
+            <span style={{color:"red", marginRight:"5px"}}>
+            *
+          </span>
+                        <input type="text" name="title" id="title" className="journal" autoComplete="off"  defaultValue={data.title} placeholder="Thesis Title" />
+                        </label>
                         </div>
                         <div>
-                        <select name="selectAcademic" id="selectAcademic" defaultValue={data[7]} onChange={e => handleAcademicChange(e)}>
+                        <label >
+            <span style={{color:"red", marginRight:"5px"}}>
+            *
+          </span>
+                        <select name="selectAcademic" id="selectAcademic" defaultValue={data.academic_degree} onChange={e => handleAcademicChange(e)}>
                             <option value="0" disabled hidden>Academic Degree</option>
                             <option value="1">Undergraduate degree or profesional title</option>
                             <option value="2">Master o equivalent</option>
                             <option value="3">PhD degree</option>
                             <option value="4">Profesional Title and Master</option>
                         </select>
+                        </label>
 
-                        <input type="text" name="denomination" id="denomination" className="journal" autoComplete="off" defaultValue={data[8]} placeholder="Degree Denomination" />
+                        <input type="text" name="denomination" id="denomination" className="journal" autoComplete="off" defaultValue={data.degree_domination} placeholder="Degree Denomination" />
                         </div>
                         <div>
-                        <input type="text" name="tutor" id="tutor" className="journal" autoComplete="off" defaultValue={data[9]} placeholder="Tutor" />
-                        <span className="item"><i class="fa-solid fa-circle-question"></i>
-                            <div class="innerText">
+                        <label >
+            <span style={{color:"red", marginRight:"5px"}}>
+            *
+          </span>
+                        <input type="text" name="tutor" id="tutor" className="journal" autoComplete="off" defaultValue={data.tutor} placeholder="Tutor" />
+                        </label>
+                        <span className="item"><i class="fa-solid fa-circle-question">
+                        <div class="innerText">
                                 Last name followed by "," and first name initial.
                             </div>
+                        </i>
+                            
                         </span>
-                        <input type="text" name="tutorInstitution" id="tutorInstitution" className="journal" defaultValue={data[21]} autoComplete="off" placeholder="Tutor Intitution" />
+                        <label >
+            <span style={{color:"red", marginRight:"5px"}}>
+            *
+          </span>
+                        <input type="text" name="tutorInstitution" id="tutorInstitution" className="autor" autoComplete="off" defaultValue={data.autor_institution} placeholder="Tutor's Institution" />
+                        </label>
                         </div>
                         <div>
-                        <label>Co-autor?</label>
+                        <label>Co-tutor?</label>
                         <input type="checkbox" name="checkCoautor" id="checkCoautor" onChange={coautorChange}></input>
-                        <input type={coautors} name="coautor" id="coautor" defaultValue={data[10]} autoComplete="off" placeholder="Co-Tutor"></input>
-                        <input type={coautors} name="coautorInstitution" id="coautorInstitution" autoComplete="off" defaultValue={data[22]} placeholder="Co-Tutor's Institution"></input>
+                        
+                        <input type={coautors} name="coautor" id="coautor" defaultValue={data.cotutor} autoComplete="off" placeholder="Co-Tutor"></input>
+                        
+                        <input type={coautors} name="coautorInstitution" id="coautorInstitution" autoComplete="off" defaultValue={data.coautor_institution} placeholder="Co-Tutor's Institution"></input>
+                        
                         </div>
                         <div>
                         <label>Other?</label>
                         <input type="checkbox" name="checkOther" id="checkOther" onChange={otherChange}></input>
-                        <input type={other} name="other" id="other" autoComplete="off" defaultValue={data[11]} placeholder="Other"></input>
-                        <input type={other} name="otherInstitution" id="otherInstitution" autoComplete="off"defaultValue={data[23]}  placeholder="Other's Institution"></input>
+             
+                        <input type={other} name="other" id="other" autoComplete="off" defaultValue={data.other} placeholder="Other"></input>
+                        
+                        
+            
+                        <input type={other} name="otherInstitution" id="otherInstitution" autoComplete="off"defaultValue={data.other_institution}  placeholder="Other's Institution"></input>
+                        
+                        
                         </div>
                         <div>
-                        <input type="text" name="degreeUniversity" id="degreeUniversity" className="journal" defaultValue={data[12]} autoComplete="off" placeholder="University that gives the degree" />
+                        <input type="text" name="degreeUniversity" id="degreeUniversity" className="journal" defaultValue={data.degree_u} autoComplete="off" placeholder="University that gives the degree" />
                         </div>
                         <div>
-                        <input type="text" name="startProgram" id="startProgram" className="journal" defaultValue={data[13]} autoComplete="off" placeholder="Year student starts program" />
-                        <input type="text" name="startThesis" id="startThesis" className="journal" defaultValue={data[14]} autoComplete="off" placeholder="Year student starts thesis" />
-                        <input type="text" name="endThesis" id="endThesis" className="journal"defaultValue={data[15]}  autoComplete="off" placeholder="Year student end thesis" />
+                        <input type="text" name="startProgram" id="startProgram" className="journal" defaultValue={data.program_starts} autoComplete="off" placeholder="Year student starts program" />
+                        <label >
+            <span style={{color:"red", marginRight:"5px"}}>
+            *
+          </span>
+                        <input type="text" name="startThesis" id="startThesis" className="journal" defaultValue={data.thesis_starts} autoComplete="off" placeholder="Year student starts thesis" />
+                        </label>
+                        <input type="text" name="endThesis" id="endThesis" className="journal"defaultValue={data.thesis_end}  autoComplete="off" placeholder="Year student end thesis" />
                         </div>
                         <div>
-                        <select name="selectResource" id="selectResource" defaultValue={data[16]} onChange={e => handleResourceChange(e)}>
+                        <select name="selectResource" id="selectResource" defaultValue={data.resourse_center} onChange={e => handleResourceChange(e)}>
                             <option value="0" disabled hidden>Resources provide by the center</option>
                             <option value="1">Equipment</option>
                             <option value="2">Information</option>
                             <option value="3">Infraestructure</option>
-                            <option value="4">Other</option>
+                            <option value="4">Equipment and Information</option>
+                            <option value="5">Equipment and Infraestructure</option>
+                            <option value="6">Information and Infraestructure</option>
+                            <option value="7">Equipment, Information and Infraestructure</option>
+                            <option value="8">Other</option>
                         </select>
                         </div>
 
 
                         <div>
-                        <select name="selectThesis" id="selectThesis" defaultValue={data[5]} onChange={e => handleStatusChange(e)}>
+                        <label >
+            <span style={{color:"red", marginRight:"5px"}}>
+            *
+          </span>
+                        <select name="selectThesis" id="selectThesis" defaultValue={data.thesis_status} onChange={e => handleStatusChange(e)}>
                             <option value="0" disabled hidden>Thesis Status</option>
                             <option value="1">In Progress</option>
                             <option value="2">Finished</option>
                         </select>
+                        </label>
                         </div>
                         <div>
+                        <label >
+            <span style={{color:"red", marginRight:"5px", visibility:posteriorSelect}}>
+            *
+          </span>
                         <input type={archivo} name="archivo" id="archivo" onChange={e => fileChange(e)} ></input>
-                        <span className="item"><i class="fa-solid fa-circle-question"></i>
-                            <div class="innerText" style={{visibility:posteriorSelect}}>
+                        </label>
+                        <span className="item"><i class="fa-solid fa-circle-question" style={{visibility:posteriorSelect}}><div class="innerText" >
                                 Only pdf, if it weighs more than 20 megabytes attach pdf with cover, index and abstract.
-                            </div>
+                            </div></i>
+                            
                         </span>
-
-                        <select name="selectPosterior" id="selectPosterior" style={{ visibility: posteriorSelect }} defaultValue={data[17]} onChange={e => handlePosteriorChange(e)}>
+                        <label >
+            <span style={{color:"red", marginRight:"5px", visibility:posteriorSelect}}>
+            *
+          </span>
+                        <select name="selectPosterior" id="selectPosterior" style={{ visibility: posteriorSelect }} defaultValue={data.posterior_working} onChange={e => handlePosteriorChange(e)}>
                             <option value="0" disabled hidden>Posterior working</option>
                             <option value="1">Private Education</option>
                             <option value="2">Business</option>
@@ -339,17 +517,23 @@ const modal = ({ sshow, data, onClose }) => {
                             <option value="7">In the center</option>
                             <option value="8">None of de above</option>
                         </select>
+                        </label>
 
-                        <input type={ins} name="InstitutionPosterior" id="InstitutionPosterior" defaultValue={data[18]} className="journal" autoComplete="off" placeholder="Institution of Posterior working area" />
-                        <span className="item"><i class="fa-solid fa-circle-question"></i>
-                            <div class="innerText" style={{visibility:posteriorSelect}}>
+                        <label >
+            <span style={{color:"red", marginRight:"5px", visibility:posteriorSelect}}>
+            *
+          </span>
+                        <input type={ins} name="InstitutionPosterior" id="InstitutionPosterior" defaultValue={data.institution_working} className="journal" autoComplete="off" placeholder="Institution of Posterior working area" />
+                        </label>
+                        <span className="item"><i class="fa-solid fa-circle-question" style={{visibility:posteriorSelect}}><div class="innerText" >
                                 Institute where it is inserted. If you are unemployed indicate.
-                            </div>
+                            </div></i>
+                            
                         </span>
                         </div>
 
                         <div>
-                            <input type="text" name="comentario" className="comentario" autoComplete="off" defalutValue={data[19]} placeholder="Comment"></input>
+                            <input type="text" name="comentario" className="comentario" autoComplete="off" defaultValue={data.inv} placeholder="Comment"></input>
                         </div>
 
 

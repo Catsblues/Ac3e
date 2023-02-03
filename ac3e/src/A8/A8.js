@@ -26,10 +26,11 @@ const A8=()=> {
 
     const [sshow, setShow] = useState(false);
 
-  
+    const [archivosave , setArchivosave] =useState(null);
 
     const [reports, setReports] = useState([]);
     
+    const[selecteddata, setSelecteddata] = useState([]);
     
 
     useEffect(() => {
@@ -40,6 +41,22 @@ const A8=()=> {
       }
       getReports()
     }, [] )
+
+    function requireEval (props){
+      return (
+        <label>
+          
+          <span style={{color:"red", marginRight:"5px"}}>
+            *
+          </span>
+          {props.children}
+        </label>
+      );
+    }
+
+    const fileHandler=(e) => {
+      setArchivosave(e.target.files[0])
+    }
 
     const handleGenderChange = (e) => {
       console.log(e.target.value);
@@ -106,14 +123,7 @@ const handlePosteriorChange = (e) => {
     }
 
 
-    const fileChange = (e) => {
-      setFile(e.target.files[0]);
-      console.log(file);
-      console.log(e.target.files[0]);
-      const formdata = new FormData() 
-      formdata.append('pdf', file)
-      console.log(formdata);
-    }
+    
 
     const filtroChange = (e) => {
         setRegister("default");
@@ -193,7 +203,97 @@ const handlePosteriorChange = (e) => {
 }
 
  
+    let i_ = -1;
 
+
+
+    var rep = reports.map((reporte,index) => {
+      i_+=1;
+      var id = reporte.id;
+      if(reporte.thesis_status==="1"){
+        var status = "In progress";
+      }
+      else if(reporte.thesis_status==="0"){
+        var status = "";
+      }
+      else{
+        var status = "Finished";
+      }
+      var nomStu = reporte.name;
+      var nomThe = reporte.title;
+      if(reporte.academic_degree==="1"){
+        var degr = "Undergraduate degree or profesional title";
+      }
+      else if(reporte.academic_degree==="2"){
+        var degr = "Master or equivalent";
+      }
+      else if(reporte.academic_degree==="3"){
+        var degr = "PhD degree";
+      }
+      else{
+        var degr = "";
+      }
+      var clas;
+      if(reporte.borrador==="1"){
+        clas="erased";
+      }
+      else{
+        clas="save"
+      }
+
+      
+      let id_ =reporte.id;
+      let name =reporte.name;
+      let run =reporte.run;
+      let gender =reporte.gender;
+      let mail =reporte.mail;
+      let thesis_Status =reporte.thesis_status;
+      let title =reporte.title;
+      let academic_degree =reporte.academic_degree;
+      let degree_domination =reporte.degree_domination;
+      let tutor =reporte.tutor;
+      let cotutor =reporte.cotutor;
+      let other =reporte.other;
+      let degree_u =reporte.degree_u;
+      let program_starts = reporte.program_starts;
+      let thesis_starts =reporte.thesis_starts;
+      let thesis_end =reporte.thesis_end;
+      let resouse_center =reporte.resourse_center;
+      let posterior_working =reporte.posterior_working;
+      let institution_working =reporte.institution_working;
+      let inv =reporte.inv;
+      let file=reporte.file;
+      let autor_institution=reporte.autor_institution;
+      let coautor_institution =reporte.coautor_institution;
+      let other_institution =reporte.other_institution;
+
+      console.log("reporteeee");
+
+      console.log(reporte);
+      return(
+        <>
+          <tr key={index}>
+            
+            <td>{status}</td>
+            <td>{nomStu}</td>
+            <td>{nomThe}</td>
+            <td>{degr}</td>
+            <td>{clas}</td>
+            <tr key={index} className="botones">
+              <button className="edit" onClick={(e)=>{setShow(true); setSelecteddata(reports[index]) }}><i class="fa-solid fa-pen-to-square"></i></button>
+              <button className="delete" onClick={()=>{deletereport(id)}}><i class="fa-solid fa-trash"></i></button>
+            </tr>
+          </tr>
+          
+            < Modal sshow={sshow}  data={selecteddata} post={index} onClose={()=>setShow(false)}/>
+        
+        </>
+      )
+    }
+    )
+
+
+    console.log(rep);
 
 
     return (
@@ -249,9 +349,29 @@ const handlePosteriorChange = (e) => {
             const selectPosterior = ev.target.selectPosterior.value;
             const InstitutionPosterior = ev.target.InstitutionPosterior.value;
             const comentario = ev.target.comentario.value;
-            const filee = "";
+            var filee= "";
+            
+            
+            if(archivosave!==null){
+              const formdata = new FormData()
+              formdata.append('respaldo', archivosave)
+          
+              fetch('http://localhost:9000/respaldos/post', {
+                method: 'POST',
+                headers: {'Content-Type':'application/json'},
+                body: formdata
+              })
+              .then(res => res.json())
+              .then(res => console.log(res))
+              .catch(err => {
+                console.error(err)
+              })
+              
+
+            }
+
             var erased;
-            if(name==="" || run==="" || gender==="0" || title===""|| selectAcademic==="0"|| tutor===""|| startThesis===""|| (selectThesis==="2" && (selectPosterior==="0" || InstitutionPosterior===""))){
+            if(name==="" || run==="" || gender==="0" || title===""|| selectAcademic==="0"|| tutor===""|| startThesis===""|| (selectThesis==="2" && (selectPosterior==="0" || InstitutionPosterior==="" || ev.target.archivo.value===null ))){
                erased = "1";
                console.log("entre a borrador");
             }
@@ -260,7 +380,7 @@ const handlePosteriorChange = (e) => {
                console.log("no entre a borrador");
             }
 
-            console.log("holito");
+            
             console.log(selectAcademic);
             if(selectAcademic === "4"){
               console.log("holis");
@@ -277,7 +397,7 @@ const handlePosteriorChange = (e) => {
             .then(res => console.log('hola'))
             //Consulta POST master
             console.log("hola miau");
-            let newReport2 = {name :name, run: run, gender : gender, mail: mail, thesis_status :selectThesis, title:title, academic_degree: selectAcademic, degree_domination: denomination, tutor:tutor, autor_institution: tutorInstitution ,cotutor:coautor,coautor_institution:coautorInstitution ,other:other, other_institution: otherInstitution,degree_u:degreeUniversity, program_starts: startProgram, thesis_starts:startThesis, thesis_end:endThesis, resourse_center:selectResource, posterior_working:selectPosterior,institution_working:InstitutionPosterior,inv:comentario, file: filee, borrador: erased}
+            let newReport2 = {name :name, run: run, gender : gender, mail: mail, thesis_status :selectThesis, title:title, academic_degree: "2", degree_domination: denomination, tutor:tutor, autor_institution: tutorInstitution ,cotutor:coautor,coautor_institution:coautorInstitution ,other:other, other_institution: otherInstitution,degree_u:degreeUniversity, program_starts: startProgram, thesis_starts:startThesis, thesis_end:endThesis, resourse_center:selectResource, posterior_working:selectPosterior,institution_working:InstitutionPosterior,inv:comentario, file: filee, borrador: erased}
             const requestInit2 = {
               method:'POST',
               headers: {'Content-Type':'application/json'},
@@ -289,7 +409,7 @@ const handlePosteriorChange = (e) => {
             .then(res => console.log('hola'))
             }
             else{
-              let newReport = {name :name, run: run, gender : gender, mail: mail, thesis_status :selectThesis, title:title, academic_degree: "1", degree_domination: denomination, tutor:tutor, autor_institution: tutorInstitution ,cotutor:coautor,coautor_institution:coautorInstitution ,other:other, other_institution: otherInstitution,degree_u:degreeUniversity, program_starts: startProgram, thesis_starts:startThesis, thesis_end:endThesis, resourse_center:selectResource, posterior_working:selectPosterior,institution_working:InstitutionPosterior,inv:comentario, file: filee, borrador: erased}
+              let newReport = {name :name, run: run, gender : gender, mail: mail, thesis_status :selectThesis, title:title, academic_degree: selectAcademic, degree_domination: denomination, tutor:tutor, autor_institution: tutorInstitution ,cotutor:coautor,coautor_institution:coautorInstitution ,other:other, other_institution: otherInstitution,degree_u:degreeUniversity, program_starts: startProgram, thesis_starts:startThesis, thesis_end:endThesis, resourse_center:selectResource, posterior_working:selectPosterior,institution_working:InstitutionPosterior,inv:comentario, file: filee, borrador: erased}
             const requestInit = {
               method:'POST',
               headers: {'Content-Type':'application/json'},
@@ -300,61 +420,105 @@ const handlePosteriorChange = (e) => {
             .then(res => console.log(res))
             .then(res => console.log('hola'))
             }
-            window.location.reload();
+           window.location.reload();
             }}>
           <span>
-					  <input type="text" name="name" id="name" className="autor" autoComplete="off" placeholder="Student Name"/>
-            <span className="item"><i class="fa-solid fa-circle-question"></i>
-                <div class="innerText">
+            
+					  <label >
+            <span style={{color:"red", marginRight:"5px"}}>
+            *
+          </span>
+            <input type="text" name="name" id="name" className="titulo" autoComplete="off" placeholder="Student Name"></input>
+            
+            </label>
+            <span className="item"><i class="fa-solid fa-circle-question">
+            <p class="innerText">
                 First name and last name.
-                </div>
+                </p >
+            </i>
+                
               </span>
               
             </span>
             <div>
+            
+            <label >
+            <span style={{color:"red", marginRight:"5px"}}>
+            *
+          </span>
             <input type="text" name="run" id="run" className="titulo" autoComplete="off" placeholder="Run o Passport"/>
-              <span className="item"><i class="fa-solid fa-circle-question"></i>
-                <div class="innerText">
+            </label>
+              <span className="item"><i class="fa-solid fa-circle-question">
+              <p class="innerText">
                 Writing without point and with script.
-                </div>
+                </p>
+              </i>
+        
               </span>
               </div>
             <div>
+            <label >
+            <span style={{color:"red", marginRight:"5px"}}>
+            *
+          </span>
             <select name="selectbuscador" id="selectbuscador" defaultValue={gender} onChange={e => handleGenderChange(e)}>
               <option value='0' disabled hidden>Gender</option>
               <option value='1'>Femenino</option>
               <option value='2'>Masculino</option>
             </select>
+            </label>
 
             <input type="text" name="mail" id="mail" className="journal" autoComplete="off" placeholder="mail"/>
             </div>
             <div>
+            <label >
+            <span style={{color:"red", marginRight:"5px"}}>
+            *
+          </span>
             <input type="text" name="title" id="title" className="journal" autoComplete="off" placeholder="Thesis Title"/>
+            </label>
             </div>
-
+            
             <div>
-            <select name="selectAcademic" id="selectAcademic" defaultValue={academic} onChange={e => handleAcademicChange(e)}>
+            <label >
+            <span style={{color:"red", marginRight:"5px"}}>
+            *
+          </span>
+            <select name="selectAcademic" id="selectAcademic" style={{marginBottom: '10px'}} defaultValue={academic} onChange={e => handleAcademicChange(e)}>
               <option value="0" disabled hidden>Academic Degree</option>
               <option value="1">Undergraduate degree or profesional title</option>
               <option value="2">Master o equivalent</option>
               <option value="3">PhD degree</option>
               <option value="4">Profesional Title and Master</option>
             </select>
+            </label>
             
 
             <input type="text" name="denomination" id="denomination" className="journal" autoComplete="off" placeholder="Degree Denomination"/>
             </div>
             <div>
+            <label >
+            <span style={{color:"red", marginRight:"5px"}}>
+            *
+          </span>
             <input type="text" name="tutor" id="tutor" className="journal" autoComplete="off" placeholder="Tutor"/>
-            <span className="item"><i class="fa-solid fa-circle-question"></i>
-                <div class="innerText">
+            </label>
+            <span className="item"><i class="fa-solid fa-circle-question">
+            <p class="innerText">
                 Last name followed by "," and first name initial.
-                </div>
+                </p>
+            </i>
+                
               </span>
+              <label >
+            <span style={{color:"red", marginRight:"5px"}}>
+            *
+          </span>
             <input type="text" name="tutorInstitution" id="tutorInstitution" className="journal" autoComplete="off" placeholder="Tutor Intitution"/>
+            </label>
             </div>
             <div>
-            <label>Co-autor?</label> 
+            <label>Co-tutor?</label> 
             <input type="checkbox" name="checkCoautor" id="checkCoautor" onChange={coautorChange}></input>
             <input type={coautors} name="coautor" id="coautor" autoComplete="off" placeholder="Co-Tutor"></input>
             <input type={coautors} name="coautorInstitution" id="coautorInstitution" autoComplete="off" placeholder="Co-Tutor's Institution"></input>
@@ -366,41 +530,66 @@ const handlePosteriorChange = (e) => {
             <input type={other} name="otherInstitution" id="otherInstitution" autoComplete="off" placeholder="Other's Institution"></input>
             </div>
             <div>
-            <input type="text" name="degreeUniversity" id="degreeUniversity" className="journal" autoComplete="off" placeholder="University that gives the degree"/>
+            <input type="text" name="degreeUniversity" id="degreeUniversity" className="autor" autoComplete="off" placeholder="University that gives the degree"/>
             </div>
             <div>
-            <input type="text" name="startProgram" id="startProgram" className="journal" autoComplete="off" placeholder="Year student starts program"/>
-            
+            <input type="text" name="startProgram" id="startProgram" className="journal" autoComplete="off" style={{marginRight: '5px'}} placeholder="Year student starts program"/>
+            <label >
+            <span style={{color:"red", marginRight:"5px"}}>
+            *
+          </span>
             <input type="text" name="startThesis" id="startThesis" className="journal" autoComplete="off" placeholder="Year student starts thesis"/>
+
+            </label>
             <input type="text" name="endThesis" id="endThesis" className="journal" autoComplete="off" placeholder="Year student end thesis"/>
             </div>
             <div>
-            <select name="selectResource" id="selectResource" defaultValue={resource} onChange={e => handleResourceChange(e)}>
+            <select name="selectResource" id="selectResource" style={{marginBottom: '10px'}} defaultValue={resource} onChange={e => handleResourceChange(e)}>
               <option value="0" disabled hidden>Resources provide by the center</option>
-              <option value="1">Equipment</option>
-              <option value="2">Information</option>
-              <option value="3">Infraestructure</option>
-              <option value="4">Other</option>
+              <option value="1">Just equipment</option>
+              <option value="2">Just Information</option>
+              <option value="3">Just Infraestructure</option>
+              <option value="4">Equipment and Information</option>
+              <option value="5">Equipment and Infraestructure</option>
+              <option value="6">Information and Infraestructure</option>
+              <option value="7">Equipment, Information and Infraestructure</option>
+              <option value="8">Other</option>
             </select>
             </div>
             
 
             <div>
+            <label >
+            <span style={{color:"red", marginRight:"5px"}}>
+            *
+          </span>
             <select name="selectThesis" id="selectThesis" defaultValue={thesisStatus} onChange={e => handleStatusChange(e)}>
               <option value="0" disabled hidden>Thesis Status</option>
               <option value="1">In Progress</option>
               <option value="2">Finished</option>
             </select>
+            </label>
             </div>
             <div>
-            <input type= {archivo} name="archivo" id="archivo" onChange={e => fileChange(e)} ></input>
-            <span className="item"><i class="fa-solid fa-circle-question"></i>
-                <div class="innerText" style={{visibility:posteriorSelect}}>
+            <label >
+            <span style={{color:"red", marginRight:"5px", visibility:posteriorSelect}}>
+            *
+          </span>
+            <input type= {archivo} name="archivo" id="archivo" accept=".pdf,.doc, .docx"  onChange={e =>fileHandler(e)}></input>
+            </label>
+            <span className="item" style={{visibility:posteriorSelect}}><i class="fa-solid fa-circle-question">
+            <p class="innerText" >
                 Only pdf, if it weighs more than 20 megabytes attach pdf with cover, index and abstract.
-                </div>
+                </p>
+            </i>
+                
               </span>
 
-            <select name="selectPosterior" id="selectPosterior" style={{visibility:posteriorSelect}} defaultValue={posterior} onChange={e => handlePosteriorChange(e)}>
+              <label >
+            <span style={{color:"red", marginRight:"5px", visibility:posteriorSelect}}>
+            *
+          </span>
+            <select name="selectPosterior" id="selectPosterior" style={{visibility:posteriorSelect, marginRight:"5px"}} defaultValue={posterior} onChange={e => handlePosteriorChange(e)}>
               <option value="0" disabled hidden>Posterior working</option>
               <option value="1">Private Education</option>
               <option value="2">Business</option>
@@ -411,12 +600,21 @@ const handlePosteriorChange = (e) => {
               <option value="7">In the center</option>
               <option value="8">None of de above</option>
             </select>
+            </label>
 
-            <input type={ins} name="InstitutionPosterior" id="InstitutionPosterior" className="journal" autoComplete="off" placeholder="Institution of Posterior working area"/>
-            <span className="item"><i class="fa-solid fa-circle-question"></i>
-                <div class="innerText" style={{visibility:posteriorSelect}}>
+
+            <label >
+            <span style={{color:"red", marginRight:"5px", visibility:posteriorSelect}}>
+            *
+          </span>
+            <input type={ins} name="InstitutionPosterior" id="InstitutionPosterior" style={{width: '280px'}} className="journal" autoComplete="off" placeholder="Institution of Posterior working area"/>
+            </label>
+            <span className="item" style={{visibility:posteriorSelect}}><i class="fa-solid fa-circle-question">
+            <p class="innerText" >
                 Institute where it is inserted. If you are unemployed indicate.
-                </div>
+                </p>
+            </i>
+                
               </span>
             </div>
           <div>
@@ -446,62 +644,8 @@ const handlePosteriorChange = (e) => {
   </thead>
   <tbody>
     {
+      rep
       
-      reports.map((reporte) => {
-        var id = reporte.id;
-        if(reporte.thesis_status==="1"){
-          var status = "In progress";
-        }
-        else if(reporte.thesis_status==="0"){
-          var status = "";
-        }
-        else{
-          var status = "Finished";
-        }
-        var nomStu = reporte.name;
-        var nomThe = reporte.title;
-        if(reporte.academic_degree==="1"){
-          var degr = "Undergraduate degree or profesional title";
-        }
-        else if(reporte.academic_degree==="2"){
-          var degr = "Master or equivalent";
-        }
-        else if(reporte.academic_degree==="3"){
-          var degr = "PhD degree";
-        }
-        else{
-          var degr = "";
-        }
-        var clas;
-        if(reporte.borrador==="1"){
-          clas="erased";
-        }
-        else{
-          clas="save"
-        }
-
-
-        return(
-          <>
-            <tr>
-              
-              <td>{status}</td>
-              <td>{nomStu}</td>
-              <td>{nomThe}</td>
-              <td>{degr}</td>
-              <td>{clas}</td>
-              <div className="botones">
-                <button className="edit" onClick={()=>{setShow(true); }}><i class="fa-solid fa-pen-to-square"></i></button>
-                <button className="delete" onClick={()=>{deletereport(id)}}><i class="fa-solid fa-trash"></i></button>
-              </div>
-            </tr>
-            
-              < Modal sshow={sshow}  data={[reporte.id,reporte.name,reporte.run,reporte.gender,reporte.mail,reporte.thesis_status,reporte.title,reporte.academic_degree,reporte.degree_domination,reporte.tutor,reporte.cotutor,reporte.other,reporte.degree_u,reporte.program_starts,reporte.thesis_starts,reporte.thesis_end,reporte.resourse_center,reporte.posterior_working,reporte.institution_working,reporte.inv,reporte.file,reporte.autor_institution, reporte.coautor_institution, reporte.other_institution]} onClose={()=>setShow(false)}/>
-          
-          </>
-        )
-      }
-      )
     }
   </tbody>
 </table> 

@@ -10,6 +10,7 @@ const A1=()=> {
     const [search, setSearch] = useState("");
     const [check, setCheck] = useState(localStorage.getItem("check"));
     const [coautors, setCoautors] = useState("hidden");
+    const [coautorss, setCosutorss] = useState("hidden");
 
     const handleRegisterChange = (e) => {
     
@@ -20,9 +21,11 @@ const A1=()=> {
     const coautorChange = (e) => {
       if(coautors==="hidden"){
         setCoautors("text");
+        setCosutorss("visible");
       }
       else{
         setCoautors("hidden");
+        setCosutorss("hidden");
       }
     }
 
@@ -192,65 +195,79 @@ const A1=()=> {
             window.location.reload();
             }}>
           
-					  <input type="text" name="autor" id="autor" className="autor" autoComplete="off" placeholder="Autor(s)"/>
-            <span className="item"><i class="fa-solid fa-circle-question"></i>
-              <div class="innerText">
-                texto
-              </div>
-            </span> 
+          <span>
+            
+					  <label >
+            <span style={{color:"red", marginRight:"5px"}}>
+            *
+          </span>
+            <input type="text" name="autor" id="autor" className="titulo" autoComplete="off" placeholder="Autor(s)"/>
+            
+            </label>
+            <span className="item"><i class="fa-solid fa-circle-question">
+            <p class="innerText">
+                First name and last name.
+                </p >
+            </i>
+                
+              </span>
+              
+            </span>
             
             
-
+            
             <label>¿Coautor de AC3E?</label>
-            <span className="item"><i class="fa-solid fa-circle-question"></i>
-              <div class="innerText">
-                texto
+            <span className="item" style={{visibility:coautorss}}><i class="fa-solid fa-circle-question">
+            <div class="innerText">
+            First name and last name.
               </div>
+            </i>
+              
             </span> 
+            <label >
+            <span style={{color:"red", marginRight:"5px", visibility:coautorss }}>
+            *
+          </span>
             <input type="checkbox" name="checkCoautor" id="checkCoautor" onChange={coautorChange}></input>
+            </label>
             <input type={coautors} name="coautor" id="coautor" autoComplete="off" placeholder="Coauthor(s)"></input>
           
           <div>
-          <input type="text" name="titulo" id="titulo" className="titulo" autoComplete="off" placeholder="Article Title"/>
-          <span className="item"><i class="fa-solid fa-circle-question"></i>
-              <div class="innerText">
-                texto
-              </div>
-            </span>
-					  <input type="text" name="journal" id="journal" className="journal" autoComplete="off" placeholder="Journal Name"/>
-            <span className="item"><i class="fa-solid fa-circle-question"></i>
-              <div class="innerText">
-                texto
-              </div>
-            </span>
+          <label >
+            <span style={{color:"red", marginRight:"5px" }}>
+            *
+          </span>
+          <input type="text" name="titulo" id="titulo" className="titulo" style={{marginRight:"10px"}} autoComplete="off" placeholder="Article Title"/>
+          </label>
+          <label >
+            <span style={{color:"red", marginRight:"5px" }}>
+            *
+          </span>
+					  <input type="text" name="journal" id="journal" className="journal" style={{marginRight:"10px"}} autoComplete="off" placeholder="Journal Name"/>
+            </label>
+            <label >
+            <span style={{color:"red", marginRight:"5px" }}>
+            *
+          </span>
             <input type="text" name="doi" id="doi" className="doi" autoComplete="off" placeholder="Digital Object Identifier (DOI)"/>
-            <span className="item"><i class="fa-solid fa-circle-question"></i>
-              <div class="innerText">
-                texto
-              </div>
-            </span>
+            </label>
+            
           </div>
           <div>
-					  <input type="text" name="volumen" id="volumen" className="volumen" autoComplete="off" placeholder="Volume"/> <span className="item"><i class="fa-solid fa-circle-question"></i>
-              <div class="innerText">
-                texto
-              </div>
-            </span>
-            <input type="text" name="first" id="first" className="first" autoComplete="off" placeholder="First page"/> <span className="item"><i class="fa-solid fa-circle-question"></i>
-              <div class="innerText">
-                texto
-              </div>
-            </span>
-            <input type="text" name="last" id="last" className="last" autoComplete="off" placeholder="Last page"/><span className="item"><i class="fa-solid fa-circle-question"></i>
-              <div class="innerText">
-                texto
-              </div>
-            </span>
-            <input type="text" name="publish" id="date" className="date" autoComplete="off" placeholder="Year Published"/><span className="item"><i class="fa-solid fa-circle-question"></i>
-              <div class="innerText">
-                texto
-              </div>
-            </span>
+          <label >
+            <span style={{color:"red", marginRight:"5px"}}>
+            *
+          </span>
+					  <input type="text" name="volumen" id="volumen" className="volumen" autoComplete="off" placeholder="Volume"/> 
+            </label>
+            <input type="text" name="first" id="first" className="first" autoComplete="off" placeholder="First page"/> 
+            <input type="text" name="last" id="last" className="last" style={{marginRight:"10px"}} autoComplete="off" placeholder="Last page"/>
+            <label >
+            <span style={{color:"red", marginRight:"5px" }}>
+            *
+          </span>
+            <input type="text" name="publish" id="date" className="date" autoComplete="off" placeholder="Year Published"/>
+            </label>
           </div>
           <div>
             <input type="text" name="comentario" className="comentario" autoComplete="off" placeholder="Comment"></input>
@@ -262,35 +279,15 @@ const A1=()=> {
       </div>
 
       <h1 className="title">Visualización de datos</h1>
-      <h3 className="text">Seleccione su campo de búsqueda e ingrese el dato correspondiente:</h3>
+      <h3 className="text" >Seleccione su campo de búsqueda e ingrese el dato correspondiente:</h3>
         
-      <div className="buscador">
-            <form onSubmit={ev => {ev.preventDefault()}}>
-            <div>
-            <label>Desea filtrar los datos?</label>
-            <input type="checkbox" id="filtro" checked={check} onChange={filtroChange}></input>
-            
-
-                
-                <select name="selectbuscador" style={{visibility:filtroSelect}} id="selectbuscador" value={register} onChange={handleRegisterChange}>
-                    <option value="default" disabled hidden>Seleccione opción de búsqueda</option>
-                    <option value="doi">Digital Object Identifier (DOI)</option>
-                    <option value="autor">Autor(s)</option>
-                    <option value="articulo">Article Name</option>
-                    
-                </select>
-
-                <input type= {inputText} name="buscar" id="buscar" autoComplete="off" onChange={ev => setSearch(ev.target.value)} ></input>
-            
-                <button type="submit" onClick={()=>{busqueda()}}>Buscar</button>
-            </div>
-            </form> 
+      
 
 
             
-        </div>
+        
 
-        <div className="tabla"> 
+        <div className="tabla" style={{ marginTop:"15px"}}> 
         <table className="table table-success table-striped rounded">
   <thead>
     <tr>
