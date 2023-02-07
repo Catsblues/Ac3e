@@ -205,8 +205,7 @@ const A1=()=> {
             
             </label>
             <span className="item"><i class="fa-solid fa-circle-question">
-            <p class="innerText">
-                First name and last name.
+            <p class="innerText">Format: Last Name, First name initial. (e.j., Perez, J.).
                 </p >
             </i>
                 
@@ -219,7 +218,7 @@ const A1=()=> {
             <label>¿Coautor de AC3E?</label>
             <span className="item" style={{visibility:coautorss}}><i class="fa-solid fa-circle-question">
             <div class="innerText">
-            First name and last name.
+            Format: Last Name, First name initial. (e.j., Perez, J.).
               </div>
             </i>
               

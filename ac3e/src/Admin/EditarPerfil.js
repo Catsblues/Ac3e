@@ -1,62 +1,94 @@
 import "./EditarPerfil.css";
-import React, {useState} from "react";
+import React, { useState, useEffect } from "react";
 
-const EditarPerfil = () => {
 
-    const [value, setValue] = useState("default");
 
-    const handleChange = (e) => {
-        setValue(e.target.value);
-    }
+const EditarPerfil = ({ sshow, data, post ,onClose }) => {
+
+
     
-  return (
-    <>
-    <div className='header'> 
-      <img className="logo" src={"/ac3e.png"}/>
-    </div>
-    <div className='contenedor'>
-    <p className="titleform">Bienvenido</p>
-    </div>
-    <form className="formulario1" onSubmit={ev => {
-            ev.preventDefault();
 
-            const name = ev.target.name.value;
-            const mail = ev.target.mail.value;
-            const line = ev.target.line.value;
-            const university = ev.target.university.value; 
+    if (!sshow) {
+        return null;
+    }
+       
+    
+    const formFunction = (ev) => {
+       
 
-            }}>
-            <div>
-                <label>Nombre Completo</label>
-				<input type="text" name="name" id="name"  className="name" autoComplete="on"/>
-            </div>
-            <div>
-                <label>Correo</label>
-				<input type="text" name="mail" id="mail" className="mail" autoComplete="on"/>
-            </div>
-            <div>
-                <label>Linea de investigación</label>
-				<select name="selectcampo" id="selectcampo" defaultValue={value} onChange={handleChange}>
-                    <option value="default" disabled hidden>Seleccione</option>
-                    <option value="Control">Control y Automatización</option>
-                    <option value="Energía">Energías Renovables y Conversión de Potencia</option>
-                    <option value="Inteligencia Artificial">Inteligencia Artificial y Análisis de Datos</option>
-                    <option value="Robótica">Robótica</option>
-                    <option value="Biomédicos">Sistemas Biomédicos</option>
-                    <option value="Eléctricos">Sistemas Eléctricos</option>
-                </select>
-            </div>
-            <div>
-                <label>Universidad</label>
-				<input type="text" name="university" id="university" className="university" autoComplete="on"/>
-            </div>
-          <button type="submit">Actualizar los datos</button>
-        </form>
-      
 
-    </>
-  );
+                       
 
+                        const namee = ev.target.name.value;
+                        const mail = ev.target.mail.value;
+                        const line = ev.target.line.value;
+                        const institution = ev.target.institution.value;
+                       
+            
+                        
+                
+                                let newInvestigadores = {
+                                    name :namee, 
+                                    mail: mail,
+                                    line: line,
+                                    institution: institution,
+                                };
+                              //Consulta PUT
+                              const requestInit = {
+                                method:'PUT',
+                                headers: {'Content-Type':'application/json'},
+                                body: JSON.stringify(newInvestigadores)
+                              }
+                              fetch('http://localhost:9000/api/investigadores/'+data.id, requestInit)
+                              .then(res => res.json())
+                              .then(res => console.log(res))
+                              .then(res => console.log('hola'))
+                              
+
+                              window.location.reload();
+                            
+
+                        
+    }
+
+    return (
+        <>
+            <div className="overlay">
+
+
+
+                <div className="formulario2">
+                    <button className="boton" onClick={() => { onClose(true) }}>X</button>
+                    <h1 className="title">Edición de datos</h1>
+
+                    <form onSubmit={async (ev) => {
+                         ev.preventDefault();
+                        formFunction(ev);
+                    }}>
+                        <div>
+            
+                        <input type="text" name="name" id="name" className="autor" autoComplete="off" defaultValue={data.name} placeholder="Investigator Name"/>
+                        
+                        </div>
+                        <div>
+                        <input type="text" name="mail" id="mail" className="autor" autoComplete="off" defaultValue={data.mail} placeholder="Mail" />
+                        </div>
+                        <div>
+                        <input type="text" name="line" id="line" className="journal" autoComplete="off" defaultValue={data.line} placeholder="Line" />
+                        </div>
+                        <div>
+                        <input type="text" name="institution" id="institution" className="journal" autoComplete="off"  defaultValue={data.institution} placeholder="Institution"/>
+                        </div>
+                     <button type="submit" >Actualizar datos</button>
+                    </form>
+                </div>
+
+
+            </div>
+
+
+        </>
+    );
 }
 
 export default EditarPerfil;

@@ -9,20 +9,20 @@ const A8=()=> {
     const [gender, setGender] = useState("0");
     const [thesisStatus, setThesisStatus] = useState("0");
     const [academic, setAcademic] = useState("0");
-    const [resource, setResource] = useState("0");
     const [posterior, setPosterior] = useState("0");
     const [register, setRegister] = useState("0");
     const [posteriorSelect, setPosteriorSelect] = useState("hidden");
     const [filtroSelect, setFiltroSelect] = useState("hidden");
-    const [inputText, setInputText] = useState("hidden");
     const [search, setSearch] = useState("");
     const [check, setCheck] = useState(localStorage.getItem("check"));
     const [coautors, setCoautors] = useState("hidden");
     const [other, setOther] = useState("hidden");
     const [archivo, setArchivo] = useState("hidden");
     const [ins, setIns] = useState("hidden");
-    const [file, setFile] = useState(null);
-    const [finish, setFinish] = useState("hidden");
+    const [Equipment, setEquipment] = useState("");
+    const [Information, setInformation] = useState("");
+    const [Infraestructure, setInfraestructure] = useState("");
+    const [Othercheck, setOthercheck] = useState("");
 
     const [sshow, setShow] = useState(false);
 
@@ -64,11 +64,7 @@ const A8=()=> {
         
     }
 
-    const handleRegisterChange = (e) => {
-      
-      setRegister(e.target.value)
-        
-    }
+   
 
     const handleStatusChange = (e) => {
     
@@ -92,11 +88,7 @@ const A8=()=> {
     
 }
 
-const handleResourceChange = (e) => {
-    
-  setResource(e.target.value)
-  
-}
+
 
 const handlePosteriorChange = (e) => {
     
@@ -122,10 +114,46 @@ const handlePosteriorChange = (e) => {
       }
     }
 
+    const equipmentChange = (e) => {
+      if(Equipment===""){
+        setEquipment("equipment");
+      }
+      else{
+        setEquipment("");
+      }
+    }
+
+    const informationChange = (e) => {
+      if(Information===""){
+        setInformation("information");
+      }
+      else{
+        setInformation("");
+      }
+    }
+
+    const infraestructureChange = (e) => {
+      if(Infraestructure===""){
+        setInfraestructure("infraestructure");
+      }
+      else{
+        setInfraestructure("");
+      }
+    }
+
+    const othercheckChange = (e) => {
+      if(Othercheck===""){
+        setOthercheck("equipment");
+      }
+      else{
+        setOthercheck("");
+      }
+    }
+
 
     
 
-    const filtroChange = (e) => {
+    /*const filtroChange = (e) => {
         setRegister("default");
         if(check === ""){
           localStorage.setItem("check", "checked");
@@ -145,7 +173,7 @@ const handlePosteriorChange = (e) => {
             window.location.reload();
 
         }
-    }
+    }*/
 
 
   const deletereport = (id) => {
@@ -160,48 +188,6 @@ const handlePosteriorChange = (e) => {
     window.location.reload();
     
   }
-
-  const compare = (reportA, reportB) => {
-    var Akeys = Object.keys(reportA);
-    var Bkeys = Object.keys(reportB);
-
-    if(Akeys.join("") !== Bkeys.join("")){
-      return false;
-    }
-    for(var i = 0; i < Akeys.length; i++){
-      if(reportA[Akeys[i]] !== reportB[Bkeys[i]]){
-        return false;
-      }
-    }
-    return true;
-  }
-
-  const busqueda = (e) =>{ 
-    var data = JSON.parse(localStorage.getItem("data"));
-    let show = [];
-    for(var i = 0; i < data.length; i++){
-        if(register==="doi"){
-            if(data[i].doi===search){
-                show.push(data[i])
-            }
-        }
-        else if(register==="autor"){
-            if(data[i].autor===search){
-                show.push(data[i])
-            }
-        }
-        else{
-            if(data[i].articulo===search){
-                show.push(data[i])
-            } 
-        }
-    }
-    localStorage.setItem("show",JSON.stringify(show));
-    window.location.reload();
-  
-    
-}
-
  
     let i_ = -1;
 
@@ -240,33 +226,6 @@ const handlePosteriorChange = (e) => {
       else{
         clas="save"
       }
-
-      
-      let id_ =reporte.id;
-      let name =reporte.name;
-      let run =reporte.run;
-      let gender =reporte.gender;
-      let mail =reporte.mail;
-      let thesis_Status =reporte.thesis_status;
-      let title =reporte.title;
-      let academic_degree =reporte.academic_degree;
-      let degree_domination =reporte.degree_domination;
-      let tutor =reporte.tutor;
-      let cotutor =reporte.cotutor;
-      let other =reporte.other;
-      let degree_u =reporte.degree_u;
-      let program_starts = reporte.program_starts;
-      let thesis_starts =reporte.thesis_starts;
-      let thesis_end =reporte.thesis_end;
-      let resouse_center =reporte.resourse_center;
-      let posterior_working =reporte.posterior_working;
-      let institution_working =reporte.institution_working;
-      let inv =reporte.inv;
-      let file=reporte.file;
-      let autor_institution=reporte.autor_institution;
-      let coautor_institution =reporte.coautor_institution;
-      let other_institution =reporte.other_institution;
-
       console.log("reporteeee");
 
       console.log(reporte);
@@ -330,7 +289,52 @@ const handlePosteriorChange = (e) => {
                 var other = "";
                 var otherInstitution = "";
               }
-            
+            var selectResource="";
+            if(Equipment!=="" && Information!=="" && Infraestructure!=="" && Othercheck!==""){
+              selectResource = "Equipment, information, insfraestructure and other";
+            }
+            else if(Equipment!=="" && Information!=="" && Infraestructure!==""){
+              selectResource = "Equipment, information, insfraestructure";
+            }
+            else if(Equipment!=="" && Information!=="" && Othercheck!==""){
+              selectResource = "Equipment, information and other";
+            }
+            else if(Equipment!=="" && Infraestructure!=="" && Othercheck!==""){
+              selectResource = "Equipment, insfraestructure and other";
+            }
+            else if(Information!=="" && Infraestructure!=="" && Othercheck!==""){
+              selectResource = "Information, insfraestructure and other";
+            }
+            else if(Equipment!=="" && Information!==""){
+              selectResource = "Equipment and information";
+            }
+            else if(Equipment!=="" && Othercheck!==""){
+              selectResource = "Equipment and other";
+            }
+            else if(Equipment!=="" && Infraestructure!==""){
+              selectResource = "Equipment and insfraestructure";
+            }
+            else if(Information!=="" && Infraestructure!==""){
+              selectResource = "Information and insfraestructure";
+            }
+            else if( Information!=="" && Othercheck!==""){
+              selectResource = "Information and other";
+            }
+            else if(Infraestructure!=="" && Othercheck!==""){
+              selectResource = "Infraestructure and other";
+            }
+            else if(Equipment!==""){
+              selectResource = "Equipment";
+            }
+            else if( Information!=="" ){
+              selectResource = "Information";
+            }
+            else if( Infraestructure!==""){
+              selectResource = "Insfraestructure";
+            }
+            else if(Othercheck!==""){
+              selectResource = "Other";
+            }
             const name = ev.target.name.value;
             const run = ev.target.run.value;
             const gender = ev.target.selectbuscador.value;
@@ -345,7 +349,6 @@ const handlePosteriorChange = (e) => {
             const startProgram = ev.target.startProgram.value;
             const startThesis = ev.target.startThesis.value;
             const endThesis = ev.target.endThesis.value;
-            const selectResource = ev.target.selectResource.value;
             const selectPosterior = ev.target.selectPosterior.value;
             const InstitutionPosterior = ev.target.InstitutionPosterior.value;
             const comentario = ev.target.comentario.value;
@@ -433,7 +436,7 @@ const handlePosteriorChange = (e) => {
             </label>
             <span className="item"><i class="fa-solid fa-circle-question">
             <p class="innerText">
-                First name and last name.
+                Format: First Name and Last Name (e.j., Juan Perez).
                 </p >
             </i>
                 
@@ -446,11 +449,11 @@ const handlePosteriorChange = (e) => {
             <span style={{color:"red", marginRight:"5px"}}>
             *
           </span>
-            <input type="text" name="run" id="run" className="titulo" autoComplete="off" placeholder="Run o Passport"/>
+            <input type="text" name="run" id="run" className="titulo" autoComplete="off" placeholder="Run or Passport"/>
             </label>
               <span className="item"><i class="fa-solid fa-circle-question">
               <p class="innerText">
-                Writing without point and with script.
+                Format : Without point and with script (e.j., 12345678-9).
                 </p>
               </i>
         
@@ -461,17 +464,18 @@ const handlePosteriorChange = (e) => {
             <span style={{color:"red", marginRight:"5px"}}>
             *
           </span>
-            <select name="selectbuscador" id="selectbuscador" defaultValue={gender} onChange={e => handleGenderChange(e)}>
+            <select name="selectbuscador" id="selectbuscador" defaultValue={gender} style={{marginBottom: '10px' }} onChange={e => handleGenderChange(e)}>
               <option value='0' disabled hidden>Gender</option>
               <option value='1'>Femenino</option>
               <option value='2'>Masculino</option>
             </select>
             </label>
-
+            </div>
+            <div>
             <input type="text" name="mail" id="mail" className="journal" autoComplete="off" placeholder="mail"/>
             </div>
             <div>
-            <label >
+            <label>
             <span style={{color:"red", marginRight:"5px"}}>
             *
           </span>
@@ -492,8 +496,9 @@ const handlePosteriorChange = (e) => {
               <option value="4">Profesional Title and Master</option>
             </select>
             </label>
-            
+            </div>
 
+            <div>
             <input type="text" name="denomination" id="denomination" className="journal" autoComplete="off" placeholder="Degree Denomination"/>
             </div>
             <div>
@@ -505,12 +510,14 @@ const handlePosteriorChange = (e) => {
             </label>
             <span className="item"><i class="fa-solid fa-circle-question">
             <p class="innerText">
-                Last name followed by "," and first name initial.
+                Format: Last Name, First name initial. (e.j., Perez, J.).
                 </p>
             </i>
                 
               </span>
-              <label >
+              </div>
+              <div>
+              <label>
             <span style={{color:"red", marginRight:"5px"}}>
             *
           </span>
@@ -534,27 +541,32 @@ const handlePosteriorChange = (e) => {
             </div>
             <div>
             <input type="text" name="startProgram" id="startProgram" className="journal" autoComplete="off" style={{marginRight: '5px'}} placeholder="Year student starts program"/>
+            </div>
+            <div>
             <label >
             <span style={{color:"red", marginRight:"5px"}}>
             *
           </span>
             <input type="text" name="startThesis" id="startThesis" className="journal" autoComplete="off" placeholder="Year student starts thesis"/>
-
+            
             </label>
+            </div>
+            <div>
             <input type="text" name="endThesis" id="endThesis" className="journal" autoComplete="off" placeholder="Year student end thesis"/>
             </div>
             <div>
-            <select name="selectResource" id="selectResource" style={{marginBottom: '10px'}} defaultValue={resource} onChange={e => handleResourceChange(e)}>
-              <option value="0" disabled hidden>Resources provide by the center</option>
-              <option value="1">Just equipment</option>
-              <option value="2">Just Information</option>
-              <option value="3">Just Infraestructure</option>
-              <option value="4">Equipment and Information</option>
-              <option value="5">Equipment and Infraestructure</option>
-              <option value="6">Information and Infraestructure</option>
-              <option value="7">Equipment, Information and Infraestructure</option>
-              <option value="8">Other</option>
-            </select>
+              <label style={{fontWeight: 'bold', marginTop:'15px' ,marginBottom: '5px'}} >Resources provide by the center:</label>
+            </div>
+            <div>
+            <input type="checkbox" name="equipment" id="equipment"  className="checks" onChange={e => equipmentChange(e)}></input>
+            <label>Equipment</label>
+            <input type="checkbox" name="information" id="information" style={{marginLeft: '20px'}} className="checks" onChange={e => informationChange(e)}></input>
+            <label>Information</label>
+            <input type="checkbox" name="infraestructure" id="infraestructure" style={{marginLeft: '20px'}} className="checks" onChange={e => infraestructureChange(e)}></input>
+            <label>Infraestructure</label>
+            <input type="checkbox" name="other" id="other" style={{marginLeft: '20px', marginBottom: '20px'}} className="checks" onChange={e => othercheckChange(e)}></input>
+            <label>Other</label>
+            
             </div>
             
 
@@ -563,7 +575,7 @@ const handlePosteriorChange = (e) => {
             <span style={{color:"red", marginRight:"5px"}}>
             *
           </span>
-            <select name="selectThesis" id="selectThesis" defaultValue={thesisStatus} onChange={e => handleStatusChange(e)}>
+            <select name="selectThesis" id="selectThesis" defaultValue={thesisStatus} style={{marginBottom:'10px'}} onChange={e => handleStatusChange(e)}>
               <option value="0" disabled hidden>Thesis Status</option>
               <option value="1">In Progress</option>
               <option value="2">Finished</option>
@@ -576,20 +588,21 @@ const handlePosteriorChange = (e) => {
             *
           </span>
             <input type= {archivo} name="archivo" id="archivo" accept=".pdf,.doc, .docx"  onChange={e =>fileHandler(e)}></input>
-            </label>
             <span className="item" style={{visibility:posteriorSelect}}><i class="fa-solid fa-circle-question">
             <p class="innerText" >
-                Only pdf, if it weighs more than 20 megabytes attach pdf with cover, index and abstract.
+                Format: .pdf 20mb max or .pdf with cover, index and abstract.
                 </p>
             </i>
                 
               </span>
-
+            </label>
+            </div>
+            <div>
               <label >
             <span style={{color:"red", marginRight:"5px", visibility:posteriorSelect}}>
             *
           </span>
-            <select name="selectPosterior" id="selectPosterior" style={{visibility:posteriorSelect, marginRight:"5px"}} defaultValue={posterior} onChange={e => handlePosteriorChange(e)}>
+            <select name="selectPosterior" id="selectPosterior" style={{visibility:posteriorSelect, marginRight:"5px", marginBottom: '10px'}} defaultValue={posterior} onChange={e => handlePosteriorChange(e)}>
               <option value="0" disabled hidden>Posterior working</option>
               <option value="1">Private Education</option>
               <option value="2">Business</option>
@@ -601,8 +614,8 @@ const handlePosteriorChange = (e) => {
               <option value="8">None of de above</option>
             </select>
             </label>
-
-
+            </div>
+            <div>
             <label >
             <span style={{color:"red", marginRight:"5px", visibility:posteriorSelect}}>
             *
@@ -611,7 +624,7 @@ const handlePosteriorChange = (e) => {
             </label>
             <span className="item" style={{visibility:posteriorSelect}}><i class="fa-solid fa-circle-question">
             <p class="innerText" >
-                Institute where it is inserted. If you are unemployed indicate.
+                Institute where it is inserted. If the student is unemployed indicate.
                 </p>
             </i>
                 
@@ -628,6 +641,9 @@ const handlePosteriorChange = (e) => {
 
       <h1 className="title">Visualización de datos</h1>
       <h3 className="text">Aquí observará los datos ya se envió anteriormente.</h3>
+
+      
+          
 
         <div className="tabla"> 
         <table className="table table-success table-striped rounded">

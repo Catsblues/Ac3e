@@ -13,8 +13,8 @@ import A8 from "./A8/A8";
 import Modal from "./A8/modal"
 import InicioAdmin from "./Admin/InicioAdmin";
 import PlanillaInv from "./Admin/PlanillaInv";
-import EditarPerfil from "./Admin/EditarPerfil";
 import PlanillaGen from "./Admin/PlanillaGen";
+import InvActivos from "./Admin/InvActivos";
 
 
 function App() {
@@ -30,7 +30,7 @@ function App() {
           <Route exact path="/InicioAdmin" element={<InicioAdmin/>}></Route>
           <Route exact path="/InicioAdmin/PlanillaGen" element={<PlanillaGen/>}></Route>
           <Route exact path="/InicioAdmin/PlanillaInv" element={<PlanillaInv/>}></Route>
-          <Route exact path="/PlanillaInv/EditarPerfil" element={<EditarPerfil/>}></Route>
+          <Route exact path="/InicioAdmin/PerfilInv" element={<InvActivos/>}></Route>
         </Routes>
 
     </Router>
