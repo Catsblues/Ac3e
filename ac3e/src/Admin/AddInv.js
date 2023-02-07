@@ -58,7 +58,7 @@ const AddInv = ({ showadd ,onClose }) => {
 
                 <div className="formulario2">
                     <button className="boton" onClick={() => {onClose(true)}}>X</button>
-                    <h1 className="title">Edición de datos</h1>
+                    <h1 className="title">Agregar Investigador(a)</h1>
 
                     <form onSubmit={async (ev) => {
                          ev.preventDefault();

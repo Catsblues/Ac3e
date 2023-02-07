@@ -9,57 +9,69 @@ const InvActivos=()=> {
   
     
     const [search, setSearch] = useState("");
-    const [check, setCheck] = useState(localStorage.getItem("check"));
     const [filtro, setFiltro] = useState("default");
-
+    const [textfilter, setTextfilter] = useState("hidden");
     const [sshow, setShow] = useState(false);
-
-    const [reports, setReports] = useState([]);
-    
+    const [reports, setReports] = useState(["no hay datos"]);
     const[selecteddata, setSelecteddata] = useState([]);
     const [showadd, setShowadd] = useState(false);
     
-
     useEffect(() => {
-      const getReports = () => {
-        fetch('http://localhost:9000/api/investigadores')
-        .then(res => res.json())
-        .then(res => setReports(res))
-      }
-      getReports()
-    }, [] )
+      console.log("pase por aqui");
+      const fetches = async () => {
+        const getReports = async () => {
+          await fetch('http://localhost:9000/api/investigadores')
+          .then(res => res.json())
+          .then(res => setReports(res))
+        }
+        const getReportsname = async () => {
+          await fetch('http://localhost:9000/api/name/'+search)
+          .then(res => res.json())
+          .then(res => setReports(res))
+        }
+        const getReportsmail = async () => {
+          await fetch('http://localhost:9000/api/mail/'+search)
+          .then(res => res.json())
+          .then(res => setReports(res))
+        }
+        const getReportsline = async () => {
+          await fetch('http://localhost:9000/api/line/'+search)
+          .then(res => res.json())
+          .then(res => setReports(res)); 
+        }
+        const getReportsinstitution = async () => {
+          await fetch('http://localhost:9000/api/institution/'+search)
+          .then(res => res.json())
+          .then(res => setReports(res))
+        }
+        if(filtro === "default"){
+          await getReports()}
+        else if(filtro === "name"){
+          await getReportsname()}
+        else if(filtro === "mail"){
+          await getReportsmail()}
+        else if(filtro === "line"){
+          await getReportsline()}
+        else{
+          await getReportsinstitution()}
+    }
+    fetches();
+    console.log("sali de aqui");
+    }, [search, filtro])
 
   
 
-    
 
-
-
-   
-   
-
-    /*const filtroChange = (e) => {
-        setRegister("default");
-        if(check === ""){
-          localStorage.setItem("check", "checked");
-          setCheck("checked");
-          setFiltroSelect("visible");
-          setInputText("text");
-
-   
-        }
-        else {
-            setFiltroSelect("hidden");
-            localStorage.setItem("check", "");
-            setCheck("");
-            var data = JSON.parse(localStorage.getItem("data"));
-            localStorage.setItem("show", JSON.stringify(data));
-            localStorage.setItem("check", "")
-            window.location.reload();
-
-        }
-    }*/
-
+    const filtroChange = (e) => {
+      setFiltro(e.target.value);
+      if(e.target.value === "default"){
+        setTextfilter("hidden");
+        setFiltro("default");
+      }
+      else{
+        setTextfilter("visible");
+      }
+    }
 
   const deleteinv = (id,name) => {
     if(window.confirm("¿Está seguro(a) que desea eliminar a "+name+" de investigadores activos?")){
@@ -74,14 +86,22 @@ const InvActivos=()=> {
     
   }
 }
+   let i_ = -1;
 
 
- 
-    let i_ = -1;
-
-
-
-    var rep = reports.map((reporte,index) => {
+  var showreports = () => {
+    var rep;
+    if(reports===undefined){
+      rep= <tr><td></td>
+              <td>No hay datos</td>
+              <td></td>
+              <td></td>
+              <td></td></tr>
+      return rep;
+    }
+      else{
+     rep = reports.map((reporte,index) => {
+      console.log("pase por map");
       i_+=1;
       let id_ =reporte.id;
       let name =reporte.name;
@@ -109,6 +129,9 @@ const InvActivos=()=> {
       )
     }
     )
+    return rep;
+  }
+  }
 
     return (
       <>
@@ -116,32 +139,26 @@ const InvActivos=()=> {
       <div className='header'> 
         <img className="logo" src={"/ac3e.png"}/>
         <a className="statistics" href="https://app.powerbi.com/view?r=eyJrIjoiOGFhN2I3MzQtY2FlZS00YjQzLWIzNTktNTgwNDNmMWU1MTQxIiwidCI6IjAyNjI1Njc2LTMyMjctNDQwYS05YzY4LWJiNmQyOWRlNDIwNiIsImMiOjR9">Estadísticas</a>
+        <button className="add" onClick={(e)=>{setShowadd(true)}}>+</button>
       </div>
       <h1 className="title">Visualización de Investigadores</h1>
       <div className="buscador">
             <form onSubmit={ev => {ev.preventDefault()}}>
             <div>
-            <select name="selectbuscador" id="selectbuscador" value={filtro} >
-                    <option value="default" disabled hidden>no data filtering</option>
-                    <option value="status">Name</option>
-                    <option value="student">Mail</option>
-                    <option value="thesis">Line</option>
-                    <option value="degree">Institution</option>
-                    
-                </select>
-                
-              
-
-                <input type="text" name="buscar" id="buscar" autoComplete="off" onChange={ev => setSearch(ev.target.value)} ></input>
+            <select name="selectbuscador" id="selectbuscador" value={filtro} onChange={ev => filtroChange(ev)}>
+                    <option value="default">no data filtering</option>
+                    <option value="name">Name</option>
+                    <option value="mail">Mail</option>
+                    <option value="line">Line</option>
+                    <option value="institution">Institution</option>
+            </select>
+                <input type={textfilter} name="buscar" id="buscar" autoComplete="off" placeholder="filter" onChange={ev => setSearch(ev.target.value)} ></input>
             
-                <button type="submit" onClick={()=>{}}>Buscar</button>
             </div>
-            </form> 
-
-
-            
+            </form>
         </div>
-      <button className="add" onClick={(e)=>{setShowadd(true)}}>+</button>
+        
+      
       
       <AddInv showadd={showadd} onClose={()=>setShowadd(false)}/>   
 
@@ -159,7 +176,7 @@ const InvActivos=()=> {
   </thead>
   <tbody>
     {
-      rep
+      showreports()
       
     }
   </tbody>

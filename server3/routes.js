@@ -40,6 +40,55 @@ routes.get('/investigadores', (req, res)=>{
     })
 })
 
+
+routes.get('/name/:name', (req, res)=>{
+    req.getConnection((err, conn)=>{
+        if(err) return res.send(err)
+
+        conn.query('SELECT * FROM investigadores WHERE name = ?', [req.params.name],(err, rows)=>{
+            if(err) return res.send(err)
+
+            res.json(rows)
+        })
+    })
+})
+
+routes.get('/mail/:mail', (req, res)=>{
+    req.getConnection((err, conn)=>{
+        if(err) return res.send(err)
+
+        conn.query('SELECT * FROM investigadores WHERE mail = ?', [req.params.mail],(err, rows)=>{
+            if(err) return res.send(err)
+
+            res.json(rows)
+        })
+    })
+})
+
+routes.get('/line/:line', (req, res)=>{
+    req.getConnection((err, conn)=>{
+        if(err) return res.send(err)
+
+        conn.query('SELECT * FROM investigadores WHERE line = ?', [req.params.line],(err, rows)=>{
+            if(err) return res.send(err)
+
+            res.json(rows)
+        })
+    })
+})
+
+routes.get('/institution/:institution', (req, res)=>{
+    req.getConnection((err, conn)=>{
+        if(err) return res.send(err)
+
+        conn.query('SELECT * FROM investigadores WHERE institution = ?', [req.params.institution],(err, rows)=>{
+            if(err) return res.send(err)
+
+            res.json(rows)
+        })
+    })
+})
+
 routes.post('/investigadores', (req, res)=>{
     req.getConnection((err, conn)=>{
         if(err) return res.send(err)
