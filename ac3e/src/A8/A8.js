@@ -23,36 +23,21 @@ const A8=()=> {
     const [Information, setInformation] = useState("");
     const [Infraestructure, setInfraestructure] = useState("");
     const [Othercheck, setOthercheck] = useState("");
-
     const [sshow, setShow] = useState(false);
-
     const [archivosave , setArchivosave] =useState(null);
-
     const [reports, setReports] = useState([]);
-    
     const[selecteddata, setSelecteddata] = useState([]);
     
 
     useEffect(() => {
-      const getReports = () => {
-        fetch('http://localhost:9000/api')
+      const getReports = async () => {
+        await fetch('http://localhost:9000/api')
         .then(res => res.json())
         .then(res => setReports(res))
       }
       getReports()
     }, [] )
 
-    function requireEval (props){
-      return (
-        <label>
-          
-          <span style={{color:"red", marginRight:"5px"}}>
-            *
-          </span>
-          {props.children}
-        </label>
-      );
-    }
 
     const fileHandler=(e) => {
       setArchivosave(e.target.files[0])
@@ -176,16 +161,15 @@ const handlePosteriorChange = (e) => {
     }*/
 
 
-  const deletereport = (id) => {
+  const deletereport = async (id) => {
 
     const requestInit = {
     method:'DELETE'
     }
-    fetch('http://localhost:9000/api/'+id, requestInit)
+    await fetch('http://localhost:9000/api/'+id, requestInit)
     .then(res => res.json())
     .then(res => console.log(res))
     .then(res => console.log('hola'))
-    window.location.reload();
     
   }
  
@@ -238,10 +222,10 @@ const handlePosteriorChange = (e) => {
             <td>{nomThe}</td>
             <td>{degr}</td>
             <td>{clas}</td>
-            <tr key={index} className="botones">
+            <td key={index} className="botones">
               <button className="edit" onClick={(e)=>{setShow(true); setSelecteddata(reports[index]) }}><i class="fa-solid fa-pen-to-square"></i></button>
-              <button className="delete" onClick={()=>{deletereport(id)}}><i class="fa-solid fa-trash"></i></button>
-            </tr>
+              <button className="delete" onClick={()=>{deletereport(id);window.location.reload();}}><i class="fa-solid fa-trash"></i></button>
+            </td>
           </tr>
           
             < Modal sshow={sshow}  data={selecteddata} post={index} onClose={()=>setShow(false)}/>
@@ -270,6 +254,8 @@ const handlePosteriorChange = (e) => {
       <div className="formulario">
         <form onSubmit={ev => {
             ev.preventDefault();
+
+            const funccion = async () => {
 
     
             if(coautors === "text"){
@@ -359,7 +345,7 @@ const handlePosteriorChange = (e) => {
               const formdata = new FormData()
               formdata.append('respaldo', archivosave)
           
-              fetch('http://localhost:9000/respaldos/post', {
+              await fetch('http://localhost:9000/respaldos/post', {
                 method: 'POST',
                 headers: {'Content-Type':'application/json'},
                 body: formdata
@@ -394,7 +380,7 @@ const handlePosteriorChange = (e) => {
               headers: {'Content-Type':'application/json'},
               body: JSON.stringify(newReport1)
             }
-            fetch('http://localhost:9000/api', requestInit1)
+            await fetch('http://localhost:9000/api', requestInit1)
             .then(res => res.json())
             .then(res => console.log(res))
             .then(res => console.log('hola'))
@@ -406,7 +392,7 @@ const handlePosteriorChange = (e) => {
               headers: {'Content-Type':'application/json'},
               body: JSON.stringify(newReport2)
             }
-            fetch('http://localhost:9000/api', requestInit2)
+            await fetch('http://localhost:9000/api', requestInit2)
             .then(res => res.json())
             .then(res => console.log(res))
             .then(res => console.log('hola'))
@@ -418,11 +404,12 @@ const handlePosteriorChange = (e) => {
               headers: {'Content-Type':'application/json'},
               body: JSON.stringify(newReport)
             }
-            fetch('http://localhost:9000/api', requestInit)
+            await fetch('http://localhost:9000/api', requestInit)
             .then(res => res.json())
             .then(res => console.log(res))
             .then(res => console.log('hola'))
             }
+          }
            window.location.reload();
             }}>
           <span>
