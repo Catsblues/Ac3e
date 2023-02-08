@@ -1,5 +1,5 @@
 import "./A8.css";
-import React ,{useState, useEffect}from "react";
+import React ,{useState, useEffect} from "react";
 import Modal from "./modal";
 
 
@@ -410,6 +410,7 @@ const handlePosteriorChange = (e) => {
             .then(res => console.log('hola'))
             }
           }
+          funccion();
            window.location.reload();
             }}>
           <span>

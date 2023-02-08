@@ -19,10 +19,13 @@ const InvActivos=()=> {
     useEffect(() => {
       console.log("pase por aqui");
       const fetches = async () => {
+        console.log("pase por acuya");
         const getReports = async () => {
+          console.log("llegue a principal");
           await fetch('http://localhost:9000/api/investigadores')
           .then(res => res.json())
           .then(res => setReports(res))
+          console.log(reports);
         }
         const getReportsname = async () => {
           await fetch('http://localhost:9000/api/name/'+search)
@@ -45,7 +48,8 @@ const InvActivos=()=> {
           .then(res => setReports(res))
         }
         if(filtro === "default"){
-          await getReports()}
+          await getReports();
+        console.log(reports)}
         else if(filtro === "name"){
           await getReportsname()}
         else if(filtro === "mail"){
@@ -54,6 +58,7 @@ const InvActivos=()=> {
           await getReportsline()}
         else{
           await getReportsinstitution()}
+        console.log(reports);
     }
     fetches();
     console.log("sali de aqui");
