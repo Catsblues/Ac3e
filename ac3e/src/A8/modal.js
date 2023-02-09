@@ -15,7 +15,7 @@ const modal = ({ sshow, data, post ,onClose }) => {
     const [filtroSelect, setFiltroSelect] = useState("hidden");
     const [inputText, setInputText] = useState("hidden");
     const [search, setSearch] = useState("");
-    const [check, setCheck] = useState(localStorage.getItem("check"));
+    const [checkCoautor, setCheckCoautor] = useState("false");
     const [coautors, setCoautors] = useState("hidden");
     const [other, setOther] = useState("hidden");
     const [archivo, setArchivo] = useState("hidden");
@@ -24,11 +24,21 @@ const modal = ({ sshow, data, post ,onClose }) => {
 
     const [showw, setShoww] = useState(false);
 
-    
+    useEffect(() => {
+        console.log(data);
+        //console.log(data.coautor);
+        if(data.name !== ""){
+            console.log(data.name);
+            console.log("miau");
+            setCheckCoautor("true");
+            setCoautors("text");
+        }
+    }, []);
 
     if (!sshow) {
         return null;
     }
+
     const handleGenderChange = (e) => {
         console.log(e.target.value);
         setGender(e.target.value)

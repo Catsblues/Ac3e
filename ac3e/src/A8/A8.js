@@ -33,6 +33,10 @@ const A8=()=> {
     const [archivosave , setArchivosave] =useState(null);
     const [reports, setReports] = useState([]);
     const[selecteddata, setSelecteddata] = useState([]);
+    const [filtrostatus, setFiltrostatus] = useState("default");
+    const [filtroacademic, setFiltroacademic] = useState("default");
+    const [filtrosave, setFiltrosave] = useState("default");
+
     
 
     useEffect(() => {
@@ -47,12 +51,25 @@ const A8=()=> {
         .then(res => res.json())
         .then(res => setReports(res))
       }
-      const getReportsstatus = async () => {
-        await fetch('http://localhost:9000/api/a8status'+search)
+      const getReportstitle = async () => {
+        await fetch('http://localhost:9000/api/a8title'+search)
         .then(res => res.json())
         .then(res => setReports(res))
       }
+      const getReportsstatus = async () => {
+        if(search === "progress"){
+          await fetch('http://localhost:9000/api/a8status1')
+          .then(res => res.json())
+          .then(res => setReports(res))
+        }
+        else{
+          await fetch('http://localhost:9000/api/a8status2')
+          .then(res => res.json())
+          .then(res => setReports(res))
+        }
+      }
       const getReportsacademic = async () => {
+
         await fetch('http://localhost:9000/api/a8degree'+search)
         .then(res => res.json())
         .then(res => setReports(res))
@@ -73,6 +90,9 @@ const A8=()=> {
       }
       else if(filtro === "degree"){
         await getReportsacademic();
+      }
+      else if(filtro === "title"){
+        await getReportstitle();
       }
       else{
         await getReportssave();
@@ -135,6 +155,11 @@ const A8=()=> {
           setFiltro("title");
         }
       }
+    }
+
+    const thesisstatusChange = (e) => {
+      
+      
     }
 
     const handleStatusChange = (e) => {
@@ -270,9 +295,6 @@ const handlePosteriorChange = (e) => {
       else{
         clas="save"
       }
-      console.log("reporteeee");
-
-      console.log(reporte);
       return(
         <>
           <tr key={index}>
@@ -693,41 +715,7 @@ const handlePosteriorChange = (e) => {
       <h1 className="title">Visualización de datos</h1>
       <h3 className="text">Aquí observará los datos ya se envió anteriormente.</h3>
 
-      <div className="buscador">
-            <form onSubmit={ev => {ev.preventDefault()}}>
-            <div>
-            <select name="selectbuscador" id="selectbuscador" style={{width:"145px"}} value={filtro} onChange={ev => filtroChange(ev)}>
-                    <option value="default">no data filtering</option>
-                    <option value="status">Thesis status</option>
-                    <option value="name">Student Name</option>
-                    <option value="title">Thesis Title</option>
-                    <option value="degree">Academic Degree</option>
-                    <option value="save">Save type</option>
-            </select>
-                <input type={textfilter} name="buscar" id="buscar" autoComplete="off" placeholder="filter" onChange={ev => setSearch(ev.target.value)} ></input>
-
-                <select name="selectbuscador" id="selectbuscador" style={{visibility:statusfilter, width:"130px"}}>
-                    <option value="default" hidden>no data filtering</option>
-                    <option value="progress">In Progress</option>
-                    <option value="finished">Finished</option>
-                </select>
-
-                <select name="selectbuscador" id="selectbuscador" style={{visibility:academicfilter, width:"130px"}}>
-                    <option value="default" hidden>no data filtering</option>
-                    <option value="undergraduate">Undergraduate degree or professional title</option>
-                    <option value="master">Master or Equivalent</option>
-                    <option value="ph">PhD degree</option>
-                    <option value="other">Professional Title and Master</option>
-                </select>
-
-                <select name="selectbuscador" id="selectbuscador" style={{visibility:savefilter, width:"130px"}}>
-                    <option value="default" hidden>no data filtering</option>
-                    <option value="erased">Erased</option>
-                    <option value="save">Save</option>
-                </select>
-            </div>
-            </form>
-        </div>
+      
           
 
         <div className="tabla"> 
