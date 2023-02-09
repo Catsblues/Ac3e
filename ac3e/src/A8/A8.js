@@ -22,7 +22,7 @@ const A8=()=> {
     const [search, setSearch] = useState("");
     const [check, setCheck] = useState(localStorage.getItem("check"));
     const [coautors, setCoautors] = useState("hidden");
-    const [other, setOther] = useState("hidden");
+    const [others, setOthers] = useState("hidden");
     const [archivo, setArchivo] = useState("hidden");
     const [ins, setIns] = useState("hidden");
     const [Equipment, setEquipment] = useState("false");
@@ -202,11 +202,11 @@ const handlePosteriorChange = (e) => {
     }
 
     const otherChange = (e) => {
-      if(other==="hidden"){
-        setOther("text");
+      if(others==="hidden"){
+        setOthers("text");
       }
       else{
-        setOther("hidden");
+        setOthers("hidden");
       }
     }
 
@@ -345,16 +345,20 @@ const handlePosteriorChange = (e) => {
             else{
               var coautor = "";
               var coautorInstitution = "";
-              var cotutor_check = "false";
+              var cotutor_check = "";
             }
 
-            if(other === "text"){
-              var other = ev.target.other.value;
+            if(others === "text"){
+              console.log("var: "+ev.target.otherin.value);
+              var otherr = ev.target.otherin.value;
+              console.log(otherr);
               var otherInstitution = ev.target.otherInstitution.value;
+              var other_check = "true";
               }
               else{
-                var other = "";
+                var otherr = "";
                 var otherInstitution = "";
+                var other_check = "";
               }
             if(Equipment===""){
               var equipment = "true";
@@ -429,11 +433,11 @@ const handlePosteriorChange = (e) => {
             }
 
             
-            console.log(selectAcademic);
+            console.log(otherr);
             if(selectAcademic === "4"){
               console.log("holis");
               //Consulta POST profesional title
-              let newReport1 = {name :name, run: run, gender : gender, mail: mail, thesis_status :selectThesis, title:title, academic_degree: "1", degree_domination: denomination, tutor:tutor, autor_institution: tutorInstitution ,cotutor_check: cotutor_check,cotutor:coautor,coautor_institution:coautorInstitution ,other:other, other_institution: otherInstitution,degree_u:degreeUniversity, program_starts: startProgram, thesis_starts:startThesis, thesis_end:endThesis, posterior_working:selectPosterior,institution_working:InstitutionPosterior,inv:comentario, file: filee, borrador: erased, equipment:equipment, information:information, infraestructure: infraestructure, other_resource:othercheck }
+              let newReport1 = {name :name, run: run, gender : gender, mail: mail, thesis_status :selectThesis, title:title, academic_degree: "1", degree_domination: denomination, tutor:tutor, autor_institution: tutorInstitution ,cotutor_check: cotutor_check,cotutor:coautor,coautor_institution:coautorInstitution , other:otherr, other_institution: otherInstitution,other_check: other_check,degree_u:degreeUniversity, program_starts: startProgram, thesis_starts:startThesis, thesis_end:endThesis, posterior_working:selectPosterior,institution_working:InstitutionPosterior,inv:comentario, file: filee, borrador: erased, equipment:equipment, information:information, infraestructure: infraestructure, other_resource:othercheck }
             const requestInit1 = {
               method:'POST',
               headers: {'Content-Type':'application/json'},
@@ -445,7 +449,7 @@ const handlePosteriorChange = (e) => {
             .then(res => console.log('hola'))
             //Consulta POST master
             console.log("hola miau");
-            let newReport2 = {name :name, run: run, gender : gender, mail: mail, thesis_status :selectThesis, title:title, academic_degree: "2", degree_domination: denomination, tutor:tutor, autor_institution: tutorInstitution ,cotutor_check: cotutor_check,cotutor:coautor,coautor_institution:coautorInstitution ,other:other, other_institution: otherInstitution,degree_u:degreeUniversity, program_starts: startProgram, thesis_starts:startThesis, thesis_end:endThesis, posterior_working:selectPosterior,institution_working:InstitutionPosterior,inv:comentario, file: filee, borrador: erased, equipment:equipment, information:information, infraestructure: infraestructure, other_resource:othercheck}
+            let newReport2 = {name :name, run: run, gender : gender, mail: mail, thesis_status :selectThesis, title:title, academic_degree: "2", degree_domination: denomination, tutor:tutor, autor_institution: tutorInstitution ,cotutor_check: cotutor_check,cotutor:coautor,coautor_institution:coautorInstitution,other_check: other_check ,other:otherr, other_institution: otherInstitution,degree_u:degreeUniversity, program_starts: startProgram, thesis_starts:startThesis, thesis_end:endThesis, posterior_working:selectPosterior,institution_working:InstitutionPosterior,inv:comentario, file: filee, borrador: erased, equipment:equipment, information:information, infraestructure: infraestructure, other_resource:othercheck}
             const requestInit2 = {
               method:'POST',
               headers: {'Content-Type':'application/json'},
@@ -457,7 +461,7 @@ const handlePosteriorChange = (e) => {
             .then(res => console.log('hola'))
             }
             else{
-              let newReport = {name :name, run: run, gender : gender, mail: mail, thesis_status :selectThesis, title:title, academic_degree: selectAcademic, degree_domination: denomination, tutor:tutor, autor_institution: tutorInstitution, cotutor_check: cotutor_check,cotutor:coautor,coautor_institution:coautorInstitution ,other:other, other_institution: otherInstitution,degree_u:degreeUniversity, program_starts: startProgram, thesis_starts:startThesis, thesis_end:endThesis, posterior_working:selectPosterior,institution_working:InstitutionPosterior,inv:comentario, file: filee, borrador: erased, equipment:equipment, information:information, infraestructure: infraestructure, other_resource:othercheck}
+              let newReport = {name :name, run: run, gender : gender, mail: mail, thesis_status :selectThesis, title:title, academic_degree: selectAcademic, degree_domination: denomination, tutor:tutor, autor_institution: tutorInstitution, cotutor_check: cotutor_check,cotutor:coautor,coautor_institution:coautorInstitution,other_check: other_check  ,other:otherr, other_institution: otherInstitution,degree_u:degreeUniversity, program_starts: startProgram, thesis_starts:startThesis, thesis_end:endThesis, posterior_working:selectPosterior,institution_working:InstitutionPosterior,inv:comentario, file: filee, borrador: erased, equipment:equipment, information:information, infraestructure: infraestructure, other_resource:othercheck}
             const requestInit = {
               method:'POST',
               headers: {'Content-Type':'application/json'},
@@ -583,8 +587,8 @@ const handlePosteriorChange = (e) => {
             <div>
             <label>Other?</label> 
             <input type="checkbox" name="checkOther" id="checkOther" onChange={otherChange}></input>
-            <input type={other} name="other" id="other" autoComplete="off" placeholder="Other"></input>
-            <input type={other} name="otherInstitution" id="otherInstitution" autoComplete="off" placeholder="Other's Institution"></input>
+            <input type={others} name="otherin" id="otherin" autoComplete="off" placeholder="Other"></input>
+            <input type={others} name="otherInstitution" id="otherInstitution" autoComplete="off" placeholder="Other's Institution"></input>
             </div>
             <div>
             <input type="text" name="degreeUniversity" id="degreeUniversity" className="autor" autoComplete="off" placeholder="University that gives the degree"/>

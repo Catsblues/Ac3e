@@ -21,18 +21,15 @@ const Modal = ({ sshow, data, post ,onClose }) => {
     const [archivo, setArchivo] = useState("hidden");
     const [ins, setIns] = useState("hidden");
     const [file, setFile] = useState(null);
-    const [cotutorchecked, setCotutorchecked] = useState(data.cotutor_check);
     
-    const [information, setInformation] = useState((data.information));
-    const [infraestructure, setInfraestructure] = useState((data.infraestructure));
-    const [other_resource, setOther_resource] = useState((data.other_resource));
-    
-
     const [showw, setShoww] = useState(false);
     var equip = (data.equipment=='true');
     var infra = (data.infraestructure=='true');
     var info = (data.information=='true');
     var other_s = (data.other_resource=='true');
+    var cotutorcheck = (data.cotutor_check=='true');
+    var othercheck = (data.other_check=='true');
+
 
     if (!sshow) {
         return null;
@@ -46,17 +43,6 @@ const Modal = ({ sshow, data, post ,onClose }) => {
 
     }
 
-    function test(dato) {
-        console.log("dato:"+dato);
-        return (dato=='true');
-        // if(dato==='true'){
-        //     console.log("estoy aqui");
-        //     return true;
-        // }
-        // else{
-        //     return false;
-        // }
-    }
 
 
 
@@ -94,23 +80,27 @@ const Modal = ({ sshow, data, post ,onClose }) => {
 
     }
 
+  
+
     const coautorChange = (e) => {
-        if (coautors === "hidden") {
+        if (cotutorcheck === false) {
             setCoautors("text");
-            setCotutorchecked("true");
+            cotutorcheck = true;
         }
         else {
             setCoautors("hidden");
-            setCotutorchecked("false");
+            cotutorcheck = false;
         }
     }
 
     const otherChange = (e) => {
-        if (other === "hidden") {
+        if (othercheck === false) {
             setOther("text");
+            othercheck = true;
         }
         else {
             setOther("hidden");
+            othercheck = false;
         }
     }
 
@@ -210,6 +200,18 @@ const Modal = ({ sshow, data, post ,onClose }) => {
                         else{
                             var other_resource = "";
                         }
+                        if(cotutorcheck===true){
+                            var cotutor_check = "true";
+                        }
+                        else{
+                            var cotutor_check = "";
+                        }
+                        if(othercheck===true){
+                            var other_check = "true";
+                        }
+                        else{
+                            var other_check = "";
+                        }
 
                         const name = ev.target.name.value;
                         const run = ev.target.run.value;
@@ -283,7 +285,9 @@ const Modal = ({ sshow, data, post ,onClose }) => {
                                 other:other, 
                                 autor_institution: tutorInstitution,
                                 coautor_institution: coautorInstitution,
+                                cotutor_check:cotutor_check,
                                 other_institution: otherInstitution,
+                                other_check:other_check,
                                 degree_u:degreeUniversity, 
                                 program_starts: startProgram, 
                                 thesis_starts:startThesis, 
@@ -324,6 +328,8 @@ const Modal = ({ sshow, data, post ,onClose }) => {
                                 autor_institution: tutorInstitution,
                                 coautor_institution: coautorInstitution,
                                 other_institution: otherInstitution,
+                                cotutor_check:cotutor_check,
+                                other_check:other_check,
                                 degree_u:degreeUniversity, 
                                 program_starts: startProgram, 
                                 thesis_starts:startThesis, 
@@ -364,6 +370,8 @@ const Modal = ({ sshow, data, post ,onClose }) => {
                                 autor_institution: tutorInstitution,
                                 coautor_institution: coautorInstitution,
                                 other_institution: otherInstitution,
+                                cotutor_check:cotutor_check,
+                                other_check:other_check,
                                 degree_u:degreeUniversity, 
                                 program_starts: startProgram, 
                                 thesis_starts:startThesis, 
@@ -411,7 +419,6 @@ const Modal = ({ sshow, data, post ,onClose }) => {
 
                 <div className="formulario2">
                     <button className="boton" onClick={() => { onClose(true); setShoww(false) }}>X</button>
-                    <h1 className="title">Edición de datos</h1>
 
                     <form onSubmit={async (ev) => {
                          ev.preventDefault();
@@ -427,7 +434,7 @@ const Modal = ({ sshow, data, post ,onClose }) => {
                         <span className="item"><i class="fa-solid fa-circle-question"><div class="innerText">
                                 First name and last name.
                             </div><div class="innerText">
-                                First name and last name.
+                            Format: First Name and Last Name (e.j., Juan Perez).
                             </div></i>
                             
                         </span>
@@ -440,7 +447,7 @@ const Modal = ({ sshow, data, post ,onClose }) => {
                         <input type="text" name="run" id="run" className="autor" autoComplete="off" defaultValue={data.run} placeholder="Run o passport" />
                         </label>
                         <span className="item"><i class="fa-solid fa-circle-question"><div class="innerText">
-                                Writing without point and with script
+                        Format : Without point and with script (e.j., 12345678-9).
                             </div></i>
                             
                         </span>
@@ -492,7 +499,7 @@ const Modal = ({ sshow, data, post ,onClose }) => {
                         </label>
                         <span className="item"><i class="fa-solid fa-circle-question">
                         <div class="innerText">
-                                Last name followed by "," and first name initial.
+                        Format: Last Name, First name initial. (e.j., Perez, J.).
                             </div>
                         </i>
                             
@@ -506,7 +513,7 @@ const Modal = ({ sshow, data, post ,onClose }) => {
                         </div>
                         <div>
                         <label>Co-tutor?</label>
-                        <input type="checkbox" name="checkCoautor" id="checkCoautor" checked={cotutorchecked} onChange={coautorChange}></input>
+                        <input type="checkbox" name="checkCoautor" id="checkCoautor" defaultChecked={cotutorcheck} onChange={coautorChange}></input>
                         
                         <input type="text" name="coautor" id="coautor" defaultValue={data.cotutor} autoComplete="off" placeholder="Co-Tutor"></input>
                         
@@ -515,13 +522,11 @@ const Modal = ({ sshow, data, post ,onClose }) => {
                         </div>
                         <div>
                         <label>Other?</label>
-                        <input type="checkbox" name="checkOther" id="checkOther" onChange={otherChange}></input>
+                        <input type="checkbox" name="checkOther" id="checkOther" defaultChecked={othercheck} onChange={otherChange}></input>
              
-                        <input type={other} name="other" id="other" autoComplete="off" defaultValue={data.other} placeholder="Other"></input>
+                        <input type="text" name="other" id="other" autoComplete="off" defaultValue={data.other} placeholder="Other"></input>
                         
-                        
-            
-                        <input type={other} name="otherInstitution" id="otherInstitution" autoComplete="off"defaultValue={data.other_institution}  placeholder="Other's Institution"></input>
+                        <input type="text" name="otherInstitution" id="otherInstitution" autoComplete="off"defaultValue={data.other_institution}  placeholder="Other's Institution"></input>
                         
                         
                         </div>
@@ -574,7 +579,7 @@ const Modal = ({ sshow, data, post ,onClose }) => {
                         <input type={archivo} name="archivo" id="archivo" onChange={e => fileChange(e)} ></input>
                         </label>
                         <span className="item"><i class="fa-solid fa-circle-question" style={{visibility:posteriorSelect}}><div class="innerText" >
-                                Only pdf, if it weighs more than 20 megabytes attach pdf with cover, index and abstract.
+                        Format: .pdf 20mb max or .pdf with cover, index and abstract.
                             </div></i>
                             
                         </span>
@@ -602,7 +607,7 @@ const Modal = ({ sshow, data, post ,onClose }) => {
                         <input type={ins} name="InstitutionPosterior" id="InstitutionPosterior" defaultValue={data.institution_working} className="journal" autoComplete="off" placeholder="Institution of Posterior working area" />
                         </label>
                         <span className="item"><i class="fa-solid fa-circle-question" style={{visibility:posteriorSelect}}><div class="innerText" >
-                                Institute where it is inserted. If you are unemployed indicate.
+                        Institute where it is inserted. If the student is unemployed indicate.
                             </div></i>
                             
                         </span>
