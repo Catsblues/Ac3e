@@ -21,28 +21,41 @@ const Modal = ({ sshow, data, post ,onClose }) => {
     const [archivo, setArchivo] = useState("hidden");
     const [ins, setIns] = useState("hidden");
     const [file, setFile] = useState(null);
+    const [cotutorchecked, setCotutorchecked] = useState(data.cotutor_check);
+    
+    const [information, setInformation] = useState((data.information));
+    const [infraestructure, setInfraestructure] = useState((data.infraestructure));
+    const [other_resource, setOther_resource] = useState((data.other_resource));
+    
 
     const [showw, setShoww] = useState(false);
-
-    useEffect(() => {
-        console.log(data);
-        //console.log(data.coautor);
-        if(data.name !== ""){
-            console.log(data.name);
-            console.log("miau");
-            setCheckCoautor("true");
-            setCoautors("text");
-        }
-    }, []);
+    var equip = (data.equipment=='true');
+    var infra = (data.infraestructure=='true');
+    var info = (data.information=='true');
+    var other_s = (data.other_resource=='true');
 
     if (!sshow) {
         return null;
     }
+    console.log(data.equipment);
+   
 
     const handleGenderChange = (e) => {
         console.log(e.target.value);
         setGender(e.target.value)
 
+    }
+
+    function test(dato) {
+        console.log("dato:"+dato);
+        return (dato=='true');
+        // if(dato==='true'){
+        //     console.log("estoy aqui");
+        //     return true;
+        // }
+        // else{
+        //     return false;
+        // }
     }
 
 
@@ -84,9 +97,11 @@ const Modal = ({ sshow, data, post ,onClose }) => {
     const coautorChange = (e) => {
         if (coautors === "hidden") {
             setCoautors("text");
+            setCotutorchecked("true");
         }
         else {
             setCoautors("hidden");
+            setCotutorchecked("false");
         }
     }
 
@@ -108,6 +123,42 @@ const Modal = ({ sshow, data, post ,onClose }) => {
         formdata.append('pdf', file)
         console.log(formdata);
     }
+
+    const equipmentChange = (e) => {
+        if(equip===false){
+          equip = true;
+        }
+        else{
+          equip = false;
+        }
+      }
+  
+      const informationChange = (e) => {
+        if(info===false){
+          info = true;
+        }
+        else{
+          info=false;
+        }
+      }
+  
+      const infraestructureChange = (e) => {
+        if(infra===false){
+          infra = true;
+        }
+        else{
+          infra = false;
+        }
+      }
+  
+      const othercheckChange = (e) => {
+        if(other_s===false){
+          other_s = true;
+        }
+        else{
+          other_s = false;
+        }
+      }
 
 
     
@@ -135,6 +186,31 @@ const Modal = ({ sshow, data, post ,onClose }) => {
                             var otherInstitution = "";
                         }
 
+                        if(equip===true){
+                            var equipment = "true";
+                        }
+                        else{
+                            var equipment = "";
+                        }
+                        if(info===true){
+                            var information = "true";
+                        }
+                        else{
+                            var information = "";
+                        }
+                        if(infra===true){
+                            var infraestructure = "true";
+                        }
+                        else{
+                            var infraestructure = "";
+                        }
+                        if(other_s===true){
+                            var other_resource = "true";
+                        }
+                        else{
+                            var other_resource = "";
+                        }
+
                         const name = ev.target.name.value;
                         const run = ev.target.run.value;
                         const gender = ev.target.selectbuscador.value;
@@ -149,7 +225,6 @@ const Modal = ({ sshow, data, post ,onClose }) => {
                         const startProgram = ev.target.startProgram.value;
                         const startThesis = ev.target.startThesis.value;
                         const endThesis = ev.target.endThesis.value;
-                        const selectResource = ev.target.selectResource.value;
                         const selectPosterior = ev.target.selectPosterior.value;
                         const InstitutionPosterior = ev.target.InstitutionPosterior.value;
                         const comentario = ev.target.comentario.value;
@@ -169,7 +244,6 @@ const Modal = ({ sshow, data, post ,onClose }) => {
                         console.log("startProgram: " + startProgram);
                         console.log("startThesis: " + startThesis);
                         console.log("endThesis: " + endThesis);
-                        console.log("selectResource: " + selectResource);
                         console.log("selectPosterior: " + selectPosterior);
                         console.log("InstitutionPosterior: " + InstitutionPosterior);
                         console.log("comentario: " + comentario);
@@ -214,12 +288,16 @@ const Modal = ({ sshow, data, post ,onClose }) => {
                                 program_starts: startProgram, 
                                 thesis_starts:startThesis, 
                                 thesis_end:endThesis, 
-                                resourse_center:selectResource, 
                                 posterior_working:selectPosterior,
                                 institution_working:InstitutionPosterior,
                                 inv:comentario, 
                                 file: filee, 
-                                borrador:erased
+                                borrador:erased,
+                                equipment:equipment,
+                                information:information,
+                                infraestructure:infraestructure,
+                                other_resource:other_resource
+
                             }
                             const requestInit1 = {
                                 method:'PUT',
@@ -249,13 +327,16 @@ const Modal = ({ sshow, data, post ,onClose }) => {
                                 degree_u:degreeUniversity, 
                                 program_starts: startProgram, 
                                 thesis_starts:startThesis, 
-                                thesis_end:endThesis, 
-                                resourse_center:selectResource, 
+                                thesis_end:endThesis,  
                                 posterior_working:selectPosterior,
                                 institution_working:InstitutionPosterior,
                                 inv:comentario, 
                                 file: filee, 
-                                borrador:erased
+                                borrador:erased,
+                                equipment:equipment,
+                                information:information,
+                                infraestructure:infraestructure,
+                                other_resource:other_resource
                               }
                               const requestInit2 = {
                                 method:'PUT',
@@ -286,13 +367,16 @@ const Modal = ({ sshow, data, post ,onClose }) => {
                                 degree_u:degreeUniversity, 
                                 program_starts: startProgram, 
                                 thesis_starts:startThesis, 
-                                thesis_end:endThesis, 
-                                resourse_center:selectResource, 
+                                thesis_end:endThesis,  
                                 posterior_working:selectPosterior,
                                 institution_working:InstitutionPosterior,
                                 inv:comentario, 
                                 file: filee, 
-                                borrador:erased
+                                borrador:erased,
+                                equipment:equipment,
+                                information:information,
+                                infraestructure:infraestructure,
+                                other_resource:other_resource
                                 };
                               //Consulta PUT
                               const requestInit = {
@@ -422,11 +506,11 @@ const Modal = ({ sshow, data, post ,onClose }) => {
                         </div>
                         <div>
                         <label>Co-tutor?</label>
-                        <input type="checkbox" name="checkCoautor" id="checkCoautor" onChange={coautorChange}></input>
+                        <input type="checkbox" name="checkCoautor" id="checkCoautor" checked={cotutorchecked} onChange={coautorChange}></input>
                         
-                        <input type={coautors} name="coautor" id="coautor" defaultValue={data.cotutor} autoComplete="off" placeholder="Co-Tutor"></input>
+                        <input type="text" name="coautor" id="coautor" defaultValue={data.cotutor} autoComplete="off" placeholder="Co-Tutor"></input>
                         
-                        <input type={coautors} name="coautorInstitution" id="coautorInstitution" autoComplete="off" defaultValue={data.coautor_institution} placeholder="Co-Tutor's Institution"></input>
+                        <input type="text" name="coautorInstitution" id="coautorInstitution" autoComplete="off" defaultValue={data.coautor_institution} placeholder="Co-Tutor's Institution"></input>
                         
                         </div>
                         <div>
@@ -455,18 +539,19 @@ const Modal = ({ sshow, data, post ,onClose }) => {
                         <input type="text" name="endThesis" id="endThesis" className="journal"defaultValue={data.thesis_end}  autoComplete="off" placeholder="Year student end thesis" />
                         </div>
                         <div>
-                        <select name="selectResource" id="selectResource" defaultValue={data.resourse_center} onChange={e => handleResourceChange(e)}>
-                            <option value="0" disabled hidden>Resources provide by the center</option>
-                            <option value="1">Equipment</option>
-                            <option value="2">Information</option>
-                            <option value="3">Infraestructure</option>
-                            <option value="4">Equipment and Information</option>
-                            <option value="5">Equipment and Infraestructure</option>
-                            <option value="6">Information and Infraestructure</option>
-                            <option value="7">Equipment, Information and Infraestructure</option>
-                            <option value="8">Other</option>
-                        </select>
-                        </div>
+              <label style={{fontWeight: 'bold', marginTop:'15px' ,marginBottom: '5px'}} >Resources provide by the center:</label>
+            </div>
+            <div>
+            <input type="checkbox" name="equipment" id="equipment"  className="checks" defaultChecked={equip} onChange={e => equipmentChange(e)}></input>
+            <label>Equipment</label>
+            <input type="checkbox" name="information" id="information" style={{marginLeft: '20px'}} className="checks" defaultChecked={info} onChange={e => informationChange(e)}></input>
+            <label>Information</label>
+            <input type="checkbox" name="infraestructure" id="infraestructure" style={{marginLeft: '20px'}} className="checks" defaultChecked={infra} onChange={e => infraestructureChange(e)}></input>
+            <label>Infraestructure</label>
+            <input type="checkbox" name="other" id="other" style={{marginLeft: '20px', marginBottom: '20px'}} className="checks" defaultChecked={other_s} onChange={e => othercheckChange(e)}></input>
+            <label>Other</label>
+            
+            </div>
 
 
                         <div>

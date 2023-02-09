@@ -25,10 +25,10 @@ const A8=()=> {
     const [other, setOther] = useState("hidden");
     const [archivo, setArchivo] = useState("hidden");
     const [ins, setIns] = useState("hidden");
-    const [Equipment, setEquipment] = useState("");
-    const [Information, setInformation] = useState("");
-    const [Infraestructure, setInfraestructure] = useState("");
-    const [Othercheck, setOthercheck] = useState("");
+    const [Equipment, setEquipment] = useState("false");
+    const [Information, setInformation] = useState("false");
+    const [Infraestructure, setInfraestructure] = useState("false");
+    const [Othercheck, setOthercheck] = useState("false");
     const [sshow, setShow] = useState(false);
     const [archivosave , setArchivosave] =useState(null);
     const [reports, setReports] = useState([]);
@@ -318,9 +318,6 @@ const handlePosteriorChange = (e) => {
     )
 
 
-    console.log(rep);
-
-
     return (
       <>
       
@@ -343,10 +340,12 @@ const handlePosteriorChange = (e) => {
             if(coautors === "text"){
             var coautor = ev.target.coautor.value;
             var coautorInstitution = ev.target.coautorInstitution.value;
+            var cotutor_check = "true";
             }
             else{
               var coautor = "";
               var coautorInstitution = "";
+              var cotutor_check = "false";
             }
 
             if(other === "text"){
@@ -357,51 +356,29 @@ const handlePosteriorChange = (e) => {
                 var other = "";
                 var otherInstitution = "";
               }
-            var selectResource="";
-            if(Equipment!=="" && Information!=="" && Infraestructure!=="" && Othercheck!==""){
-              selectResource = "Equipment, information, insfraestructure and other";
+            if(Equipment===""){
+              var equipment = "true";
             }
-            else if(Equipment!=="" && Information!=="" && Infraestructure!==""){
-              selectResource = "Equipment, information, insfraestructure";
+            else{
+              var equipment = "";
             }
-            else if(Equipment!=="" && Information!=="" && Othercheck!==""){
-              selectResource = "Equipment, information and other";
+            if(Information === ""){
+              var information = "true";
             }
-            else if(Equipment!=="" && Infraestructure!=="" && Othercheck!==""){
-              selectResource = "Equipment, insfraestructure and other";
+            else{
+              var information = "";
             }
-            else if(Information!=="" && Infraestructure!=="" && Othercheck!==""){
-              selectResource = "Information, insfraestructure and other";
+            if(Infraestructure === ""){
+              var infraestructure = "true";
             }
-            else if(Equipment!=="" && Information!==""){
-              selectResource = "Equipment and information";
+            else{
+              var infraestructure = "";
             }
-            else if(Equipment!=="" && Othercheck!==""){
-              selectResource = "Equipment and other";
+            if(Othercheck === ""){
+              var othercheck = "true";
             }
-            else if(Equipment!=="" && Infraestructure!==""){
-              selectResource = "Equipment and insfraestructure";
-            }
-            else if(Information!=="" && Infraestructure!==""){
-              selectResource = "Information and insfraestructure";
-            }
-            else if( Information!=="" && Othercheck!==""){
-              selectResource = "Information and other";
-            }
-            else if(Infraestructure!=="" && Othercheck!==""){
-              selectResource = "Infraestructure and other";
-            }
-            else if(Equipment!==""){
-              selectResource = "Equipment";
-            }
-            else if( Information!=="" ){
-              selectResource = "Information";
-            }
-            else if( Infraestructure!==""){
-              selectResource = "Insfraestructure";
-            }
-            else if(Othercheck!==""){
-              selectResource = "Other";
+            else{
+              var othercheck = "";
             }
             const name = ev.target.name.value;
             const run = ev.target.run.value;
@@ -456,7 +433,7 @@ const handlePosteriorChange = (e) => {
             if(selectAcademic === "4"){
               console.log("holis");
               //Consulta POST profesional title
-              let newReport1 = {name :name, run: run, gender : gender, mail: mail, thesis_status :selectThesis, title:title, academic_degree: "1", degree_domination: denomination, tutor:tutor, autor_institution: tutorInstitution ,cotutor:coautor,coautor_institution:coautorInstitution ,other:other, other_institution: otherInstitution,degree_u:degreeUniversity, program_starts: startProgram, thesis_starts:startThesis, thesis_end:endThesis, resourse_center:selectResource, posterior_working:selectPosterior,institution_working:InstitutionPosterior,inv:comentario, file: filee, borrador: erased}
+              let newReport1 = {name :name, run: run, gender : gender, mail: mail, thesis_status :selectThesis, title:title, academic_degree: "1", degree_domination: denomination, tutor:tutor, autor_institution: tutorInstitution ,cotutor_check: cotutor_check,cotutor:coautor,coautor_institution:coautorInstitution ,other:other, other_institution: otherInstitution,degree_u:degreeUniversity, program_starts: startProgram, thesis_starts:startThesis, thesis_end:endThesis, posterior_working:selectPosterior,institution_working:InstitutionPosterior,inv:comentario, file: filee, borrador: erased, equipment:equipment, information:information, infraestructure: infraestructure, other_resource:othercheck }
             const requestInit1 = {
               method:'POST',
               headers: {'Content-Type':'application/json'},
@@ -468,7 +445,7 @@ const handlePosteriorChange = (e) => {
             .then(res => console.log('hola'))
             //Consulta POST master
             console.log("hola miau");
-            let newReport2 = {name :name, run: run, gender : gender, mail: mail, thesis_status :selectThesis, title:title, academic_degree: "2", degree_domination: denomination, tutor:tutor, autor_institution: tutorInstitution ,cotutor:coautor,coautor_institution:coautorInstitution ,other:other, other_institution: otherInstitution,degree_u:degreeUniversity, program_starts: startProgram, thesis_starts:startThesis, thesis_end:endThesis, resourse_center:selectResource, posterior_working:selectPosterior,institution_working:InstitutionPosterior,inv:comentario, file: filee, borrador: erased}
+            let newReport2 = {name :name, run: run, gender : gender, mail: mail, thesis_status :selectThesis, title:title, academic_degree: "2", degree_domination: denomination, tutor:tutor, autor_institution: tutorInstitution ,cotutor_check: cotutor_check,cotutor:coautor,coautor_institution:coautorInstitution ,other:other, other_institution: otherInstitution,degree_u:degreeUniversity, program_starts: startProgram, thesis_starts:startThesis, thesis_end:endThesis, posterior_working:selectPosterior,institution_working:InstitutionPosterior,inv:comentario, file: filee, borrador: erased, equipment:equipment, information:information, infraestructure: infraestructure, other_resource:othercheck}
             const requestInit2 = {
               method:'POST',
               headers: {'Content-Type':'application/json'},
@@ -480,7 +457,7 @@ const handlePosteriorChange = (e) => {
             .then(res => console.log('hola'))
             }
             else{
-              let newReport = {name :name, run: run, gender : gender, mail: mail, thesis_status :selectThesis, title:title, academic_degree: selectAcademic, degree_domination: denomination, tutor:tutor, autor_institution: tutorInstitution ,cotutor:coautor,coautor_institution:coautorInstitution ,other:other, other_institution: otherInstitution,degree_u:degreeUniversity, program_starts: startProgram, thesis_starts:startThesis, thesis_end:endThesis, resourse_center:selectResource, posterior_working:selectPosterior,institution_working:InstitutionPosterior,inv:comentario, file: filee, borrador: erased}
+              let newReport = {name :name, run: run, gender : gender, mail: mail, thesis_status :selectThesis, title:title, academic_degree: selectAcademic, degree_domination: denomination, tutor:tutor, autor_institution: tutorInstitution, cotutor_check: cotutor_check,cotutor:coautor,coautor_institution:coautorInstitution ,other:other, other_institution: otherInstitution,degree_u:degreeUniversity, program_starts: startProgram, thesis_starts:startThesis, thesis_end:endThesis, posterior_working:selectPosterior,institution_working:InstitutionPosterior,inv:comentario, file: filee, borrador: erased, equipment:equipment, information:information, infraestructure: infraestructure, other_resource:othercheck}
             const requestInit = {
               method:'POST',
               headers: {'Content-Type':'application/json'},
@@ -495,7 +472,7 @@ const handlePosteriorChange = (e) => {
           }
           funccion();
           setActualizar(true);
-          window.location.reload();
+          //window.location.reload();
             }}>
               
           <span>

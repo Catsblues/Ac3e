@@ -1,6 +1,6 @@
 import React from "react";
 import { Link } from "react-router-dom";
-import "./modal.css"
+import "./Modal.css"
 
 const modal =()=> {
     let menu = [["Planilla General","PlanillaGen"],["Investigadores","PlanillaInv"],["Perfil de Investigadores","PerfilInv"]]
