@@ -28,7 +28,13 @@ const InvActivos=()=> {
           console.log(reports);
         }
         const getReportsname = async () => {
+          var bus = search+"%";
           await fetch('http://localhost:9000/api/name/'+search)
+          .then(res => res.json())
+          .then(res => setReports(res))
+        }
+        const getReportstype = async () => {
+          await fetch('http://localhost:9000/api/type/'+search)
           .then(res => res.json())
           .then(res => setReports(res))
         }
@@ -43,7 +49,7 @@ const InvActivos=()=> {
           .then(res => setReports(res)); 
         }
         const getReportsinstitution = async () => {
-          await fetch('http://localhost:9000/api/institution/'+search)
+          await fetch('http://localhost:9000/api/institution/'+search+'%')
           .then(res => res.json())
           .then(res => setReports(res))
         }
@@ -52,6 +58,8 @@ const InvActivos=()=> {
         console.log(reports)}
         else if(filtro === "name"){
           await getReportsname()}
+        else if(filtro === "type"){
+          await getReportstype()}
         else if(filtro === "mail"){
           await getReportsmail()}
         else if(filtro === "line"){
@@ -99,6 +107,7 @@ const InvActivos=()=> {
     var rep;
     if(reports===undefined){
       rep= <tr><td></td>
+              <td></td>
               <td>No hay datos</td>
               <td></td>
               <td></td>
@@ -111,6 +120,7 @@ const InvActivos=()=> {
       i_+=1;
       let id_ =reporte.id;
       let name =reporte.name;
+      let type =reporte.type;
       let mail =reporte.mail;
       let line =reporte.line;
       let institution=reporte.institution;
@@ -120,6 +130,7 @@ const InvActivos=()=> {
           <tr key={index}>
             
             <td>{name}</td>
+            <td>{type}</td>
             <td>{mail}</td>
             <td>{line}</td>
             <td>{institution}</td>
@@ -154,6 +165,7 @@ const InvActivos=()=> {
             <select name="selectbuscador" id="selectbuscador" value={filtro} onChange={ev => filtroChange(ev)}>
                     <option value="default">no data filtering</option>
                     <option value="name">Name</option>
+                    <option value="type">Type</option>
                     <option value="mail">Mail</option>
                     <option value="line">Line</option>
                     <option value="institution">Institution</option>
@@ -173,6 +185,7 @@ const InvActivos=()=> {
   <thead>
     <tr>
       <th scope="col">Name</th>
+      <th scope="col">Type</th>
       <th scope="col">Mail</th>
       <th scope="col">Line</th>
       <th scope="col">Institution</th>

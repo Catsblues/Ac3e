@@ -115,6 +115,18 @@ routes.get('/name/:name', (req, res)=>{
     })
 })
 
+routes.get('/type/:type', (req, res)=>{
+    req.getConnection((err, conn)=>{
+        if(err) return res.send(err)
+
+        conn.query('SELECT * FROM investigadores WHERE type = ?', [req.params.type],(err, rows)=>{
+            if(err) return res.send(err)
+
+            res.json(rows)
+        })
+    })
+})
+
 routes.get('/mail/:mail', (req, res)=>{
     req.getConnection((err, conn)=>{
         if(err) return res.send(err)

@@ -20,6 +20,7 @@ const AddInv = ({ showadd ,onClose }) => {
                        
 
                         const namee = ev.target.name.value;
+                        const type = ev.target.type.value;
                         const mail = ev.target.mail.value;
                         const line = ev.target.line.value;
                         const institution = ev.target.institution.value;
@@ -28,7 +29,8 @@ const AddInv = ({ showadd ,onClose }) => {
                         
                 
                                 let newInvestigadores = {
-                                    name :namee, 
+                                    name :namee,
+                                    type: type,
                                     mail: mail,
                                     line: line,
                                     institution: institution,
@@ -67,6 +69,11 @@ const AddInv = ({ showadd ,onClose }) => {
                         <div>
             
                         <input type="text" name="name" id="name" className="autor" autoComplete="off"  placeholder="Investigator Name"/>
+                        
+                        </div>
+                        <div>
+            
+                        <input type="text" name="type" id="type" className="autor" autoComplete="off"  placeholder="Investigator Type"/>
                         
                         </div>
                         <div>
