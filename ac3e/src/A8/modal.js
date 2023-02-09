@@ -1,9 +1,9 @@
-import "./modal.css";
+import "./Modal.css";
 import React, { useState, useEffect } from "react";
 
 
 
-const modal = ({ sshow, data, post ,onClose }) => {
+const Modal = ({ sshow, data, post ,onClose }) => {
 
     const [gender, setGender] = useState("0");
     const [thesisStatus, setThesisStatus] = useState("0");
@@ -540,4 +540,4 @@ const modal = ({ sshow, data, post ,onClose }) => {
     );
 }
 
-export default modal;
+export default Modal;

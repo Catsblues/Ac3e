@@ -10,7 +10,7 @@ import Login from "./Login/Login";
 import Inicio from "./Inicio/Inicio";
 import A1 from "./A1/A1";
 import A8 from "./A8/A8";
-import Modal from "./A8/modal"
+import Modal from "./A8/Modal"
 import InicioAdmin from "./Admin/InicioAdmin";
 import PlanillaInv from "./Admin/PlanillaInv";
 import PlanillaGen from "./Admin/PlanillaGen";
