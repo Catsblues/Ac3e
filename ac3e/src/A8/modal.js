@@ -99,25 +99,6 @@ const modal = ({ sshow, data, post ,onClose }) => {
         console.log(formdata);
     }
 
-   
-
-
-
-
-    const compare = (reportA, reportB) => {
-        var Akeys = Object.keys(reportA);
-        var Bkeys = Object.keys(reportB);
-
-        if (Akeys.join("") !== Bkeys.join("")) {
-            return false;
-        }
-        for (var i = 0; i < Akeys.length; i++) {
-            if (reportA[Akeys[i]] !== reportB[Bkeys[i]]) {
-                return false;
-            }
-        }
-        return true;
-    }
 
     
     
@@ -315,7 +296,7 @@ const modal = ({ sshow, data, post ,onClose }) => {
                               .then(res => console.log('hola'))
                               }
 
-                              window.location.reload();
+                                onClose(true);
                             
 
                         

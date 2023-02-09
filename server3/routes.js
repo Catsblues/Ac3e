@@ -28,6 +28,68 @@ routes.get('/', (req, res)=>{
 })
 
 
+routes.get('/a8name/:name', (req, res)=>{
+    req.getConnection((err, conn)=>{
+        if(err) return res.send(err)
+
+        conn.query('SELECT * FROM a8 WHERE name = ?', [req.params.name],(err, rows)=>{
+            if(err) return res.send(err)
+
+            res.json(rows)
+        })
+    })
+})
+
+routes.get('/a8status/:thesis_status', (req, res)=>{
+    req.getConnection((err, conn)=>{
+        if(err) return res.send(err)
+
+        conn.query('SELECT * FROM a8 WHERE thesis_Status = ?', [req.params.thesis_status],(err, rows)=>{
+            if(err) return res.send(err)
+
+            res.json(rows)
+        })
+    })
+})
+
+routes.get('/a8title/:title', (req, res)=>{
+    req.getConnection((err, conn)=>{
+        if(err) return res.send(err)
+
+        conn.query('SELECT * FROM a8 WHERE title = ?', [req.params.title],(err, rows)=>{
+            if(err) return res.send(err)
+
+            res.json(rows)
+        })
+    })
+})
+
+routes.get('/a8degree/:academic_degree', (req, res)=>{
+    req.getConnection((err, conn)=>{
+        if(err) return res.send(err)
+
+        conn.query('SELECT * FROM a8 WHERE academic_degree = ?', [req.params.academic_degree],(err, rows)=>{
+            if(err) return res.send(err)
+
+            res.json(rows)
+        })
+    })
+})
+
+routes.get('/a8save/:borrador', (req, res)=>{
+    req.getConnection((err, conn)=>{
+        if(err) return res.send(err)
+
+        conn.query('SELECT * FROM a8 WHERE borrador = ?', [req.params.borrador],(err, rows)=>{
+            if(err) return res.send(err)
+
+            res.json(rows)
+        })
+    })
+})
+
+
+
 routes.get('/investigadores', (req, res)=>{
     req.getConnection((err, conn)=>{
         if(err) return res.send(err)

@@ -46,7 +46,7 @@ const AddInv = ({ showadd ,onClose }) => {
                               .then(res => console.log('hola'))
                               
 
-                              window.location.reload();
+                                onClose(true);
                         
     }
 

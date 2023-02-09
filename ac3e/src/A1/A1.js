@@ -46,7 +46,9 @@ const A1=()=> {
             var data = JSON.parse(localStorage.getItem("data"));
             localStorage.setItem("show", JSON.stringify(data));
             localStorage.setItem("check", "")
-            window.location.reload();
+            setTimeout(()=>{
+              window.location.reload(true);
+            });
 
         }
     }
@@ -77,7 +79,9 @@ const A1=()=> {
       newList.push(newReport);
     }
     localStorage.setItem("data",JSON.stringify(newList));
-    window.location.reload();
+    setTimeout(()=>{
+      window.location.reload(true);
+    });
     
   }
 
@@ -145,7 +149,9 @@ const A1=()=> {
         }
     }
     localStorage.setItem("show",JSON.stringify(show));
-    window.location.reload();
+    setTimeout(()=>{
+      window.location.reload(true);
+    });
   
     
 }
@@ -192,7 +198,9 @@ const A1=()=> {
 
 
             writeJson(autor, coautor, titulo, journal, doi, volumen, first,last,date,uploadDay);
-            window.location.reload();
+            setTimeout(()=>{
+              window.location.reload(true);
+            });
             }}>
           
           <span>

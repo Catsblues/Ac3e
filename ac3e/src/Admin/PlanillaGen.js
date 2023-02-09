@@ -14,7 +14,9 @@ const PlanillaGen = () => {
         if(valor === "A1"){
           localStorage.setItem("campo","A1");
           localStorage.setItem("showGen",(localStorage.getItem("data")));
-          window.location.reload();
+          setTimeout(()=>{
+            window.location.reload(true);
+          });
           
         }
         else{
@@ -46,7 +48,9 @@ const PlanillaGen = () => {
           var data = JSON.parse(localStorage.getItem("data"));
           localStorage.setItem("showGen", JSON.stringify(data));
           localStorage.setItem("checkGen", "")
-          window.location.reload();
+          setTimeout(()=>{
+            window.location.reload(true);
+          });
 
       }
   }
@@ -66,7 +70,9 @@ const PlanillaGen = () => {
       newList.push(newReport);
     }
     localStorage.setItem("data",JSON.stringify(newList));
-    window.location.reload();
+    setTimeout(()=>{
+      window.location.reload(true);
+    });
     
   }
 
@@ -146,7 +152,9 @@ const PlanillaGen = () => {
         
     }
     localStorage.setItem("showGen",JSON.stringify(show));
-    window.location.reload();
+    setTimeout(()=>{
+      window.location.reload(true);
+    });
   
     
 }

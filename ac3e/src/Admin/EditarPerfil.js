@@ -45,7 +45,7 @@ const EditarPerfil = ({ sshow, data, post ,onClose }) => {
                               .then(res => console.log('hola'))
                               
 
-                              window.location.reload();
+                                onClose(true);
                             
 
                         

@@ -7,7 +7,7 @@ import AddInv from "./AddInv";
 const InvActivos=()=> {
 
   
-    
+    const[actualizar, setActualizar] = useState(false);
     const [search, setSearch] = useState("");
     const [filtro, setFiltro] = useState("default");
     const [textfilter, setTextfilter] = useState("hidden");
@@ -62,7 +62,8 @@ const InvActivos=()=> {
     }
     fetches();
     console.log("sali de aqui");
-    }, [search, filtro])
+    setActualizar(false);
+    }, [search, filtro,actualizar])
 
   
 
@@ -87,7 +88,7 @@ const InvActivos=()=> {
       .then(res => res.json())
       .then(res => console.log(res))
       .then(res => console.log('hola'))
-      window.location.reload();
+      setActualizar(true);
     
   }
 }
@@ -123,12 +124,12 @@ const InvActivos=()=> {
             <td>{line}</td>
             <td>{institution}</td>
             <td key={index} className="botones">
-              <button className="edit" onClick={(e)=>{setShow(true); setSelecteddata(reports[index]) }}><i class="fa-solid fa-pen-to-square"></i></button>
+              <button className="edit" onClick={(e)=>{setShow(true); setSelecteddata(reports[index])}}><i class="fa-solid fa-pen-to-square"></i></button>
               <button className="delete" onClick={()=>{deleteinv(id_, name)}}><i class="fa-solid fa-trash"></i></button>
             </td>
           </tr>
           
-            < EditarPerfil sshow={sshow}  data={selecteddata} post={index} onClose={()=>setShow(false)}/>
+            < EditarPerfil sshow={sshow}  data={selecteddata} post={index} onClose={()=>{setShow(false);setActualizar(true)}}/>
         
         </>
       )
@@ -165,7 +166,7 @@ const InvActivos=()=> {
         
       
       
-      <AddInv showadd={showadd} onClose={()=>setShowadd(false)}/>   
+      <AddInv showadd={showadd} onClose={()=>{setShowadd(false);setActualizar(true)}}/>   
 
         <div className="tabla"> 
         <table className="table table-success table-striped rounded">

@@ -6,6 +6,12 @@ import Modal from "./modal";
 
 const A8=()=> {
 
+    const [actualizar, setActualizar] = useState(false);
+    const [filtro, setFiltro] = useState("default");
+    const [textfilter, setTextfilter] = useState("hidden");
+    const [statusfilter, setStatusfilter] = useState("hidden");
+    const [academicfilter, setAcademicfilter] = useState("hidden");
+    const [savefilter, setSavefilter] = useState("hidden");
     const [gender, setGender] = useState("0");
     const [thesisStatus, setThesisStatus] = useState("0");
     const [academic, setAcademic] = useState("0");
@@ -30,13 +36,51 @@ const A8=()=> {
     
 
     useEffect(() => {
+      const fetches = async () => {
       const getReports = async () => {
         await fetch('http://localhost:9000/api')
         .then(res => res.json())
         .then(res => setReports(res))
       }
-      getReports()
-    }, [] )
+      const getReportsname = async () => {
+        await fetch('http://localhost:9000/api/a8name'+search)
+        .then(res => res.json())
+        .then(res => setReports(res))
+      }
+      const getReportsstatus = async () => {
+        await fetch('http://localhost:9000/api/a8status'+search)
+        .then(res => res.json())
+        .then(res => setReports(res))
+      }
+      const getReportsacademic = async () => {
+        await fetch('http://localhost:9000/api/a8degree'+search)
+        .then(res => res.json())
+        .then(res => setReports(res))
+      }
+      const getReportssave = async () => {
+        await fetch('http://localhost:9000/api/a8save'+search)
+        .then(res => res.json())
+        .then(res => setReports(res))
+      }
+      if(filtro === "default"){
+        await getReports();
+      }
+      else if(filtro === "name"){
+        await getReportsname();
+      }
+      else if(filtro === "status"){
+        await getReportsstatus();
+      }
+      else if(filtro === "degree"){
+        await getReportsacademic();
+      }
+      else{
+        await getReportssave();
+      }
+    }
+      fetches();
+      setActualizar(false);
+    }, [actualizar, filtro, search] )
 
 
     const fileHandler=(e) => {
@@ -49,7 +93,49 @@ const A8=()=> {
         
     }
 
-   
+    const filtroChange = (e) => {
+      setFiltro(e.target.value);
+      if(e.target.value === "default"){
+        setTextfilter("hidden");
+        setStatusfilter("hidden");
+        setAcademicfilter("hidden");
+        setSavefilter("hidden");
+        setFiltro("default");
+      }
+      else if(e.target.value === "status"){
+        setTextfilter("hidden");
+        setStatusfilter("visible");
+        setAcademicfilter("hidden");
+        setSavefilter("hidden");
+        setFiltro("status");
+      }
+      else if(e.target.value === "save"){
+        setTextfilter("hidden");
+        setStatusfilter("hidden");
+        setAcademicfilter("hidden");
+        setSavefilter("visible");
+        setFiltro("save");
+      }
+      else if(e.target.value === "degree"){
+        setTextfilter("hidden");
+        setStatusfilter("hidden");
+        setAcademicfilter("visible");
+        setSavefilter("hidden");
+        setFiltro("degree");
+      }
+      else{
+        setTextfilter("visible");
+        setStatusfilter("hidden");
+        setAcademicfilter("hidden");
+        setSavefilter("hidden");
+        if(e.target.value === "name"){
+          setFiltro("name");
+        }
+        else{
+          setFiltro("title");
+        }
+      }
+    }
 
     const handleStatusChange = (e) => {
     
@@ -135,42 +221,16 @@ const handlePosteriorChange = (e) => {
       }
     }
 
-
-    
-
-    /*const filtroChange = (e) => {
-        setRegister("default");
-        if(check === ""){
-          localStorage.setItem("check", "checked");
-          setCheck("checked");
-          setFiltroSelect("visible");
-          setInputText("text");
-
-   
-        }
-        else {
-            setFiltroSelect("hidden");
-            localStorage.setItem("check", "");
-            setCheck("");
-            var data = JSON.parse(localStorage.getItem("data"));
-            localStorage.setItem("show", JSON.stringify(data));
-            localStorage.setItem("check", "")
-            window.location.reload();
-
-        }
-    }*/
-
-
-  const deletereport = async (id) => {
+  const deletereport = (id) => {
 
     const requestInit = {
     method:'DELETE'
     }
-    await fetch('http://localhost:9000/api/'+id, requestInit)
+    fetch('http://localhost:9000/api/'+id, requestInit)
     .then(res => res.json())
     .then(res => console.log(res))
     .then(res => console.log('hola'))
-    
+    setActualizar(true);
   }
  
     let i_ = -1;
@@ -224,11 +284,11 @@ const handlePosteriorChange = (e) => {
             <td>{clas}</td>
             <td key={index} className="botones">
               <button className="edit" onClick={(e)=>{setShow(true); setSelecteddata(reports[index]) }}><i class="fa-solid fa-pen-to-square"></i></button>
-              <button className="delete" onClick={()=>{deletereport(id);window.location.reload();}}><i class="fa-solid fa-trash"></i></button>
+              <button className="delete" onClick={()=>{deletereport(id)}}><i class="fa-solid fa-trash"></i></button>
             </td>
           </tr>
           
-            < Modal sshow={sshow}  data={selecteddata} post={index} onClose={()=>setShow(false)}/>
+            < Modal sshow={sshow}  data={selecteddata} post={index} onClose={()=>{setShow(false);setActualizar(true)}}/>
         
         </>
       )
@@ -409,10 +469,13 @@ const handlePosteriorChange = (e) => {
             .then(res => console.log(res))
             .then(res => console.log('hola'))
             }
+             
           }
           funccion();
-           window.location.reload();
+          setActualizar(true);
+          window.location.reload();
             }}>
+              
           <span>
             
 					  <label >
@@ -630,7 +693,41 @@ const handlePosteriorChange = (e) => {
       <h1 className="title">Visualización de datos</h1>
       <h3 className="text">Aquí observará los datos ya se envió anteriormente.</h3>
 
-      
+      <div className="buscador">
+            <form onSubmit={ev => {ev.preventDefault()}}>
+            <div>
+            <select name="selectbuscador" id="selectbuscador" style={{width:"145px"}} value={filtro} onChange={ev => filtroChange(ev)}>
+                    <option value="default">no data filtering</option>
+                    <option value="status">Thesis status</option>
+                    <option value="name">Student Name</option>
+                    <option value="title">Thesis Title</option>
+                    <option value="degree">Academic Degree</option>
+                    <option value="save">Save type</option>
+            </select>
+                <input type={textfilter} name="buscar" id="buscar" autoComplete="off" placeholder="filter" onChange={ev => setSearch(ev.target.value)} ></input>
+
+                <select name="selectbuscador" id="selectbuscador" style={{visibility:statusfilter, width:"130px"}}>
+                    <option value="default" hidden>no data filtering</option>
+                    <option value="progress">In Progress</option>
+                    <option value="finished">Finished</option>
+                </select>
+
+                <select name="selectbuscador" id="selectbuscador" style={{visibility:academicfilter, width:"130px"}}>
+                    <option value="default" hidden>no data filtering</option>
+                    <option value="undergraduate">Undergraduate degree or professional title</option>
+                    <option value="master">Master or Equivalent</option>
+                    <option value="ph">PhD degree</option>
+                    <option value="other">Professional Title and Master</option>
+                </select>
+
+                <select name="selectbuscador" id="selectbuscador" style={{visibility:savefilter, width:"130px"}}>
+                    <option value="default" hidden>no data filtering</option>
+                    <option value="erased">Erased</option>
+                    <option value="save">Save</option>
+                </select>
+            </div>
+            </form>
+        </div>
           
 
         <div className="tabla"> 
