@@ -259,11 +259,11 @@ const Modal = ({ sshow, data, post ,onClose }) => {
                         var erased;
                         if(name==="" || run==="" || gender==="0" || title===""|| selectAcademic==="0"|| tutor===""|| startThesis===""|| (selectThesis==="2" && (selectPosterior==="0" || InstitutionPosterior==="" || ev.target.archivo.value===null ))){
                             
-                            erased = "1";
+                            erased = "erased";
                             console.log("entre a borrador");
                             }
                             else{
-                            erased = "0";
+                            erased = "saved";
                             console.log("no entre a borrador");
                             }
 
@@ -459,8 +459,8 @@ const Modal = ({ sshow, data, post ,onClose }) => {
           </span>
                         <select name="selectbuscador" id="selectbuscador" defaultValue={data.gender} onChange={e => handleGenderChange(e)}>
                             <option value='0' disabled hidden>Gender</option>
-                            <option value='1'>Femenino</option>
-                            <option value='2'>Masculino</option>
+                            <option value='Female'>Femenino</option>
+                            <option value='Male'>Masculino</option>
                         </select>
                         </label>
 
@@ -481,10 +481,10 @@ const Modal = ({ sshow, data, post ,onClose }) => {
           </span>
                         <select name="selectAcademic" id="selectAcademic" defaultValue={data.academic_degree} onChange={e => handleAcademicChange(e)}>
                             <option value="0" disabled hidden>Academic Degree</option>
-                            <option value="1">Undergraduate degree or profesional title</option>
-                            <option value="2">Master o equivalent</option>
-                            <option value="3">PhD degree</option>
-                            <option value="4">Profesional Title and Master</option>
+                            <option value="Undergraduate degree or profesional title">Undergraduate degree or profesional title</option>
+                            <option value="Master or equivalent">Master o equivalent</option>
+                            <option value="PhD degree">PhD degree</option>
+                            <option value="Professional Title and Master">Profesional Title and Master</option>
                         </select>
                         </label>
 
@@ -566,8 +566,8 @@ const Modal = ({ sshow, data, post ,onClose }) => {
           </span>
                         <select name="selectThesis" id="selectThesis" defaultValue={data.thesis_status} onChange={e => handleStatusChange(e)}>
                             <option value="0" disabled hidden>Thesis Status</option>
-                            <option value="1">In Progress</option>
-                            <option value="2">Finished</option>
+                            <option value="In Progress">In Progress</option>
+                            <option value="Finished">Finished</option>
                         </select>
                         </label>
                         </div>
@@ -588,15 +588,15 @@ const Modal = ({ sshow, data, post ,onClose }) => {
             *
           </span>
                         <select name="selectPosterior" id="selectPosterior" style={{ visibility: posteriorSelect }} defaultValue={data.posterior_working} onChange={e => handlePosteriorChange(e)}>
-                            <option value="0" disabled hidden>Posterior working</option>
-                            <option value="1">Private Education</option>
-                            <option value="2">Business</option>
-                            <option value="3">Own entrepreneurship</option>
-                            <option value="4">Goverment</option>
-                            <option value="5">Public Education</option>
-                            <option value="6">Social-ONG</option>
-                            <option value="7">In the center</option>
-                            <option value="8">None of de above</option>
+                        <option value="0" disabled hidden>Posterior working</option>
+                    <option value="Private Education">Private Education</option>
+                    <option value="Business">Business</option>
+                        <option value="Own entrepreneurship">Own entrepreneurship</option>
+                        <option value="Goverment">Goverment</option>
+                        <option value="Public Education">Public Education</option>
+                        <option value="Social-ONG">Social-ONG</option>
+                        <option value="In the center">In the center</option>
+                        <option value="None of the above">None of the above</option>
                         </select>
                         </label>
 

@@ -258,16 +258,6 @@ routes.delete('/investigadores/:id', (req, res)=>{
 })
 
 
-routes.delete('/investigadores/:id', (req, res)=>{
-    req.getConnection((err, conn)=>{
-        if(err) return res.send(err)
-        conn.query('DELETE FROM investigadores WHERE id = ?', [req.params.id], (err, rows)=>{
-            if(err) return res.send(err)
-
-            
-        })
-    })
-})
 
 
 routes.post('/respaldo/post', fileUpload,(req, res)=>{

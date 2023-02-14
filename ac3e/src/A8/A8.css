@@ -247,3 +247,29 @@ table.table-sucess.table-tripped {
     border-radius: 10px;
    
 }
+
+
+.exports{
+
+    background-color: black;
+    border-radius: 1rem;
+    padding: 0.5rem;
+    width: 125px;
+    margin-right: 50px;
+    margin-top: 5px;
+    display:grid;
+    gap: 100px;
+    box-sizing: border-box;
+    color:white;
+    box-shadow: 0 5px 5px rgba(212, 185, 150, .5);
+    transition: .5s;
+    font-family: system-ui;
+    font-size: 120%;
+    text-align: center;
+    text-decoration: none;
+  }
+  
+  .exports:hover{
+    transform: scale(0.9);
+    background-color:gray;
+  }

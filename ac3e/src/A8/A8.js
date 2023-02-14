@@ -1,5 +1,7 @@
 import "./A8.css";
 import React ,{useState, useEffect} from "react";
+import { utils, write} from "xlsx";
+import { saveAs } from "file-saver";
 import Modal from "./Modal";
 
 
@@ -111,6 +113,18 @@ const A8=()=> {
       console.log(e.target.value);
       setGender(e.target.value)
         
+    }
+
+    const exportData = () => {
+      //json to excel
+      const data = utils.json_to_sheet(reports);
+      const excelData = utils.book_new();
+      utils.book_append_sheet(excelData, data, "Reportes a8");
+
+      const excelBuffer = write(excelData, {bookType: "xlsx", type: "array"});
+      const data1 = new Blob([excelBuffer], {type: "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet"});
+      saveAs(data1, "Reportes a8.xlsx");
+
     }
 
     const filtroChange = (e) => {
@@ -276,24 +290,10 @@ const handlePosteriorChange = (e) => {
       }
       var nomStu = reporte.name;
       var nomThe = reporte.title;
-      if(reporte.academic_degree==="1"){
-        var degr = "Undergraduate degree or profesional title";
-      }
-      else if(reporte.academic_degree==="2"){
-        var degr = "Master or equivalent";
-      }
-      else if(reporte.academic_degree==="3"){
-        var degr = "PhD degree";
-      }
-      else{
-        var degr = "";
-      }
-      var clas;
-      if(reporte.borrador==="1"){
-        clas="erased";
-      }
-      else{
-        clas="save"
+      var degr = reporte.academic_degree;
+      var clas = reporte.clas;
+      if(degr === "0"){
+        degr = "non-degree admitted";
       }
       return(
         <>
@@ -423,12 +423,12 @@ const handlePosteriorChange = (e) => {
             }
 
             var erased;
-            if(name==="" || run==="" || gender==="0" || title===""|| selectAcademic==="0"|| tutor===""|| startThesis===""|| (selectThesis==="2" && (selectPosterior==="0" || InstitutionPosterior==="" || ev.target.archivo.value===null ))){
-               erased = "1";
+            if(name==="" || run==="" || gender==="0" || title===""|| selectAcademic==="0"|| tutor===""|| startThesis===""|| (selectThesis==="Finished" && (selectPosterior==="0" || InstitutionPosterior==="" || ev.target.archivo.value===null ))){
+               erased = "erased";
                console.log("entre a borrador");
             }
             else{
-               erased = "0";
+               erased = "saved";
                console.log("no entre a borrador");
             }
 
@@ -448,7 +448,6 @@ const handlePosteriorChange = (e) => {
             .then(res => console.log(res))
             .then(res => console.log('hola'))
             //Consulta POST master
-            console.log("hola miau");
             let newReport2 = {name :name, run: run, gender : gender, mail: mail, thesis_status :selectThesis, title:title, academic_degree: "2", degree_domination: denomination, tutor:tutor, autor_institution: tutorInstitution ,cotutor_check: cotutor_check,cotutor:coautor,coautor_institution:coautorInstitution,other_check: other_check ,other:otherr, other_institution: otherInstitution,degree_u:degreeUniversity, program_starts: startProgram, thesis_starts:startThesis, thesis_end:endThesis, posterior_working:selectPosterior,institution_working:InstitutionPosterior,inv:comentario, file: filee, borrador: erased, equipment:equipment, information:information, infraestructure: infraestructure, other_resource:othercheck}
             const requestInit2 = {
               method:'POST',
@@ -476,7 +475,7 @@ const handlePosteriorChange = (e) => {
           }
           funccion();
           setActualizar(true);
-          //window.location.reload();
+          window.location.reload();
             }}>
               
           <span>
@@ -520,8 +519,8 @@ const handlePosteriorChange = (e) => {
           </span>
             <select name="selectbuscador" id="selectbuscador" defaultValue={gender} style={{marginBottom: '10px' }} onChange={e => handleGenderChange(e)}>
               <option value='0' disabled hidden>Gender</option>
-              <option value='1'>Femenino</option>
-              <option value='2'>Masculino</option>
+              <option value='Female'>Femenino</option>
+              <option value='Male'>Masculino</option>
             </select>
             </label>
             </div>
@@ -544,10 +543,10 @@ const handlePosteriorChange = (e) => {
           </span>
             <select name="selectAcademic" id="selectAcademic" style={{marginBottom: '10px'}} defaultValue={academic} onChange={e => handleAcademicChange(e)}>
               <option value="0" disabled hidden>Academic Degree</option>
-              <option value="1">Undergraduate degree or profesional title</option>
-              <option value="2">Master o equivalent</option>
-              <option value="3">PhD degree</option>
-              <option value="4">Profesional Title and Master</option>
+              <option value="Undergraduate degree or profesional title">Undergraduate degree or profesional title</option>
+              <option value="Master or equivalent">Master or equivalent</option>
+              <option value="PhD degree">PhD degree</option>
+              <option value="Professional Title and Master">Professional Title and Master</option>
             </select>
             </label>
             </div>
@@ -631,8 +630,8 @@ const handlePosteriorChange = (e) => {
           </span>
             <select name="selectThesis" id="selectThesis" defaultValue={thesisStatus} style={{marginBottom:'10px'}} onChange={e => handleStatusChange(e)}>
               <option value="0" disabled hidden>Thesis Status</option>
-              <option value="1">In Progress</option>
-              <option value="2">Finished</option>
+              <option value="In Progress">In Progress</option>
+              <option value="Finished">Finished</option>
             </select>
             </label>
             </div>
@@ -658,14 +657,14 @@ const handlePosteriorChange = (e) => {
           </span>
             <select name="selectPosterior" id="selectPosterior" style={{visibility:posteriorSelect, marginRight:"5px", marginBottom: '10px'}} defaultValue={posterior} onChange={e => handlePosteriorChange(e)}>
               <option value="0" disabled hidden>Posterior working</option>
-              <option value="1">Private Education</option>
-              <option value="2">Business</option>
-              <option value="3">Own entrepreneurship</option>
-              <option value="4">Goverment</option>
-              <option value="5">Public Education</option>
-              <option value="6">Social-ONG</option>
-              <option value="7">In the center</option>
-              <option value="8">None of de above</option>
+              <option value="Private Education">Private Education</option>
+              <option value="Business">Business</option>
+              <option value="Own entrepreneurship">Own entrepreneurship</option>
+              <option value="Goverment">Goverment</option>
+              <option value="Public Education">Public Education</option>
+              <option value="Social-ONG">Social-ONG</option>
+              <option value="In the center">In the center</option>
+              <option value="None of the above">None of the above</option>
             </select>
             </label>
             </div>
@@ -697,7 +696,7 @@ const handlePosteriorChange = (e) => {
       <h3 className="text">Aquí observará los datos ya se envió anteriormente.</h3>
 
       
-          
+      <button classname="exports" onClick={()=>{exportData()}}> Exportar datos</button>  
 
         <div className="tabla"> 
         <table className="table table-success table-striped rounded">
