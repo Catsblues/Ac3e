@@ -2,7 +2,7 @@ import "./A8.css";
 import React ,{useState, useEffect} from "react";
 import { utils, write} from "xlsx";
 import { saveAs } from "file-saver";
-import Modal from "./Modal";
+import Modal from "./Modal.js";
 
 
 

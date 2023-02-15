@@ -6,14 +6,14 @@ import {
   Route,
 } from "react-router-dom";
 
-import Login from "./Login/Login";
-import Inicio from "./Inicio/Inicio";
-import A1 from "./A1/A1";
-import A8 from "./A8/A8";
-import InicioAdmin from "./Admin/InicioAdmin";
-import PlanillaInv from "./Admin/PlanillaInv";
-import PlanillaGen from "./Admin/PlanillaGen";
-import InvActivos from "./Admin/InvActivos";
+import Login from "./Login/Login.js";
+import Inicio from "./Inicio/Inicio.js";
+import A1 from "./A1/A1.js";
+import A8 from "./A8/A8.js";
+import InicioAdmin from "./Admin/InicioAdmin.js";
+import PlanillaInv from "./Admin/PlanillaInv.js";
+import PlanillaGen from "./Admin/PlanillaGen.js";
+import InvActivos from "./Admin/InvActivos.js";
 
 
 function App() {

@@ -1,7 +1,7 @@
 import "./InvActivos.css";
 import React ,{useState, useEffect}from "react";
-import EditarPerfil from "./EditarPerfil";
-import AddInv from "./AddInv";
+import EditarPerfil from "./EditarPerfil.js";
+import AddInv from "./AddInv.js";
 
 
 const InvActivos=()=> {

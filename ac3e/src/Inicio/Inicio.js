@@ -1,5 +1,5 @@
 import "./Inicio.css";
-import Campos from "./Components_Inicio/Campos";
+import Campos from "./Components_Inicio/Campos.js";
 import React from "react";
 
 const Inicio=()=> {

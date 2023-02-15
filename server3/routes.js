@@ -14,6 +14,11 @@ const fileUpload = multer({
     storage: diskstorage
 }).single('respaldo')
 
+routes.get("/testing", (req, res) => {
+    console.log("testing route", req.body)
+    res.send("testing route")
+});
+
 
 routes.get('/', (req, res)=>{
     req.getConnection((err, conn)=>{

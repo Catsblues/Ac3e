@@ -1,6 +1,6 @@
 import "./InicioAdmin.css";
 import React from "react";
-import Modal from "./ComponentsAdmin/Modal"
+import Modal from "./ComponentsAdmin/Modal.js"
 
 const InicioAdmin=()=> {
 
