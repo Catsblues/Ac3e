@@ -26,4 +26,4 @@ def get_file():
     return content, 200
 
 if __name__ == '__main__':
-    app.run(debug=True, port=80)
+    app.run(debug=True, port=3000)
