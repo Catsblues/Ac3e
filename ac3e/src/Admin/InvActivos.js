@@ -5,71 +5,54 @@ import AddInv from "./AddInv.js";
 
 
 const InvActivos=()=> {
-
   
-    const[actualizar, setActualizar] = useState(false);
-    const [search, setSearch] = useState("");
-    const [filtro, setFiltro] = useState("default");
-    const [textfilter, setTextfilter] = useState("hidden");
-    const [sshow, setShow] = useState(false);
-    const [reports, setReports] = useState(["no hay datos"]);
-    const[selecteddata, setSelecteddata] = useState([]);
-    const [showadd, setShowadd] = useState(false);
+  const[actualizar, setActualizar] = useState(false);
+  const [search, setSearch] = useState("");
+  const [filtro, setFiltro] = useState("default");
+  const [textfilter, setTextfilter] = useState("hidden");
+  const [sshow, setShow] = useState(false);
+  const [reports, setReports] = useState(["no hay datos"]);
+  const[selecteddata, setSelecteddata] = useState([]);
+  const [showadd, setShowadd] = useState(false);
     
-    useEffect(() => {
-      console.log("pase por aqui");
-      const fetches = async () => {
-        console.log("pase por acuya");
-        const getReports = async () => {
-          console.log("llegue a principal");
-          await fetch('http://localhost:9000/api/investigadores')
-          .then(res => res.json())
-          .then(res => setReports(res))
-          console.log(reports);
-        }
-        const getReportsname = async () => {
-          var bus = search+"%";
-          await fetch('http://localhost:9000/api/name/'+search)
-          .then(res => res.json())
-          .then(res => setReports(res))
-        }
-        const getReportstype = async () => {
-          await fetch('http://localhost:9000/api/type/'+search)
-          .then(res => res.json())
-          .then(res => setReports(res))
-        }
-        const getReportsmail = async () => {
-          await fetch('http://localhost:9000/api/mail/'+search)
-          .then(res => res.json())
-          .then(res => setReports(res))
-        }
-        const getReportsline = async () => {
-          await fetch('http://localhost:9000/api/line/'+search)
-          .then(res => res.json())
-          .then(res => setReports(res)); 
-        }
-        const getReportsinstitution = async () => {
-          await fetch('http://localhost:9000/api/institution/'+search+'%')
-          .then(res => res.json())
-          .then(res => setReports(res))
-        }
-        if(filtro === "default"){
-          await getReports();
-        console.log(reports)}
-        else if(filtro === "name"){
-          await getReportsname()}
-        else if(filtro === "type"){
-          await getReportstype()}
-        else if(filtro === "mail"){
-          await getReportsmail()}
-        else if(filtro === "line"){
-          await getReportsline()}
-        else{
-          await getReportsinstitution()}
-        console.log(reports);
-    }
-    fetches();
-    console.log("sali de aqui");
+  useEffect(() => {
+    
+      const getReports = async () => {
+        await fetch('http://localhost:9000/api/investigadores')
+        .then(res => res.json())
+        .then(res => setReports(res))}
+      const getReportsname = async () => {
+        await fetch('http://localhost:9000/api/name/'+search)
+        .then(res => res.json())
+        .then(res => setReports(res))}
+      const getReportstype = async () => {
+        await fetch('http://localhost:9000/api/type/'+search)
+        .then(res => res.json())
+        .then(res => setReports(res))}
+      const getReportsmail = async () => {
+        await fetch('http://localhost:9000/api/mail/'+search)
+        .then(res => res.json())
+        .then(res => setReports(res))}
+      const getReportsline = async () => {
+        await fetch('http://localhost:9000/api/line/'+search)
+        .then(res => res.json())
+        .then(res => setReports(res))}
+      const getReportsinstitution = async () => {
+        await fetch('http://localhost:9000/api/institution/'+search+'%')
+        .then(res => res.json())
+        .then(res => setReports(res))}
+      if(filtro === "default"){
+           getReports()}
+      else if(filtro === "name"){
+           getReportsname()}
+      else if(filtro === "type"){
+           getReportstype()}
+      else if(filtro === "mail"){
+           getReportsmail()}
+      else if(filtro === "line"){
+           getReportsline()}
+      else{
+           getReportsinstitution()}
     setActualizar(false);
     }, [search, filtro,actualizar])
 

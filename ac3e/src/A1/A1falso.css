@@ -1,0 +1,226 @@
+
+.formulario{
+    width: 100;
+    min-width: 200px;
+    margin-top: 30px;
+    margin-bottom: 30px;
+    margin-right: 30px;
+    margin-left: 30px;
+    border-radius: 10px;
+    background-color: #d1e7dd;
+    padding: 50px;
+    box-shadow: rgba(75, 70, 70, 0.16) 0px 1px 4px;
+    text-align: center;
+    
+
+}
+
+.formulario input {
+    font-family: 'Open Sans', sans-serif;
+    border-radius: 8px;
+    border: 2px solid #000000;
+    font-size: 16px;
+    margin-bottom: 10px;
+    color: #1f1f1f;
+    margin-left: 10px;
+
+
+}
+
+.formulario ::placeholder{
+    color: #6f6e6e;
+}
+
+.formulario input:focus {
+	outline: none;
+	border: 2px solid rgb(17, 207, 42);
+}
+
+
+.volumen , .first , .last, .date{
+    width: 120px;
+    padding: 2px;
+    text-align: center;
+    background-color: rgb(252, 188, 108);
+
+}
+
+.titulo, .autor{
+    width: 350px;
+    padding: 2px;
+    background-color: rgb(255, 215, 166);
+    
+}
+
+.journal, .doi{
+    width: 220px;
+    padding: 2px;
+    background-color: rgb(255, 206, 145);
+}
+
+ .comentario{
+    width: 500px;
+    margin-left: 0px;
+    padding: 20px;
+    background-color: rgb(248, 164, 63);
+
+}
+
+
+
+.formulario button[type="submit"] {
+	background: #323232;;
+	font-weight: 600;
+	font-family: 'Open Sans', sans-serif;
+	border: none;
+	cursor: pointer;
+	width: 70px;
+	padding: 10px;
+	border-radius: 5px;
+	color: #fff;
+	font-size: 16px;
+    margin-top: 20px;
+	transition: .3s ease all;
+}
+
+.formulario button[type="submit"]:hover {
+	background: #000000;
+}
+
+  
+.innerText {
+    background-color: #ffffff;
+    display: none;
+    font-family: 'Open Sans', sans-serif;
+    border-radius: 8px;
+    border: 2px solid #000000;
+    font-size: 10px;
+    width: 70px;
+    height: 40px;
+    position: absolute;
+    
+    
+}
+  
+.item {
+    background-color: transparent;
+    width: 25px;
+    height: 10px;
+    padding: 5px;
+    margin-right: 5px;
+
+}
+  
+
+
+.item:hover .innerText {
+    display: block;
+  }
+  
+  
+
+.tabla{
+    margin-top: 10px;
+    margin-left: 20px;
+    margin-right: 20px;
+}
+
+.edit{
+    background-color: rgb(5, 194, 252);
+    border-radius: 7px;
+    box-shadow: 0 5px 5px rgba(97, 96, 93, 0.5);
+    color:rgb(0, 0, 0);
+    transition: .5s;
+    margin-right: 5px;
+}
+
+.edit:hover{
+    transform: scale(0.9);background-color: rgb(3, 164, 212);
+  }
+
+
+  .delete{
+    background-color: rgb(255, 61, 2);
+    border-radius: 7px;
+    box-shadow: 0 5px 5px rgba(97, 96, 93, 0.5);
+    color:rgb(0, 0, 0);
+    transition: .5s;
+}
+
+.delete:hover{
+    transform: scale(0.9); background-color: rgb(189, 45, 1);
+  }
+
+
+  .buscador{
+
+    text-align: center;
+    margin-top: 40px;
+    margin-bottom: 20px;
+}
+.buscador select {
+    font-family: 'Open Sans', sans-serif;
+    border-radius: 5px;
+    border: 2px solid #e2e2e2;
+    font-size: 15px;
+    padding: 2px;
+    margin-bottom: 5px;
+    color: #1f1f1f;
+    margin-right: 50px;
+    width: 250px;
+
+}
+
+
+.buscador input {
+    font-family: 'Open Sans', sans-serif;
+    border-radius: 5px;
+    border: 2px solid #e2e2e2;
+    font-size: 13px;
+    padding: 2px;
+    margin-bottom: 5px;
+    color: #1f1f1f;
+    margin-right: 50px;
+
+}
+
+.buscador input:focus {
+	outline: none;
+	border: 2px solid #0085FF;
+}
+
+.buscador button[type="submit"] {
+	background: #303336;
+	font-weight: 600;
+	font-family: 'Open Sans', sans-serif;
+	border: none;
+	cursor: pointer;
+	width: 72px;
+	padding: 10px;
+	border-radius: 5px;
+	color: #fff;
+	font-size: 16px;
+    margin-top: 20px;
+	transition: .3s ease all;
+}
+
+.buscador button[type="submit"]:hover {
+	background: #040404;
+}
+
+
+.table {
+    background: transparent;
+    background-color: transparent;
+}
+
+
+
+table.table-sucess.table-tripped {
+    border-radius: 10px;
+   
+}
+
+
+  
+  

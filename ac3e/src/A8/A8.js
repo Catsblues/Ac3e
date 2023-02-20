@@ -44,7 +44,7 @@ const A8=()=> {
     useEffect(() => {
       const fetches = async () => {
       const getReports = async () => {
-        await fetch('http://localhost:9000/api')
+        await fetch('http://localhost:9000/api/a8')
         .then(res => res.json())
         .then(res => setReports(res))
       }
@@ -59,20 +59,13 @@ const A8=()=> {
         .then(res => setReports(res))
       }
       const getReportsstatus = async () => {
-        if(search === "progress"){
-          await fetch('http://localhost:9000/api/a8status1')
-          .then(res => res.json())
-          .then(res => setReports(res))
-        }
-        else{
-          await fetch('http://localhost:9000/api/a8status2')
-          .then(res => res.json())
-          .then(res => setReports(res))
-        }
+        await fetch('http://localhost:9000/api/a8thesisStatus'+search)
+        .then(res => res.json())
+        .then(res => setReports(res))
       }
       const getReportsacademic = async () => {
 
-        await fetch('http://localhost:9000/api/a8degree'+search)
+        await fetch('http://localhost:9000/api/a8academicDegree'+search)
         .then(res => res.json())
         .then(res => setReports(res))
       }
@@ -179,7 +172,7 @@ const A8=()=> {
     const handleStatusChange = (e) => {
     
       setThesisStatus(e.target.value)
-      if(e.target.value==="2"){
+      if(e.target.value==="Finished"){
         setArchivo("file");
         setPosteriorSelect("visible");
         setIns("text");
@@ -265,12 +258,13 @@ const handlePosteriorChange = (e) => {
     const requestInit = {
     method:'DELETE'
     }
-    fetch('http://localhost:9000/api/'+id, requestInit)
+    fetch('http://localhost:9000/api/a8/'+id, requestInit)
     .then(res => res.json())
     .then(res => console.log(res))
     .then(res => console.log('hola'))
     setActualizar(true);
   }
+  
  
     let i_ = -1;
 
@@ -279,21 +273,16 @@ const handlePosteriorChange = (e) => {
     var rep = reports.map((reporte,index) => {
       i_+=1;
       var id = reporte.id;
-      if(reporte.thesis_status==="1"){
-        var status = "In progress";
-      }
-      else if(reporte.thesis_status==="0"){
-        var status = "";
-      }
-      else{
-        var status = "Finished";
-      }
+      var status = reporte.thesis_status;
       var nomStu = reporte.name;
       var nomThe = reporte.title;
       var degr = reporte.academic_degree;
       var clas = reporte.clas;
       if(degr === "0"){
         degr = "non-degree admitted";
+      }
+      if(status === "0"){
+        status = "";
       }
       return(
         <>
@@ -407,17 +396,6 @@ const handlePosteriorChange = (e) => {
             if(archivosave!==null){
               const formdata = new FormData()
               formdata.append('respaldo', archivosave)
-          
-              await fetch('http://localhost:9000/respaldos/post', {
-                method: 'POST',
-                headers: {'Content-Type':'application/json'},
-                body: formdata
-              })
-              .then(res => res.json())
-              .then(res => console.log(res))
-              .catch(err => {
-                console.error(err)
-              })
               
 
             }
@@ -433,9 +411,8 @@ const handlePosteriorChange = (e) => {
             }
 
             
-            console.log(otherr);
+            
             if(selectAcademic === "4"){
-              console.log("holis");
               //Consulta POST profesional title
               let newReport1 = {name :name, run: run, gender : gender, mail: mail, thesis_status :selectThesis, title:title, academic_degree: "1", degree_domination: denomination, tutor:tutor, autor_institution: tutorInstitution ,cotutor_check: cotutor_check,cotutor:coautor,coautor_institution:coautorInstitution , other:otherr, other_institution: otherInstitution,other_check: other_check,degree_u:degreeUniversity, program_starts: startProgram, thesis_starts:startThesis, thesis_end:endThesis, posterior_working:selectPosterior,institution_working:InstitutionPosterior,inv:comentario, file: filee, borrador: erased, equipment:equipment, information:information, infraestructure: infraestructure, other_resource:othercheck }
             const requestInit1 = {
@@ -443,10 +420,9 @@ const handlePosteriorChange = (e) => {
               headers: {'Content-Type':'application/json'},
               body: JSON.stringify(newReport1)
             }
-            await fetch('http://localhost:9000/api', requestInit1)
+            await fetch('http://localhost:9000/api/a8', requestInit1)
             .then(res => res.json())
             .then(res => console.log(res))
-            .then(res => console.log('hola'))
             //Consulta POST master
             let newReport2 = {name :name, run: run, gender : gender, mail: mail, thesis_status :selectThesis, title:title, academic_degree: "2", degree_domination: denomination, tutor:tutor, autor_institution: tutorInstitution ,cotutor_check: cotutor_check,cotutor:coautor,coautor_institution:coautorInstitution,other_check: other_check ,other:otherr, other_institution: otherInstitution,degree_u:degreeUniversity, program_starts: startProgram, thesis_starts:startThesis, thesis_end:endThesis, posterior_working:selectPosterior,institution_working:InstitutionPosterior,inv:comentario, file: filee, borrador: erased, equipment:equipment, information:information, infraestructure: infraestructure, other_resource:othercheck}
             const requestInit2 = {
@@ -454,10 +430,9 @@ const handlePosteriorChange = (e) => {
               headers: {'Content-Type':'application/json'},
               body: JSON.stringify(newReport2)
             }
-            await fetch('http://localhost:9000/api', requestInit2)
+            await fetch('http://localhost:9000/api/a8', requestInit2)
             .then(res => res.json())
             .then(res => console.log(res))
-            .then(res => console.log('hola'))
             }
             else{
               let newReport = {name :name, run: run, gender : gender, mail: mail, thesis_status :selectThesis, title:title, academic_degree: selectAcademic, degree_domination: denomination, tutor:tutor, autor_institution: tutorInstitution, cotutor_check: cotutor_check,cotutor:coautor,coautor_institution:coautorInstitution,other_check: other_check  ,other:otherr, other_institution: otherInstitution,degree_u:degreeUniversity, program_starts: startProgram, thesis_starts:startThesis, thesis_end:endThesis, posterior_working:selectPosterior,institution_working:InstitutionPosterior,inv:comentario, file: filee, borrador: erased, equipment:equipment, information:information, infraestructure: infraestructure, other_resource:othercheck}
@@ -466,13 +441,18 @@ const handlePosteriorChange = (e) => {
               headers: {'Content-Type':'application/json'},
               body: JSON.stringify(newReport)
             }
-            await fetch('http://localhost:9000/api', requestInit)
+            await fetch('http://localhost:9000/api/a8', requestInit)
             .then(res => res.json())
             .then(res => console.log(res))
-            .then(res => console.log('hola'))
             }
              
           }
+          /*const requestBackboard = {
+            method:'POST',
+            headers: {'Content-Type':'application/json'},
+            body:
+          }*/
+
           funccion();
           setActualizar(true);
           window.location.reload();
