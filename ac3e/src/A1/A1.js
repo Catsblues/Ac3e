@@ -196,7 +196,7 @@ const A1=()=> {
       
       <div className='header'> 
         <img className="logo" src={"/ac3e.png"}/>
-        <h1 className="titulo1">A8 Thesis Students</h1>
+        <h1 className="titulo1">A1 Isi Publications</h1>
         <a className="statistics" href="https://app.powerbi.com/view?r=eyJrIjoiOGFhN2I3MzQtY2FlZS00YjQzLWIzNTktNTgwNDNmMWU1MTQxIiwidCI6IjAyNjI1Njc2LTMyMjctNDQwYS05YzY4LWJiNmQyOWRlNDIwNiIsImMiOjR9">Estadísticas</a>
       </div>
       
@@ -232,6 +232,7 @@ const A1=()=> {
                erased = "saved";
                
             }
+            console.log("hola1");
             let newReport = {autor:author, coauthor:coauthor, title:title, journal:journal, doi:doi, volume:volume, firstpage:first, lastpage:last, yearPublished:date, comment:comment, complete:erased}  
             const requestInit = {
               method:'POST',
@@ -241,15 +242,11 @@ const A1=()=> {
             await fetch('http://localhost:9000/api/a1', requestInit)
             .then(res => res.json())
             .then(res => console.log(res))
-            .then(res => {
-              setActualizar(true);
-              window.location.reload();
-            })
-
-            setActualizar(true);
-          window.location.reload();
+            .then(res => console.log('hola'))
           }
           funccion();
+          setActualizar(true);
+          window.location.reload();
             }}>
           
           <span>
