@@ -6,13 +6,13 @@ import AddInv from "./AddInv.js";
 
 const InvActivos=()=> {
   
-  const[actualizar, setActualizar] = useState(false);
+  const [actualizar, setActualizar] = useState(false);
   const [search, setSearch] = useState("");
   const [filtro, setFiltro] = useState("default");
   const [textfilter, setTextfilter] = useState("hidden");
   const [sshow, setShow] = useState(false);
   const [reports, setReports] = useState(["no hay datos"]);
-  const[selecteddata, setSelecteddata] = useState([]);
+  const [selecteddata, setSelecteddata] = useState([]);
   const [showadd, setShowadd] = useState(false);
     
   useEffect(() => {

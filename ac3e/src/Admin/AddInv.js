@@ -5,20 +5,20 @@ import React, { useState, useEffect } from "react";
 
 const AddInv = ({ showadd ,onClose }) => {
    
+    const [Type, setType] = useState("default");
+    const [Line, setLine] = useState("default");
 
     if (!showadd) {
-        return null;
-    }
+        return null}
     
-
+    const typeChange = (ev) => {
+        setType(ev.target.value)}
     
+    const lineChange = (ev) => {
+        setLine(ev.target.value)}
 
     const formFunction = (ev) => {
        
-
-
-                       
-
                         const namee = ev.target.name.value;
                         const type = ev.target.type.value;
                         const mail = ev.target.mail.value;
@@ -73,14 +73,27 @@ const AddInv = ({ showadd ,onClose }) => {
                         </div>
                         <div>
             
-                        <input type="text" name="type" id="type" className="autor" autoComplete="off"  placeholder="Investigator Type"/>
+                        <select name="type" defaultValue={Type} style={{marginBottom:"10px"}} onChange={ev => typeChange(ev)}>
+                            <option value="default" disabled hidden>Type</option>
+                            <option value="Titular">Titular</option>
+                            <option value="Asociado">Asociado</option>
+                            <option value="Postdoctoral">Posdoctoral</option>
+                        </select>
                         
                         </div>
                         <div>
                         <input type="text" name="mail" id="mail" className="autor" autoComplete="off"  placeholder="Mail" />
                         </div>
                         <div>
-                        <input type="text" name="line" id="line" className="journal" autoComplete="off"  placeholder="Line" />
+                        <select name="line" defaultValue={Line} style={{marginBottom:"10px"}} onChange={ev => lineChange(ev)}>
+                            <option value="default" disabled hidden>Line</option>
+                            <option value="Control">Control</option>
+                            <option value="Energia">Energía</option>
+                            <option value="Inteligencia Artificial">Inteligencia Artificial</option>
+                            <option value="Robotica">Robótica</option>
+                            <option value="Sistemas Biomedicos">Sistemas Biomédicos</option>
+                            <option value="Sistemas Electricos">Sistemas Eléctricos</option>
+                        </select>
                         </div>
                         <div>
                         <input type="text" name="institution" id="institution" className="journal" autoComplete="off"  placeholder="Institution"/>

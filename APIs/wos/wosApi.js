@@ -7,6 +7,7 @@ app.use((req, res, next) => {
   res.header('Access-Control-Allow-Origin', '*');
   next();
 });
+app.run(host='0.0.0.0')
 
 app.get('/wos', async (req, res) => {
   const apiKey = 'cc369e7fe729a62bbb01048470df4ed604027c45';
@@ -23,6 +24,11 @@ app.get('/wos', async (req, res) => {
   
     let numbers = data.Data[0].Source.Pages[0];
     let spl = numbers.split('-');
+
+    console.log(data);
+
+    console.log(data.Data[0].Keyword);
+    console.log(data.Data[0].Other);
 
     let dataReport = {
 

@@ -1,7 +1,10 @@
 import requests
 
-url = "http://54.162.2.109:80/"
+url = "http://54.162.2.109:80/sendfile"
 
+file = open("test.txt", "rb")
+files = {'file': file, 'filename': 'otro.txt'}
+file.close()
 
-response = requests.get(url)
-print(response.json())
+r = requests.post(url, files=files)
+print(r.text)

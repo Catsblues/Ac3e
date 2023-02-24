@@ -74,14 +74,27 @@ const EditarPerfil = ({ sshow, data, post ,onClose }) => {
                         </div>
                         <div>
             
-                        <input type="text" name="type" id="type" className="autor" autoComplete="off" defaultValue={data.type} placeholder="Investigator Type"/>
+                        <select name="type" style={{marginBottom:"10px"}} defaultValue={data.type}>
+                            <option value="default" disabled hidden>Type</option>
+                            <option value="Titular">Titular</option>
+                            <option value="Asociado">Asociado</option>
+                            <option value="Postdoctoral">Posdoctoral</option>
+                        </select>
                         
                         </div>
                         <div>
                         <input type="text" name="mail" id="mail" className="autor" autoComplete="off" defaultValue={data.mail} placeholder="Mail" />
                         </div>
                         <div>
-                        <input type="text" name="line" id="line" className="journal" autoComplete="off" defaultValue={data.line} placeholder="Line" />
+                        <select name="line" style={{marginBottom:"10px"}} defaultValue={data.line}>
+                            <option value="default" disabled hidden>Line</option>
+                            <option value="Control">Control</option>
+                            <option value="Energia">Energía</option>
+                            <option value="Inteligencia Artificial">Inteligencia Artificial</option>
+                            <option value="Robotica">Robótica</option>
+                            <option value="Sistemas Biomedicos">Sistemas Biomédicos</option>
+                            <option value="Sistemas Electricos">Sistemas Eléctricos</option>
+                        </select>
                         </div>
                         <div>
                         <input type="text" name="institution" id="institution" className="journal" autoComplete="off"  defaultValue={data.institution} placeholder="Institution"/>

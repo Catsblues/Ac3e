@@ -98,8 +98,26 @@ const A8=()=> {
     }, [actualizar, filtro, search] )
 
 
-    const fileHandler=(e) => {
+    const  fileHandler = (e) => {
       setArchivosave(e.target.files[0])
+      const lector = new FileReader();
+      lector.readAsDataURL(e.target.files[0]);
+      lector.onload = (event) => {
+        const data = event.target.result;
+        
+        const datos = new FormData();
+        datos.append('file', data);
+        datos.append('filename', "C:/Users/maure/Desktop/prueba.txt");
+        
+        fetch(
+          "http://127.0.0.1:4000/send_file",
+          {
+            method: "POST",
+            body: datos
+          }
+        )
+
+      }
     }
 
     const handleGenderChange = (e) => {
