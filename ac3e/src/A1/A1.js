@@ -250,6 +250,12 @@ const A1=()=> {
             }}>
           
           <span>
+          <label >
+            <span style={{color:"red", marginRight:"5px" }}>
+            *
+          </span>
+            <input type="text" name="doi" id="doi" className="doi" autoComplete="off" placeholder="Digital Object Identifier (DOI)" onChange={ev=>{searchofdoi(ev)}}/>
+            </label>
             
 					  <label >
             <span style={{color:"red", marginRight:"5px"}}>
@@ -298,12 +304,7 @@ const A1=()=> {
           </span>
 					  <input type="text" name="journal" id="journal" className="journal" style={{marginRight:"10px"}} autoComplete="off" placeholder="Journal Name" defaultValue={resdoi.Journal}/>
             </label>
-            <label >
-            <span style={{color:"red", marginRight:"5px" }}>
-            *
-          </span>
-            <input type="text" name="doi" id="doi" className="doi" autoComplete="off" placeholder="Digital Object Identifier (DOI)" onChange={ev=>{searchofdoi(ev)}}/>
-            </label>
+            
             
           </div>
           <div>
