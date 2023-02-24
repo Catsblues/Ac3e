@@ -7,7 +7,6 @@ app.use((req, res, next) => {
   res.header('Access-Control-Allow-Origin', '*');
   next();
 });
-app.run(host='0.0.0.0')
 
 app.get('/wos', async (req, res) => {
   const apiKey = 'cc369e7fe729a62bbb01048470df4ed604027c45';
