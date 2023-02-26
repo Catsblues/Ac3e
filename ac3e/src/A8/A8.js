@@ -44,7 +44,7 @@ const A8=()=> {
     useEffect(() => {
       const fetches = async () => {
       const getReports = async () => {
-        await fetch('http://localhost:9000/api/a8')
+        await fetch('http://20.151.235.246/api/a8', {method : 'GET', headers : {'Origin' : 'http://localhost:3000', 'origin' : 'http://localhost:3000'}})
         .then(res => res.json())
         .then(res => setReports(res))
       }
