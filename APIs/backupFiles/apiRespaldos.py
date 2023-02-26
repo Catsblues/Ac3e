@@ -6,7 +6,7 @@ from flask_cors import CORS
 app = Flask(__name__)
 cors = CORS(app)
 
-@app.route('/send_file', methods=['POST'])
+@app.route('/file/send_file', methods=['POST'])
 def send_file():
 
     print(request.form["file"])
@@ -25,7 +25,7 @@ def send_file():
 
     return {"message" : 'File saved'}, 200
 
-@app.route('/get_file', methods=['GET'])
+@app.route('/file/get_file', methods=['GET'])
 def get_file():
 
     file_name = request.json["file"]
@@ -38,7 +38,7 @@ def get_file():
 
     return {"content" : content}, 200
 
-@app.route('/delete_file', methods=['DELETE'])
+@app.route('/file/delete_file', methods=['DELETE'])
 def delete_file():
 
     file_name = request.json["file"]

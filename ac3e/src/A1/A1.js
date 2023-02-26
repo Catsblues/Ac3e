@@ -39,7 +39,7 @@ const A1=()=> {
     useEffect(() => {
       const fetches = async () => {
       const getReports = async () => {
-        await fetch('http://localhost:9000/api/a1')
+        await fetch('http://20.151.235.246/api/a1', {method : 'GET', headers : {'Origin' : 'http://localhost:3000', 'origin' : 'http://localhost:3000'}})
         .then(res => res.json())
         .then(res => setReports(res))
       }
@@ -87,8 +87,12 @@ const A1=()=> {
   const searchofdoi = async (ev) => {
     const getForDOI = async() => {
       const DOI = ev.target.value;
-      await fetch('http://3.22.99.91:5000/wos?q='+ DOI)
-      .then(res => res.json())
+      await fetch('http://20.151.235.246/wos/search?q='+ DOI)
+      .then(res => {
+        const data = res.json();
+        console.log(data);
+        return data
+})
       .then(data => {
         console.log(data);
         if(!data){

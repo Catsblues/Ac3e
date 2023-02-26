@@ -1,29 +1,37 @@
+
+const axios = require('axios');
+
 const express = require('express');
-
+const cors = require('cors');
 const app = express();
-const port = 5000;
+app.use(
+    cors()
+);
+const port = 5001;
 
-app.use((req, res, next) => {
-  res.header('Access-Control-Allow-Origin', '*');
-  next();
-});
+app.get('/wos/online', (req, res) => {
+  console.log("Ingresando a wos API!");
+  res.send("Bienvenido a wos API!");
+})
 
-app.get("/", (req, res) => {
-  res.send("WosApi is online!");
-});
-
-app.get('/wos', async (req, res) => {
+app.get('/wos/search', async (req, res) => {
+  console.log("Ingresando a la API wos")
   const apiKey = 'cc369e7fe729a62bbb01048470df4ed604027c45';
   const query = req.query.q;
+  if (query === ''){
+    return
+}
   const url = `https://wos-api.clarivate.com/api/woslite/?databaseId=WOK&usrQuery=DO%3D%28${encodeURIComponent(query)}%29&count=1&firstRecord=1`;
-
+  console.log(url);
   try {
-    const response = await fetch(url, {
-      headers: {
-        'X-ApiKey': apiKey,
-      },
-    });
-    var data = await response.json();
+    const response = await axios({method : 'get', url : url, headers : {'X-ApiKey' : apiKey}});
+    //const response = await fetch(url, {
+    //  headers: {
+    //    'X-ApiKey': apiKey,
+    //  },
+    //});
+    console.log("ESTO ES EN LA API");
+    var data = response.data;
   
     let numbers = data.Data[0].Source.Pages[0];
     let spl = numbers.split('-');
