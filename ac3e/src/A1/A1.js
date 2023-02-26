@@ -150,7 +150,7 @@ const A1=()=> {
     const requestInit = {
     method:'DELETE'
     }
-    fetch('http://localhost:9000/api/a1/'+id, requestInit)
+    fetch('http://20.151.235.246/api/a1/'+id, requestInit)
     .then(res => res.json())
     .then(res => console.log(res))
     .then(res => console.log('hola'))

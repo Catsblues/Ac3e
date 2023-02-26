@@ -308,7 +308,7 @@ const Modal = ({ sshow, data, post ,onClose }) => {
                                 headers: {'Content-Type':'application/json'},
                                 body: JSON.stringify(newReport1)
                               }
-                              fetch('http://localhost:9000/api/a8/'+data.id, requestInit1)
+                              fetch('http://20.151.235.246/api/a8/'+data.id, requestInit1)
                               .then(res => res.json())
                               .then(res => console.log(res))
                               .then(res => console.log('hola'))
@@ -349,7 +349,7 @@ const Modal = ({ sshow, data, post ,onClose }) => {
                                 headers: {'Content-Type':'application/json'},
                                 body: JSON.stringify(newReport2)
                               }
-                              fetch('http://localhost:9000/api/a8/'+data.id, requestInit2)
+                              fetch('http://20.151.235.246/api/a8/'+data.id, requestInit2)
                               .then(res => res.json())
                               .then(res => console.log(res))
                               .then(res => console.log('hola'))
@@ -392,7 +392,7 @@ const Modal = ({ sshow, data, post ,onClose }) => {
                                 headers: {'Content-Type':'application/json'},
                                 body: JSON.stringify(newReport)
                               }
-                              fetch('http://localhost:9000/api/a8/'+data.id, requestInit)
+                              fetch('http://20.151.235.246/api/a8/'+data.id, requestInit)
                               .then(res => res.json())
                               .then(res => console.log(res))
                               .then(res => console.log('hola'))
