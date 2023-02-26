@@ -100,24 +100,6 @@ const A8=()=> {
 
     const  fileHandler = (e) => {
       setArchivosave(e.target.files[0])
-      const lector = new FileReader();
-      lector.readAsDataURL(e.target.files[0]);
-      lector.onload = (event) => {
-        const data = event.target.result;
-        
-        const datos = new FormData();
-        datos.append('file', data);
-        datos.append('filename', "C:/Users/maure/Desktop/prueba.txt");
-        
-        fetch(
-          "http://127.0.0.1:4000/send_file",
-          {
-            method: "POST",
-            body: datos
-          }
-        )
-
-      }
     }
 
     const handleGenderChange = (e) => {
@@ -411,12 +393,7 @@ const handlePosteriorChange = (e) => {
             var filee= "";
             
             
-            if(archivosave!==null){
-              const formdata = new FormData()
-              formdata.append('respaldo', archivosave)
-              
-
-            }
+            
 
             var erased;
             if(name==="" || run==="" || gender==="0" || title===""|| selectAcademic==="0"|| tutor===""|| startThesis===""|| (selectThesis==="Finished" && (selectPosterior==="0" || InstitutionPosterior==="" || ev.target.archivo.value===null ))){
@@ -463,7 +440,25 @@ const handlePosteriorChange = (e) => {
             .then(res => res.json())
             .then(res => console.log(res))
             }
-             
+            //uploadFile
+            const lector = new FileReader();
+            lector.readAsDataURL(archivosave);
+            lector.onload = (event) => {
+            const data = event.target.result;
+        
+            const datos = new FormData();
+            datos.append('file', data);
+            datos.append('filename', "C:/Users/maure/Desktop/prueba.txt");
+        
+            fetch(
+              "http://127.0.0.1:4000/send_file",
+            {
+              method: "POST",
+              body: datos
+            }
+        )
+
+      }
           }
           /*const requestBackboard = {
             method:'POST',
