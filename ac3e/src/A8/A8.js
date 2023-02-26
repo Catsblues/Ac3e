@@ -448,10 +448,10 @@ const handlePosteriorChange = (e) => {
         
             const datos = new FormData();
             datos.append('file', data);
-            datos.append('filename', "C:/Users/maure/Desktop/prueba.txt");
+            datos.append('filename', "/home/konnits/respaldos/"+{title}+".pdf");
         
             fetch(
-              "http://127.0.0.1:4000/send_file",
+              "http://20.151.235.246/file/send_file",
             {
               method: "POST",
               body: datos
