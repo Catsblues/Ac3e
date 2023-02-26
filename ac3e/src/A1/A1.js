@@ -243,7 +243,7 @@ const A1=()=> {
               headers: {'Content-Type':'application/json'},
               body: JSON.stringify(newReport)
             }
-            await fetch('http://localhost:9000/api/a1', requestInit)
+            await fetch('http://20.151.235.246/api/a1', requestInit)
             .then(res => res.json())
             .then(res => console.log(res))
             .then(res => console.log('hola'))
