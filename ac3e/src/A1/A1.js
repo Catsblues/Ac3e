@@ -87,7 +87,7 @@ const A1=()=> {
   const searchofdoi = async (ev) => {
     const getForDOI = async() => {
       const DOI = ev.target.value;
-      await fetch('http://localhost:5000/wos?q='+ DOI)
+      await fetch('http://3.22.99.91:5000/wos?q='+ DOI)
       .then(res => res.json())
       .then(data => {
         console.log(data);
