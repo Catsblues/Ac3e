@@ -8,6 +8,10 @@ app.use((req, res, next) => {
   next();
 });
 
+app.get("/", (req, res) => {
+  res.send("WosApi is online!");
+});
+
 app.get('/wos', async (req, res) => {
   const apiKey = 'cc369e7fe729a62bbb01048470df4ed604027c45';
   const query = req.query.q;
