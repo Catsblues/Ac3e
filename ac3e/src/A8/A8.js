@@ -407,7 +407,7 @@ const handlePosteriorChange = (e) => {
 
             
             
-            if(selectAcademic === "4"){
+            if(selectAcademic === "Professional Title and Master"){
               //Consulta POST profesional title
               let newReport1 = {name :name, run: run, gender : gender, mail: mail, thesis_status :selectThesis, title:title, academic_degree: "1", degree_domination: denomination, tutor:tutor, autor_institution: tutorInstitution ,cotutor_check: cotutor_check,cotutor:coautor,coautor_institution:coautorInstitution , other:otherr, other_institution: otherInstitution,other_check: other_check,degree_u:degreeUniversity, program_starts: startProgram, thesis_starts:startThesis, thesis_end:endThesis, posterior_working:selectPosterior,institution_working:InstitutionPosterior,inv:comentario, file: filee, borrador: erased, equipment:equipment, information:information, infraestructure: infraestructure, other_resource:othercheck }
             const requestInit1 = {
@@ -430,6 +430,7 @@ const handlePosteriorChange = (e) => {
             .then(res => console.log(res))
             }
             else{
+              console.log("holis");
               let newReport = {name :name, run: run, gender : gender, mail: mail, thesis_status :selectThesis, title:title, academic_degree: selectAcademic, degree_domination: denomination, tutor:tutor, autor_institution: tutorInstitution, cotutor_check: cotutor_check,cotutor:coautor,coautor_institution:coautorInstitution,other_check: other_check  ,other:otherr, other_institution: otherInstitution,degree_u:degreeUniversity, program_starts: startProgram, thesis_starts:startThesis, thesis_end:endThesis, posterior_working:selectPosterior,institution_working:InstitutionPosterior,inv:comentario, file: filee, borrador: erased, equipment:equipment, information:information, infraestructure: infraestructure, other_resource:othercheck}
             const requestInit = {
               method:'POST',
