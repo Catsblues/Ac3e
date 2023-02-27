@@ -277,7 +277,7 @@ const handlePosteriorChange = (e) => {
       var nomStu = reporte.name;
       var nomThe = reporte.title;
       var degr = reporte.academic_degree;
-      var clas = reporte.clas;
+      var clas = reporte.borrador;
       if(degr === "0"){
         degr = "non-degree admitted";
       }
