@@ -443,6 +443,7 @@ const handlePosteriorChange = (e) => {
             //uploadFile
             const lector = new FileReader();
             lector.readAsDataURL(archivosave);
+            console.log(archivosave);
             lector.onload = (event) => {
             const data = event.target.result;
         
