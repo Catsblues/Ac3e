@@ -440,6 +440,7 @@ const handlePosteriorChange = (e) => {
             .then(res => res.json())
             .then(res => console.log(res))
             }
+            console.log("holaaa...");
             //uploadFile
             const lector = new FileReader();
             lector.readAsDataURL(archivosave);
