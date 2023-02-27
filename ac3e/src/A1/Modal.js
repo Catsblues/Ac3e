@@ -109,11 +109,11 @@ const Modal = ({ sshow, data, post ,onClose }) => {
             }
             let newReport = {autor:author, coauthor:coauthor, title:title, journal:journal, doi:doi, volume:volume, firstpage:first, lastpage:last, yearPublished:date, comment:comment, complete:erased}  
             const requestInit = {
-              method:'POST',
+              method:'PUT',
               headers: {'Content-Type':'application/json'},
               body: JSON.stringify(newReport)
             }
-            await fetch('http://20.151.235.246/api/a1', requestInit)
+            await fetch('http://20.151.235.246/api/a1'+data.id, requestInit)
             .then(res => res.json())
             .then(res => console.log(res))
             
