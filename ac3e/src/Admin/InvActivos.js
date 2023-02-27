@@ -18,7 +18,7 @@ const InvActivos=()=> {
   useEffect(() => {
     
       const getReports = async () => {
-        await fetch('http://localhost:9000/api/investigadores')
+        await fetch('http://20.151.235.246/api/investigadores')
         .then(res => res.json())
         .then(res => setReports(res))}
       const getReportsname = async () => {
@@ -75,7 +75,7 @@ const InvActivos=()=> {
       const requestInit = {
       method:'DELETE'
       }
-      fetch('http://localhost:9000/api/investigadores/'+id, requestInit)
+      fetch('http://20.151.235.246/api/investigadores/'+id, requestInit)
       .then(res => res.json())
       .then(res => console.log(res))
       .then(res => console.log('hola'))

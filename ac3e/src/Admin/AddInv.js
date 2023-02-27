@@ -42,7 +42,7 @@ const AddInv = ({ showadd ,onClose }) => {
                                 headers: {'Content-Type':'application/json'},
                                 body: JSON.stringify(newInvestigadores)
                               }
-                              fetch('http://localhost:9000/api/investigadores', requestInit)
+                              fetch('http://20.151.235.246/api/investigadores', requestInit)
                               .then(res => res.json())
                               .then(res => console.log(res))
                               .then(res => console.log('hola'))
