@@ -468,7 +468,7 @@ const handlePosteriorChange = (e) => {
 
           funccion();
           setActualizar(true);
-          window.location.reload();
+          //window.location.reload();
             }}>
               
           <span>
@@ -689,7 +689,7 @@ const handlePosteriorChange = (e) => {
       <h3 className="text">Aquí observará los datos ya se envió anteriormente.</h3>
 
       
-      <button classname="exports" onClick={()=>{exportData()}}> Exportar datos</button>  
+      <button className="exports" onClick={()=>{exportData()}}> Exportar datos</button>  
 
         <div className="tabla"> 
         <table className="table table-success table-striped rounded">
