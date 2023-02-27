@@ -113,7 +113,7 @@ const Modal = ({ sshow, data, post ,onClose }) => {
               headers: {'Content-Type':'application/json'},
               body: JSON.stringify(newReport)
             }
-            await fetch('http://20.151.235.246/api/a1'+data.id, requestInit)
+            await fetch('http://20.151.235.246/api/a1/'+data.id, requestInit)
             .then(res => res.json())
             .then(res => console.log(res))
             
