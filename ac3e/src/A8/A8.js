@@ -633,7 +633,7 @@ const handlePosteriorChange = (e) => {
             <input type= {archivo} name="archivo" id="archivo" accept=".pdf,.doc, .docx"  onChange={e =>fileHandler(e)}></input>
             <span className="item" style={{visibility:posteriorSelect}}><i class="fa-solid fa-circle-question">
             <p class="innerText" >
-                Format: .pdf 20mb max or .pdf with cover, index and abstract.
+                Format: .pdf 20mb max or .pdf with cover, index and abstract. You must include the name of the thesis in this form to send document.
                 </p>
             </i>
                 

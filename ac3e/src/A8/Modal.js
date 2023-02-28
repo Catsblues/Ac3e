@@ -34,7 +34,11 @@ const Modal = ({ sshow, data, post ,onClose }) => {
     if (!sshow) {
         return null;
     }
-    console.log(data.equipment);
+    if(data.thesis_status=="finished"){
+        setPosteriorSelect("visible");
+        setArchivo("file");
+        setIns("text");
+    }
    
 
     const handleGenderChange = (e) => {
@@ -49,7 +53,7 @@ const Modal = ({ sshow, data, post ,onClose }) => {
     const handleStatusChange = (e) => {
 
         setThesisStatus(e.target.value)
-        if (e.target.value === "2") {
+        if (e.target.value === "finished") {
             setArchivo("file");
             setPosteriorSelect("visible");
             setIns("text");
@@ -150,7 +154,7 @@ const Modal = ({ sshow, data, post ,onClose }) => {
         }
       }
 
-
+    
     
     
 
