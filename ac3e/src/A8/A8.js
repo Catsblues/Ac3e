@@ -324,15 +324,17 @@ const handlePosteriorChange = (e) => {
             ev.preventDefault();
             const title = ev.target.title.value;
             //uploadFile
-            const lector = new FileReader();
-            lector.readAsDataURL(archivosave);
-            console.log(archivosave);
-            lector.onload = (event) => {
-            const data = event.target.result;
-        
-            const datos = new FormData();
-            datos.append('file', data);
-            datos.append('filename', "/home/konnits/respaldos/"+title+".pdf");
+            if(archivosave !== undefined){
+              console.log("entre");
+              const lector = new FileReader();
+              lector.readAsDataURL(archivosave);
+              console.log(archivosave);
+              lector.onload = (event) => {
+              const data = event.target.result;
+          
+              const datos = new FormData();
+              datos.append('file', data);
+              datos.append('filename', "/home/konnits/respaldos/"+title+".pdf");
         
             fetch(
               "http://20.151.235.246/file/send_file",
@@ -342,6 +344,7 @@ const handlePosteriorChange = (e) => {
             }
             )
           }
+        }
             const funccion = async () => {
 
             
