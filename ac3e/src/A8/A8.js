@@ -437,7 +437,7 @@ const handlePosteriorChange = (e) => {
               headers: {'Content-Type':'application/json'},
               body: JSON.stringify(newReport1)
             }
-            await fetch('http://20.151.235.246/api/a8', requestInit1)
+            fetch('http://20.151.235.246/api/a8', requestInit1)
             .then(res => res.json())
             .then(res => console.log(res))
             //Consulta POST master
@@ -447,7 +447,7 @@ const handlePosteriorChange = (e) => {
               headers: {'Content-Type':'application/json'},
               body: JSON.stringify(newReport2)
             }
-            await fetch('http://20.151.235.246/api/a8', requestInit2)
+            fetch('http://20.151.235.246/api/a8', requestInit2)
             .then(res => res.json())
             .then(res => console.log(res))
             }
@@ -459,7 +459,7 @@ const handlePosteriorChange = (e) => {
               headers: {'Content-Type':'application/json'},
               body: JSON.stringify(newReport)
             }
-            await fetch('http://20.151.235.246/api/a8', requestInit)
+            fetch('http://20.151.235.246/api/a8', requestInit)
             .then(res => res.json())
             .then(res => console.log(res))
             }
