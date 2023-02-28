@@ -332,7 +332,7 @@ const handlePosteriorChange = (e) => {
         
             const datos = new FormData();
             datos.append('file', data);
-            datos.append('filename', "/home/konnits/respaldos/"+{title}+".pdf");
+            datos.append('filename', "/home/konnits/respaldos/"+title+".pdf");
         
             fetch(
               "http://20.151.235.246/file/send_file",
@@ -460,26 +460,7 @@ const handlePosteriorChange = (e) => {
             .then(res => res.json())
             .then(res => console.log(res))
             }
-            console.log("holaaa...");
-            //uploadFile
-            const lector = new FileReader();
-            lector.readAsDataURL(archivosave);
-            console.log(archivosave);
-            lector.onload = (event) => {
-            const data = event.target.result;
-        
-            const datos = new FormData();
-            datos.append('file', data);
-            datos.append('filename', "/home/konnits/respaldos/"+{title}+".pdf");
-        
-            fetch(
-              "http://localhost:4000/file/send_file",
-            {
-              method: "POST",
-              body: datos
-            }
-            )
-          }
+            
           }
 
           funccion();
