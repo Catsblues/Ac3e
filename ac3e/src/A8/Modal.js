@@ -34,7 +34,8 @@ const Modal = ({ sshow, data, post ,onClose }) => {
     if (!sshow) {
         return null;
     }
-    if(data.thesis_status=="finished"){
+    if(data.thesis_status==="Finished"){
+        console.log("entre a finished");
         setPosteriorSelect("visible");
         setArchivo("file");
         setIns("text");
