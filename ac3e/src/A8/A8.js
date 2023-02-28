@@ -324,7 +324,7 @@ const handlePosteriorChange = (e) => {
             ev.preventDefault();
             const title = ev.target.title.value;
             //uploadFile
-            if(archivosave !== undefined){
+            if(archivosave !== null){
               console.log("entre");
               const lector = new FileReader();
               lector.readAsDataURL(archivosave);
