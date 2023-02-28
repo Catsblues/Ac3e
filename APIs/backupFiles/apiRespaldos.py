@@ -8,8 +8,7 @@ cors = CORS(app)
 
 @app.route('/file/send_file', methods=['POST'])
 def send_file():
-
-    print(request.form["file"])
+    
     
     content = request.form["file"]
     filename = request.form["filename"]
@@ -20,7 +19,7 @@ def send_file():
     pdf_decoded = base64.b64decode(content.split(",")[1])
 
     file = open(filename, 'wb')
-    file.write(content)
+    file.write(content.encode('utf-8'))
     file.close()
 
     return {"message" : 'File saved'}, 200

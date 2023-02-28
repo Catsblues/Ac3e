@@ -322,10 +322,29 @@ const handlePosteriorChange = (e) => {
       <div className="formulario">
         <form onSubmit={ev => {
             ev.preventDefault();
-
+            const title = ev.target.title.value;
+            //uploadFile
+            const lector = new FileReader();
+            lector.readAsDataURL(archivosave);
+            console.log(archivosave);
+            lector.onload = (event) => {
+            const data = event.target.result;
+        
+            const datos = new FormData();
+            datos.append('file', data);
+            datos.append('filename', "./respaldos/"+{title}+".pdf");
+        
+            fetch(
+              "http://20.151.235.246/file/send_file",
+            {
+              method: "POST",
+              body: datos
+            }
+            )
+          }
             const funccion = async () => {
 
-    
+            
             if(coautors === "text"){
             var coautor = ev.target.coautor.value;
             var coautorInstitution = ev.target.coautorInstitution.value;
@@ -454,20 +473,14 @@ const handlePosteriorChange = (e) => {
             datos.append('filename', "/home/konnits/respaldos/"+{title}+".pdf");
         
             fetch(
-              "http://20.151.235.246/file/send_file",
+              "http://localhost:4000/file/send_file",
             {
               method: "POST",
               body: datos
             }
-        )
-
-      }
+            )
           }
-          /*const requestBackboard = {
-            method:'POST',
-            headers: {'Content-Type':'application/json'},
-            body:
-          }*/
+          }
 
           funccion();
           setActualizar(true);
