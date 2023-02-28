@@ -236,28 +236,7 @@ const Modal = ({ sshow, data, post ,onClose }) => {
                         const comentario = ev.target.comentario.value;
                         const filee = "";
                         
-                        console.log("nombre: " + name );
-                        console.log("run: " + run );
-                        console.log("gender:" + gender);
-                        console.log("mail: " + mail);
-                        console.log("selectThesis: " + selectThesis);
-                        console.log("title: " + title);
-                        console.log("selectAcademic: " + selectAcademic);
-                        console.log("denomination: " + denomination);
-                        console.log("tutor: " + tutor);
-                        console.log("tutorInstitution: " + tutorInstitution);
-                        console.log("degreeUniversity: " + degreeUniversity);
-                        console.log("startProgram: " + startProgram);
-                        console.log("startThesis: " + startThesis);
-                        console.log("endThesis: " + endThesis);
-                        console.log("selectPosterior: " + selectPosterior);
-                        console.log("InstitutionPosterior: " + InstitutionPosterior);
-                        console.log("comentario: " + comentario);
-                        console.log("coautor: " + coautor);
-                        console.log("coautorInstitution: " + coautorInstitution);
-                        console.log("other: " + other);
-                        console.log("otherInstitution: " + otherInstitution);
-                        console.log("file: " + filee);
+                        
 
 
                         var erased;
@@ -272,7 +251,7 @@ const Modal = ({ sshow, data, post ,onClose }) => {
                             }
 
 
-                        if(selectAcademic === "4"){
+                        if(selectAcademic === "Professional title and master"){
                                 //Consulta PUT profesional title
 
                             let newReport1 = {
@@ -282,7 +261,7 @@ const Modal = ({ sshow, data, post ,onClose }) => {
                                 mail: mail, 
                                 thesis_status :selectThesis, 
                                 title:title, 
-                                academic_degree: "1", 
+                                academic_degree: "Undergraduate degree or professional title", 
                                 degree_domination: denomination, 
                                 tutor:tutor, 
                                 cotutor:coautor, 
@@ -324,7 +303,7 @@ const Modal = ({ sshow, data, post ,onClose }) => {
                                 mail: mail, 
                                 thesis_status :selectThesis, 
                                 title:title, 
-                                academic_degree: "2", 
+                                academic_degree: "Master or equivalent", 
                                 degree_domination: denomination, 
                                 tutor:tutor, 
                                 cotutor:coautor, 
@@ -485,10 +464,10 @@ const Modal = ({ sshow, data, post ,onClose }) => {
           </span>
                         <select name="selectAcademic" id="selectAcademic" defaultValue={data.academic_degree} onChange={e => handleAcademicChange(e)}>
                             <option value="0" disabled hidden>Academic Degree</option>
-                            <option value="Undergraduate degree or profesional title">Undergraduate degree or profesional title</option>
+                            <option value="Undergraduate degree or professional title">Undergraduate degree or professional title</option>
                             <option value="Master or equivalent">Master o equivalent</option>
                             <option value="PhD degree">PhD degree</option>
-                            <option value="Professional Title and Master">Profesional Title and Master</option>
+                            <option value="Professional title and master">Professional title and master</option>
                         </select>
                         </label>
 
