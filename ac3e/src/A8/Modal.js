@@ -65,7 +65,7 @@ const Modal = ({ sshow, data, post ,onClose }) => {
     const handleStatusChange = (e) => {
 
         setThesisStatus(e.target.value)
-        if (e.target.value === "finished") {
+        if (e.target.value === "Finished") {
             setArchivo("file");
             setPosteriorSelect("visible");
             setIns("text");
