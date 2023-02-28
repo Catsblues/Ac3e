@@ -30,15 +30,20 @@ const Modal = ({ sshow, data, post ,onClose }) => {
     var cotutorcheck = (data.cotutor_check=='true');
     var othercheck = (data.other_check=='true');
 
+    var first = 0;
 
     if (!sshow) {
         return null;
     }
-    if(data.thesis_status==="Finished"){
-        console.log("entre a finished");
+    if(data.thesis_status==="Finished" && first===0){
+        
         setPosteriorSelect("visible");
         setArchivo("file");
         setIns("text");
+        first = 1;
+    }
+    else if(data.thesis_status==="In progress" && first===0){
+        first = 1;
     }
    
 
