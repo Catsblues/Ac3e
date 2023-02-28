@@ -11,15 +11,15 @@ const Modal = ({ sshow, data, post ,onClose }) => {
     const [resource, setResource] = useState("0");
     const [posterior, setPosterior] = useState("0");
     const [register, setRegister] = useState("0");
-    const [posteriorSelect, setPosteriorSelect] = useState("hidden");
+    const [posteriorSelect, setPosteriorSelect] = useState(funPost());
     const [filtroSelect, setFiltroSelect] = useState("hidden");
     const [inputText, setInputText] = useState("hidden");
     const [search, setSearch] = useState("");
     const [checkCoautor, setCheckCoautor] = useState("false");
     const [coautors, setCoautors] = useState("hidden");
     const [other, setOther] = useState("hidden");
-    const [archivo, setArchivo] = useState("hidden");
-    const [ins, setIns] = useState("hidden");
+    const [archivo, setArchivo] = useState(funArch());
+    const [ins, setIns] = useState(funIns());
     const [file, setFile] = useState(null);
     
     const [showw, setShoww] = useState(false);
@@ -35,15 +35,31 @@ const Modal = ({ sshow, data, post ,onClose }) => {
     if (!sshow) {
         return null;
     }
-    if(data.thesis_status==="Finished" && first===0){
-        
-        setPosteriorSelect("visible");
-        setArchivo("file");
-        setIns("text");
-        first = 1;
+
+    const funPost =() => {
+        if(data.thesis_status==="Finished"){
+            return "visible";
+        }
+        else{
+            return "hidden";
+        }
     }
-    else if(data.thesis_status==="In progress" && first===0){
-        first = 1;
+    const funArch =() => {
+        if(data.thesis_status==="Finished"){
+            return "file";
+        }
+        else{
+            return "hidden";
+        }
+
+    }
+    const funIns =() => {
+        if(data.thesis_status==="Finished"){
+            return "text";
+        }
+        else{
+            return "hidden";
+        }
     }
    
 
