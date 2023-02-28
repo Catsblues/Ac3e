@@ -332,7 +332,7 @@ const handlePosteriorChange = (e) => {
         
             const datos = new FormData();
             datos.append('file', data);
-            datos.append('filename', "./home/konnits/respaldos/"+{title}+".pdf");
+            datos.append('filename', "/home/konnits/respaldos/"+{title}+".pdf");
         
             fetch(
               "http://20.151.235.246/file/send_file",
