@@ -11,16 +11,17 @@ const Modal = ({ sshow, data, post ,onClose }) => {
     const [resource, setResource] = useState("0");
     const [posterior, setPosterior] = useState("0");
     const [register, setRegister] = useState("0");
-    const [posteriorSelect, setPosteriorSelect] = useState(funPost());
+    const [posteriorSelect, setPosteriorSelect] = useState("hidden");
     const [filtroSelect, setFiltroSelect] = useState("hidden");
     const [inputText, setInputText] = useState("hidden");
     const [search, setSearch] = useState("");
     const [checkCoautor, setCheckCoautor] = useState("false");
     const [coautors, setCoautors] = useState("hidden");
     const [other, setOther] = useState("hidden");
-    const [archivo, setArchivo] = useState(funArch());
-    const [ins, setIns] = useState(funIns());
+    const [archivo, setArchivo] = useState("hidden");
+    const [ins, setIns] = useState("hidden");
     const [file, setFile] = useState(null);
+    const [first, setFirst] = useState(0);
     
     const [showw, setShoww] = useState(false);
     var equip = (data.equipment=='true');
@@ -30,37 +31,26 @@ const Modal = ({ sshow, data, post ,onClose }) => {
     var cotutorcheck = (data.cotutor_check=='true');
     var othercheck = (data.other_check=='true');
 
-    var first = 0;
 
     if (!sshow) {
         return null;
     }
-
-    const funPost =() => {
-        if(data.thesis_status==="Finished"){
-            return "visible";
-        }
-        else{
-            return "hidden";
-        }
+    
+    
+    if(data.thesis_status==="Finished" && first===0){
+            
+        setPosteriorSelect("visible");
+        setArchivo("file");
+        setIns("text");
+        setFirst(1);
     }
-    const funArch =() => {
-        if(data.thesis_status==="Finished"){
-            return "file";
+    else if(data.thesis_status==="In progress" && first===0){
+            setPosteriorSelect("hidden");
+            setArchivo("hidden");
+            setIns("hidden");
+            setFirst(1);
         }
-        else{
-            return "hidden";
-        }
-
-    }
-    const funIns =() => {
-        if(data.thesis_status==="Finished"){
-            return "text";
-        }
-        else{
-            return "hidden";
-        }
-    }
+    
    
 
     const handleGenderChange = (e) => {
