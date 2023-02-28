@@ -454,8 +454,8 @@ const Modal = ({ sshow, data, post ,onClose }) => {
           </span>
                         <select name="selectbuscador" id="selectbuscador" defaultValue={data.gender} onChange={e => handleGenderChange(e)}>
                             <option value='0' disabled hidden>Gender</option>
-                            <option value='Female'>Femenino</option>
-                            <option value='Male'>Masculino</option>
+                            <option value='Female'>Female</option>
+                            <option value='Male'>Male</option>
                         </select>
                         </label>
 
@@ -613,7 +613,7 @@ const Modal = ({ sshow, data, post ,onClose }) => {
                         </div>
 
 
-                        <button type="submit" >Enviar</button>
+                        <button type="submit" >Submit</button>
                     </form>
                 </div>
 

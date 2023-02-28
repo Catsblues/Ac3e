@@ -168,7 +168,7 @@ const Modal = ({ sshow, data, post ,onClose }) => {
   
   
   
-  <label>¿Coautor de AC3E?</label>
+  <label>Any co-authors of Ac3e?</label>
   <span className="item" style={{visibility:coauthors}}><i class="fa-solid fa-circle-question">
   <div class="innerText">
   Format: Last Name, First name initial. (e.j., Perez, J.).
@@ -226,7 +226,7 @@ const Modal = ({ sshow, data, post ,onClose }) => {
 </div>
 
 
-                        <button type="submit" >Enviar</button>
+                        <button type="submit" >Submit</button>
                     </form>
                 </div>
 

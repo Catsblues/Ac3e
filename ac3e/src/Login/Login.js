@@ -24,7 +24,7 @@ const Login=()=> {
       <img className="logo" src={"/ac3e.png"}/>
     </div>
     <div className='contenedor'>
-    <p className="titleform">Bienvenido</p>
+    <p className="titleform">Welcome</p>
     </div>
     <form className="formulario1" onSubmit={ev => {
             ev.preventDefault();
@@ -35,14 +35,14 @@ const Login=()=> {
             login(mail, password);
             }}>
             <div className="contnmail">
-                <label>Correo</label>
+                <label>Mail</label>
 				<input type="text" name="mail" id="mail"  className="mail" autoComplete="off"/>
             </div>
             <div>
-                <label>Contraseña</label>
+                <label>Password</label>
 				<input type="text" name="password" id="password" className="password" autoComplete="off"/>
             </div>
-          <button type="submit">Ingresar</button>
+          <button type="submit">Submit</button>
         </form>
     </>
   );

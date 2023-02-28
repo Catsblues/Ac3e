@@ -61,7 +61,7 @@ const EditarPerfil = ({ sshow, data, post ,onClose }) => {
 
                 <div className="formulario2">
                     <button className="boton" onClick={() => { onClose(true) }}>X</button>
-                    <h1 className="title">Edición de datos</h1>
+                    <h1 className="title">Edit profile</h1>
 
                     <form onSubmit={async (ev) => {
                          ev.preventDefault();
@@ -76,9 +76,9 @@ const EditarPerfil = ({ sshow, data, post ,onClose }) => {
             
                         <select name="type" style={{marginBottom:"10px"}} defaultValue={data.type}>
                             <option value="default" disabled hidden>Type</option>
-                            <option value="Titular">Titular</option>
-                            <option value="Asociado">Asociado</option>
-                            <option value="Postdoctoral">Posdoctoral</option>
+                            <option value="Holder">Holder</option>
+                            <option value="Associated">Associated</option>
+                            <option value="Post-doctoral">Post-doctoral</option>
                         </select>
                         
                         </div>
@@ -89,17 +89,17 @@ const EditarPerfil = ({ sshow, data, post ,onClose }) => {
                         <select name="line" style={{marginBottom:"10px"}} defaultValue={data.line}>
                             <option value="default" disabled hidden>Line</option>
                             <option value="Control">Control</option>
-                            <option value="Energia">Energía</option>
-                            <option value="Inteligencia Artificial">Inteligencia Artificial</option>
-                            <option value="Robotica">Robótica</option>
-                            <option value="Sistemas Biomedicos">Sistemas Biomédicos</option>
-                            <option value="Sistemas Electricos">Sistemas Eléctricos</option>
+                            <option value="Energy">Energy</option>
+                            <option value="Artificial Intelligence">Artificial Intelligence</option>
+                            <option value="Robotica">Robotica</option>
+                            <option value="Sistemas Biomedicos">Biomedical Systems</option>
+                            <option value="Sistemas Electricos">Electrical Systems</option>
                         </select>
                         </div>
                         <div>
                         <input type="text" name="institution" id="institution" className="journal" autoComplete="off"  defaultValue={data.institution} placeholder="Institution"/>
                         </div>
-                     <button type="submit" >Actualizar datos</button>
+                     <button type="submit" >Update</button>
                     </form>
                 </div>
 

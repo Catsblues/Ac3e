@@ -201,11 +201,11 @@ const A1=()=> {
       <div className='header'> 
         <img className="logo" src={"/ac3e.png"}/>
         <h1 className="titulo1">A1 Isi Publications</h1>
-        <a className="statistics" href="https://app.powerbi.com/view?r=eyJrIjoiOGFhN2I3MzQtY2FlZS00YjQzLWIzNTktNTgwNDNmMWU1MTQxIiwidCI6IjAyNjI1Njc2LTMyMjctNDQwYS05YzY4LWJiNmQyOWRlNDIwNiIsImMiOjR9">Estadísticas</a>
+        <a className="statistics" href="https://app.powerbi.com/view?r=eyJrIjoiOGFhN2I3MzQtY2FlZS00YjQzLWIzNTktNTgwNDNmMWU1MTQxIiwidCI6IjAyNjI1Njc2LTMyMjctNDQwYS05YzY4LWJiNmQyOWRlNDIwNiIsImMiOjR9">Statistics</a>
       </div>
       
-      <h1 className="title">Ingreso de datos</h1>
-      <h3 className="text">Si desea ingresar los datos favor rellene el formulario:</h3>
+      <h1 className="title">Data Entry</h1>
+      <h3 className="text">Please fill in the form to enter new reports.</h3>
       
       <div className="formulario">
       <form onSubmit={ev => {
@@ -279,7 +279,7 @@ const A1=()=> {
             
             
             
-            <label>¿Coautor de AC3E?</label>
+            <label>Any co-authors of Ac3e?</label>
             <span className="item" style={{visibility:coauthors}}><i class="fa-solid fa-circle-question">
             <div class="innerText">
             Format: Last Name, First name initial. (e.j., Perez, J.).
@@ -332,15 +332,15 @@ const A1=()=> {
           </div>
 				  
         
-          <button type="submit" >Enviar</button>
+          <button type="submit" >Submit</button>
         </form>
       </div>
 
-      <h1 className="title">Visualización de datos</h1>
-      <h3 className="text">Aquí observará los datos ya se envió anteriormente.</h3>
+      <h1 className="title">Visualization and Editing of data</h1>
+      <h3 className="text">Here you will see the data already saved and if you want you can edit or delete them.</h3>
 
       
-      <button classname="exports" onClick={()=>{exportData()}}> Exportar datos</button>  
+      <button classname="exports" onClick={()=>{exportData()}}> Export data</button>  
 
         <div className="tabla"> 
         <table className="table table-success table-striped rounded">

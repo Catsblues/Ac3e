@@ -71,7 +71,7 @@ const InvActivos=()=> {
     }
 
   const deleteinv = (id,name) => {
-    if(window.confirm("¿Está seguro(a) que desea eliminar a "+name+" de investigadores activos?")){
+    if(window.confirm("Are you sure you want to eliminate "+name+" from active investigators?")){
       const requestInit = {
       method:'DELETE'
       }
@@ -91,8 +91,8 @@ const InvActivos=()=> {
     if(reports===undefined){
       rep= <tr><td></td>
               <td></td>
-              <td>No hay datos</td>
               <td></td>
+              <td>there are no data</td>
               <td></td>
               <td></td></tr>
       return rep;
@@ -141,7 +141,7 @@ const InvActivos=()=> {
         <a className="statistics" href="https://app.powerbi.com/view?r=eyJrIjoiOGFhN2I3MzQtY2FlZS00YjQzLWIzNTktNTgwNDNmMWU1MTQxIiwidCI6IjAyNjI1Njc2LTMyMjctNDQwYS05YzY4LWJiNmQyOWRlNDIwNiIsImMiOjR9">Estadísticas</a>
         <button className="add" onClick={(e)=>{setShowadd(true)}}>+</button>
       </div>
-      <h1 className="title">Visualización de Investigadores</h1>
+      <h1 className="title">Display of list of researchers</h1>
       <div className="buscador">
             <form onSubmit={ev => {ev.preventDefault()}}>
             <div>

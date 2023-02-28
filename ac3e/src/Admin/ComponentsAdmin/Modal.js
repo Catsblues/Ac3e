@@ -3,7 +3,7 @@ import { Link } from "react-router-dom";
 import "./Modal.css"
 
 const modal =()=> {
-    let menu = [["Planilla General","PlanillaGen"],["Investigadores","PlanillaInv"],["Perfil de Investigadores","PerfilInv"]]
+    let menu = [["General","PlanillaGen"],["Researcher","PlanillaInv"],["Research profile","PerfilInv"]]
     return(
         <>
             {
