@@ -574,7 +574,7 @@ const Modal = ({ sshow, data, post ,onClose }) => {
                         <input type={archivo} name="archivo" id="archivo" onChange={e => fileChange(e)} ></input>
                         </label>
                         <span className="item"><i class="fa-solid fa-circle-question" style={{visibility:posteriorSelect}}><div class="innerText" >
-                        Format: .pdf 20mb max or .pdf with cover, index and abstract.
+                        Format: .pdf 20mb max or .pdf with cover, index and abstract. You must include the name of the thesis in this form to send document.
                             </div></i>
                             
                         </span>
