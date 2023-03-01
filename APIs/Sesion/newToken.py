@@ -24,7 +24,7 @@ def login():
 def generar_token(user, password):
 
     if verificar(user, password):
-        datos_token = { 'user': user, 'rol': obtener_rol(user)}
+        datos_token = { 'user': user, 'name': obtener_nombre(user),'rol': obtener_rol(user)}
 
 
         token = jwt.encode(datos_token, '4+rh6@re', algorithm='HS256')
@@ -67,7 +67,19 @@ def obtener_rol(user):
     finally:
         conexion.close()
 
+def obtener_nombre(user):
+    conexion = pymysql.connect(host='54.162.2.109',user='remoteUser', password='Admin@0301', db='reportes', port=3306)
+
+    try:
+        with conexion.cursor() as cursor:
+            sql = "SELECT name FROM investigadores WHERE mail = %s"
+            cursor.execute(sql, (user))
+            resultado = cursor.fetchone()[0].strip('')
+            return resultado
+    finally:
+        conexion.close()
+
 
 
 if __name__ == '__main__':
-    app.run(host= '0.0.0.0',debug=True, port=9000)
+    app.run(host= '0.0.0.0',debug=True, port=5001)

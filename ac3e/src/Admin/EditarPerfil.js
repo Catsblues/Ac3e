@@ -1,16 +1,33 @@
 import "./EditarPerfil.css";
 import React, { useState, useEffect } from "react";
-
+import { useNavigate } from "react-router-dom";
+import jwt_decode from "jwt-decode";
 
 
 const EditarPerfil = ({ sshow, data, post ,onClose }) => {
+    const navigate = useNavigate();
 
-
+    useEffect(() => {
+        const token = localStorage.getItem("token");
+        if (!token) {
+          navigate("/");
+        }
+        else{
+          const decodedToken = jwt_decode(token);
+          if (decodedToken.rol !== "admin") {
+            navigate("/inicio");
+          }
+        }
+      }, []);
     
 
     if (!sshow) {
         return null;
     }
+
+    
+
+    
        
     
     const formFunction = (ev) => {

@@ -3,7 +3,8 @@ import React ,{useState, useEffect} from "react";
 import { utils, write} from "xlsx";
 import { saveAs } from "file-saver";
 import Modal from "./Modal.js";
-
+import { useNavigate } from "react-router-dom";
+import jwt_decode from "jwt-decode";
 
 
 const A1=()=> {
@@ -36,15 +37,35 @@ const A1=()=> {
         Journal:"",
         Volume:"",
         Year:""}]);
+
+    const [nameresearcher, setNameresearcher] = useState("");
+    const navigate = useNavigate();
+      
+    useEffect(() => {
+      const token = localStorage.getItem("token");
+      if (!token) {
+        navigate("/");
+      }
+      else{
+        const decodedToken = jwt_decode(token);
+        if (decodedToken.rol !== "user") {
+          navigate("/inicioAdmin");
+        }
+        else{
+          setNameresearcher(decodedToken.name);
+        }
+      }
+    }, []);
+
     useEffect(() => {
       const fetches = async () => {
       const getReports = async () => {
-        await fetch('http://20.151.235.246/api/a1', {method : 'GET', headers : {'Origin' : 'http://localhost:3000', 'origin' : 'http://localhost:3000'}})
+        await fetch('http://20.151.235.246/api/a1researcher/'+ nameresearcher, {method : 'GET', headers : {'Origin' : 'http://localhost:3000', 'origin' : 'http://localhost:3000'}})
         .then(res => res.json())
         .then(res => setReports(res))
       }
       const getReportsname = async () => {
-        await fetch('http://localhost:9000/api/a8name'+search)
+        await fetch('http://20.151.235.246/api/a8name'+search)
         .then(res => res.json())
         .then(res => setReports(res))
       }
@@ -187,7 +208,7 @@ const A1=()=> {
             </td>
           </tr>
           
-            < Modal sshow={sshow}  data={selecteddata} post={index} onClose={()=>{setShow(false);setActualizar(true)}}/>
+            < Modal sshow={sshow}  data={selecteddata} post={index} onClose={()=>{setShow(false);setActualizar(true)}} name={nameresearcher}/>
         
         </>
       )
@@ -236,8 +257,7 @@ const A1=()=> {
                erased = "saved";
                
             }
-            console.log("hola1");
-            let newReport = {autor:author, coauthor:coauthor, title:title, journal:journal, doi:doi, volume:volume, firstpage:first, lastpage:last, yearPublished:date, comment:comment, complete:erased}  
+            let newReport = { researcher: nameresearcher, autor:author, coauthor:coauthor, title:title, journal:journal, doi:doi, volume:volume, firstpage:first, lastpage:last, yearPublished:date, comment:comment, complete:erased}  
             const requestInit = {
               method:'POST',
               headers: {'Content-Type':'application/json'},

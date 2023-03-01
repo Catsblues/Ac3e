@@ -1,5 +1,7 @@
 import "./AddInv.css";
 import React, { useState, useEffect } from "react";
+import { useNavigate } from "react-router-dom";
+import jwt_decode from "jwt-decode";
 
 
 
@@ -7,6 +9,20 @@ const AddInv = ({ showadd ,onClose }) => {
    
     const [Type, setType] = useState("default");
     const [Line, setLine] = useState("default");
+    const navigate = useNavigate();
+
+    useEffect(() => {
+        const token = localStorage.getItem("token");
+        if (!token) {
+          navigate("/");
+        }
+        else{
+          const decodedToken = jwt_decode(token);
+          if (decodedToken.rol !== "admin") {
+            navigate("/inicio");
+          }
+        }
+      }, []);
 
     if (!showadd) {
         return null}

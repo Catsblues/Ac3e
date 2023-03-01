@@ -1,6 +1,7 @@
 import "./PlanillaInv.css";
-import React, {useState} from "react";
+import React, {useState, useEffect} from "react";
 import { Link, useNavigate } from "react-router-dom";
+import jwt_decode from "jwt-decode";
 
 const PlanillaInv=()=> {
 
@@ -12,6 +13,19 @@ const PlanillaInv=()=> {
     const [check, setCheck] = useState(localStorage.getItem("checkInv"));
     const [searchInv, setSearchInv] = useState(localStorage.getItem("Investigador"));
 
+    const navigate = useNavigate();
+    useEffect(() => {
+      const token = localStorage.getItem("token");
+      if (!token) {
+        navigate("/");
+      }
+      else{
+        const decodedToken = jwt_decode(token);
+        if (decodedToken.rol !== "admin") {
+          navigate("/inicio");
+        }
+      }
+    }, []);
 
     const printInv = () => {
         var data = JSON.parse(localStorage.getItem("data"));

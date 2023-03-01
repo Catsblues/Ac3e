@@ -3,6 +3,8 @@ import React ,{useState, useEffect} from "react";
 import { utils, write} from "xlsx";
 import { saveAs } from "file-saver";
 import Modal from "./Modal.js";
+import { useNavigate } from "react-router-dom";
+import jwt_decode from "jwt-decode";
 
 
 
@@ -39,7 +41,20 @@ const A8=()=> {
     const [filtroacademic, setFiltroacademic] = useState("default");
     const [filtrosave, setFiltrosave] = useState("default");
 
-    
+    const navigate = useNavigate();
+
+    useEffect(() => {
+      const token = localStorage.getItem("token");
+      if (!token) {
+        navigate("/");
+      }
+      else{
+        const decodedToken = jwt_decode(token);
+        if (decodedToken.rol !== "user") {
+          navigate("/inicioAdmin");
+        }
+      }
+    }, []);
 
     useEffect(() => {
       const fetches = async () => {

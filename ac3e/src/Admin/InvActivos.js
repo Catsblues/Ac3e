@@ -2,6 +2,8 @@ import "./InvActivos.css";
 import React ,{useState, useEffect}from "react";
 import EditarPerfil from "./EditarPerfil.js";
 import AddInv from "./AddInv.js";
+import { useNavigate } from "react-router-dom";
+import jwt_decode from "jwt-decode";
 
 
 const InvActivos=()=> {
@@ -14,7 +16,22 @@ const InvActivos=()=> {
   const [reports, setReports] = useState(["no hay datos"]);
   const [selecteddata, setSelecteddata] = useState([]);
   const [showadd, setShowadd] = useState(false);
-    
+
+  const navigate = useNavigate();
+   
+  useEffect(() => {
+    const token = localStorage.getItem("token");
+    if (!token) {
+      navigate("/");
+    }
+    else{
+      const decodedToken = jwt_decode(token);
+      if (decodedToken.rol !== "admin") {
+        navigate("/inicio");
+      }
+    }
+  }, []);
+  
   useEffect(() => {
     
       const getReports = async () => {

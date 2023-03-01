@@ -2,15 +2,39 @@ import "./Inicio.css";
 import Campos from "./Components_Inicio/Campos.js";
 import React from "react";
 import Exit from "../Login/Exit.js";
+import {useState ,useEffect } from "react";
+import { useNavigate } from "react-router-dom";
+import jwt_decode from "jwt-decode";
 
 const Inicio=()=> {
+
+  const [name, setName] = useState("");
+  const navigate = useNavigate();
+
+
+  useEffect(() => {
+    const token = localStorage.getItem("token");
+    if (!token) {
+      navigate("/");
+    }
+    else{
+      const decodedToken = jwt_decode(token);
+      if (decodedToken.rol !== "user") {
+        navigate("/inicioAdmin");
+      }
+      else{
+        setName(decodedToken.name);
+      }
+    }
+  }, []);
+
   return (
     <>
     
     <div className='header'> 
       <img className="logo" src={"/ac3e.png"}/>
       <div className='usuario'>
-        <h1 className="titulo1">Welcome researcher</h1>
+        <h1 className="titulo1">Welcome {name}</h1>
       </div>
       <a className="statistics" href="https://app.powerbi.com/view?r=eyJrIjoiOGFhN2I3MzQtY2FlZS00YjQzLWIzNTktNTgwNDNmMWU1MTQxIiwidCI6IjAyNjI1Njc2LTMyMjctNDQwYS05YzY4LWJiNmQyOWRlNDIwNiIsImMiOjR9" target="_blank">Statistics</a>
       <button className="exit" onClick={Exit}>Exit</button>

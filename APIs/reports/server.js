@@ -9,7 +9,7 @@ const routes = require('./routes')
 const app = express();
 
 app.use(cors({
-    origin : 'http://20.151.235.246'
+    origin: 'http://localhost:3000'
 }));
 
 app.set('port', 9000)

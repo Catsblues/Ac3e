@@ -1,5 +1,7 @@
 import "./PlanillaGen.css";
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
+import { useNavigate } from "react-router-dom";
+import jwt_decode from "jwt-decode";
 
 const PlanillaGen = () => {
     const [campo, setCampo] = useState(localStorage.getItem("campo"));
@@ -9,6 +11,21 @@ const PlanillaGen = () => {
     const [search, setSearch] = useState("");
     const [check, setCheck] = useState(localStorage.getItem("checkGen"));
 
+
+    const navigate = useNavigate();
+
+    useEffect(() => {
+      const token = localStorage.getItem("token");
+      if (!token) {
+        navigate("/");
+      }
+      else{
+        const decodedToken = jwt_decode(token);
+        if (decodedToken.rol !== "admin") {
+          navigate("/inicio");
+        }
+      }
+    }, []);
     const handleChange = (valor) => {
         setCampo(valor);
         if(valor === "A1"){

@@ -30,7 +30,7 @@ const Login=()=> {
 
   const login = (mail, password) => {
     let data = {'user':mail, 'password':password};
-    fetch("http://localhost:9000/login/newToken",
+    fetch("http://localhost:5001/login/newToken",
     {
       method: "POST",
       headers: {

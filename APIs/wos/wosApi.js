@@ -4,9 +4,7 @@ const axios = require('axios');
 const express = require('express');
 const cors = require('cors');
 const app = express();
-app.use(
-    cors()
-);
+app.use(cors());
 const port = 5001;
 
 app.get('/wos/online', (req, res) => {

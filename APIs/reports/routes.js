@@ -14,6 +14,15 @@ routes.get('/a1', (req, res)=>{
         })
     })
 })
+routes.get('/a1researcher/:researcher', (req, res)=>{
+    req.getConnection((err, conn)=>{
+        if(err) return res.send(err)
+        conn.query('SELECT * FROM a1 WHERE researcher = ?', [req.params.researcher],(err, rows)=>{
+            if(err) return res.send(err)
+            res.json(rows)
+        })
+    })
+})
 routes.get('/a1name/:name', (req, res)=>{
     req.getConnection((err, conn)=>{
         if(err) return res.send(err)
