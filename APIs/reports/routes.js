@@ -324,7 +324,7 @@ routes.put('/investigadores/:id', (req, res)=>{
 routes.put('/investigadores/changepass/:name', (req, res)=>{
     req.getConnection((err, conn)=>{
         if(err) return res.send(err)
-        conn.query('UPDATE investigadores set ? WHERE name = ?', [req.body, req.params.name], (err, rows)=>{
+        conn.query('UPDATE investigadores set pass= ? WHERE name = ?', [req.body, req.params.name], (err, rows)=>{
             if(err) return res.send(err)
         })
     })
