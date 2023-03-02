@@ -13,7 +13,7 @@ def login():
     password = request.json['password']
     token = generar_token(user, password)
     if token:
-        response = jsonify({'token': token})
+        response = jsonify({'token': token.decode()})
         return response
     else:
         response = jsonify({'error': 'Usuario o contraseña incorrectos'})
