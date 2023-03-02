@@ -35,7 +35,7 @@ const ChangePass = ({ show, onClose, name}) => {
                             headers: {'Content-Type':'application/json'},
                             body: JSON.stringify({pass: new_pass})
                           }
-                        fetch('http://20.151.235.246/investigadores/changepass/'+name, request)
+                        fetch('http://20.151.235.246/api/investigadores/changepass/'+name, request)
                         .then(res => res.json())
                         .then(res => console.log(res))
                         .then(res => console.log('hola'))
