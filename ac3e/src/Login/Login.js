@@ -29,11 +29,12 @@ const Login=()=> {
   
 
   const login = (mail, password) => {
-    let data = {'user':mail, 'password':password};
+    let data = JSON.stringify({'user':mail, 'password':password});
+    console.log(data)
     fetch("http://20.151.235.246/login/newToken",
     {
       method: "POST",
-      body: JSON.stringify(data)
+      body: data
     })
     .then((res) => res.json())
     .then((dato) => {
