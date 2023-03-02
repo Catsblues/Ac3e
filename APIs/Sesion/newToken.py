@@ -8,7 +8,7 @@ cors = CORS(app)
 
 @app.route('/login/newToken', methods=['POST'])
 def login():
-    print(request.form)
+    
     user = request.json['user']
     password = request.json['password']
     token = generar_token(user, password)
