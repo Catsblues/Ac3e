@@ -13,7 +13,7 @@ def login():
     password = request.json['password']
     token = generar_token(user, password)
     if token:
-        response = jsonify({'token': token.decode()})
+        response = jsonify({'token': token})
         return response
     else:
         response = jsonify({'error': 'Usuario o contraseña incorrectos'})
@@ -23,7 +23,9 @@ def login():
 def generar_token(user, password):
 
     if verificar(user, password):
-        datos_token = { 'user': user, 'name': obtener_nombre(user),'rol': obtener_rol(user)}
+        datos_token = { 'user': user, 'password': password,'name': obtener_nombre(user),'rol': obtener_rol(user)}
+        print(password)
+        print("hola")
 
 
         token = jwt.encode(datos_token, '4+rh6@re', algorithm='HS256')
@@ -32,6 +34,7 @@ def generar_token(user, password):
     
     
 def verificar(user, password):
+    print(password)
     conexion = pymysql.connect(host='54.162.2.109',user='remoteUser', password='Admin@0301', db='reportes', port=3306)
 
     try:

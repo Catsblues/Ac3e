@@ -321,6 +321,15 @@ routes.put('/investigadores/:id', (req, res)=>{
     })
 })
 
+routes.put('/investigadores/changepass/:name', (req, res)=>{
+    req.getConnection((err, conn)=>{
+        if(err) return res.send(err)
+        conn.query('UPDATE investigadores set ? WHERE name = ?', [req.body, req.params.name], (err, rows)=>{
+            if(err) return res.send(err)
+        })
+    })
+})
+
 routes.delete('/investigadores/:id', (req, res)=>{
     req.getConnection((err, conn)=>{
         if(err) return res.send(err)

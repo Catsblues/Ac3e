@@ -93,7 +93,7 @@ const EditarPerfil = ({ sshow, data, post ,onClose }) => {
             
                         <select name="type" style={{marginBottom:"10px"}} defaultValue={data.type}>
                             <option value="default" disabled hidden>Type</option>
-                            <option value="Holder">Holder</option>
+                            <option value="Main researcher">Main researcher</option>
                             <option value="Associated">Associated</option>
                             <option value="Post-doctoral">Post-doctoral</option>
                         </select>
