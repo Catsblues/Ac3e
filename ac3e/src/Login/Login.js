@@ -70,11 +70,11 @@ const Login=()=> {
             }}>
             <div className="contnmail">
                 <label>Mail</label>
-				<input type="text" name="mail" id="mail"  className="mail" autoComplete="off"/>
+				<input type="email" name="mail" id="mail"  className="mail" autoComplete="off"/>
             </div>
             <div>
                 <label>Password</label>
-				<input type="text" name="password" id="password" className="password" autoComplete="off"/>
+				<input type="password" name="password" id="password" className="password" autoComplete="off"/>
             </div>
           <button type="submit">Submit</button>
         </form>
