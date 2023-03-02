@@ -2,7 +2,7 @@ import "./InicioAdmin.css";
 import Modal from "./ComponentsAdmin/Modal.js";
 import ChangePass from "../Inicio/Components_Inicio/ChangePass";
 import Exit from "../Login/Exit.js";
-import { useEffect } from "react";
+import { useEffect ,useState} from "react";
 import { useNavigate } from "react-router-dom";
 import jwt_decode from "jwt-decode";
 
