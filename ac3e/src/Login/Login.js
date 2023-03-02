@@ -36,9 +36,9 @@ const Login=()=> {
       body: JSON.stringify(data)
     })
     .then((res) => res.json())
-    .then((data) => {
-      if(data.token){
-        localStorage.setItem("token", data.token);
+    .then((dato) => {
+      if(data){
+        localStorage.setItem("token", data);
         setChange("si");
       }
       else{

@@ -12,13 +12,9 @@ def login():
     password = request.json['password']
     token = generar_token(user, password)
     if token:
-        response = jsonify({'token': token})
-        response.headers.add('Access-Control-Allow-Origin', '*')
-        return response
+        return token
     else:
-        response = jsonify({'error': 'Usuario o contraseña incorrectos'})
-        response.headers.add('Access-Control-Allow-Origin', '*')
-        return response
+        return None
     
 
 def generar_token(user, password):
