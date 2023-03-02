@@ -12,6 +12,7 @@ def login():
     password = request.json['password']
     token = generar_token(user, password)
     if token:
+        print(token)
         return token
     else:
         return None
