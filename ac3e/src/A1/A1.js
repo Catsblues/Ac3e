@@ -168,14 +168,16 @@ const A1=()=> {
 
   const deletereport = (id) => {
 
-    const requestInit = {
-    method:'DELETE'
+    if(window.confirm("Are you sure you want to delete this report?")){    
+      const requestInit = {
+      method:'DELETE'
+      }
+      fetch('http://20.151.235.246/api/a1/'+id, requestInit)
+      .then(res => res.json())
+      .then(res => console.log(res))
+      .then(res => console.log('hola'))
+      setActualizar(true);
     }
-    fetch('http://20.151.235.246/api/a1/'+id, requestInit)
-    .then(res => res.json())
-    .then(res => console.log(res))
-    .then(res => console.log('hola'))
-    setActualizar(true);
   }
   
  
