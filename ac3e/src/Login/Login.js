@@ -37,8 +37,8 @@ const Login=()=> {
     })
     .then((res) => res.json())
     .then((dato) => {
-      if(data){
-        localStorage.setItem("token", data);
+      if(dato){
+        localStorage.setItem("token", dato);
         setChange("si");
       }
       else{
