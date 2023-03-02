@@ -29,17 +29,19 @@ const Login=()=> {
   
 
   const login = (mail, password) => {
-    let data = JSON.stringify({'user':mail, 'password':password});
-    console.log(data)
+    let data = {'user':mail, 'password':password};
     fetch("http://20.151.235.246/login/newToken",
     {
       method: "POST",
-      body: data
+      headers: {
+        "Content-Type": "application/json"
+      },
+      body: JSON.stringify(data)
     })
     .then((res) => res.json())
-    .then((dato) => {
-      if(dato){
-        localStorage.setItem("token", dato);
+    .then((data) => {
+      if(data.token){
+        localStorage.setItem("token", data.token);
         setChange("si");
       }
       else{

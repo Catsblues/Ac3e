@@ -8,15 +8,17 @@ cors = CORS(app)
 
 @app.route('/login/newToken', methods=['POST'])
 def login():
-    print("entrando a login")
     user = request.json['user']
     password = request.json['password']
     token = generar_token(user, password)
     if token:
-        print(token)
-        return token
+        response = jsonify({'token': token})
+        response.headers.add('Access-Control-Allow-Origin', '*')
+        return response
     else:
-        return None
+        response = jsonify({'error': 'Usuario o contraseña incorrectos'})
+        response.headers.add('Access-Control-Allow-Origin', '*')
+        return response
     
 
 def generar_token(user, password):
