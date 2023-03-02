@@ -51,7 +51,7 @@ const ChangePass = ({ show, onClose, name}) => {
 
                 <div className="formulario2">
                     <button className="boton" onClick={() => { onClose(true) }}>X</button>
-
+                    <h1 className="title">Upload password</h1>
                     <form onSubmit={async (ev) => {
                          ev.preventDefault();
                         formFunction(ev);
@@ -59,18 +59,18 @@ const ChangePass = ({ show, onClose, name}) => {
                         <div>
                         <label >
             
-                        <input type="text" name="current_pass" id="current_pass" className="autor" autoComplete="off" placeholder="Current Password" />
+                        <input type="password" name="current_pass" id="current_pass" className="autor" autoComplete="off" placeholder="Current Password" />
                         </label>
                         </div>
                         <div>
                         <label >
           
-                        <input type="text" name="new_pass" id="new_pass" className="autor" autoComplete="off" placeholder="New Password" />
+                        <input type="password" name="new_pass" id="new_pass" className="autor" autoComplete="off" placeholder="New Password" />
                         </label>
                         </div>
                         <div>
 
-                        <input type="text" name="confirm_pass" id="confirm_pass" className="autor" autoComplete="off"  placeholder="Confirm New Password" />
+                        <input type="password" name="confirm_pass" id="confirm_pass" className="autor" autoComplete="off"  placeholder="Confirm New Password" />
                         </div>
                         
                         
