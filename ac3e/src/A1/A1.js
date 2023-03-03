@@ -218,7 +218,7 @@ const A1=()=> {
             </td>
           </tr>
           
-            < Modal sshow={sshow}  data={selecteddata} post={index} onClose={()=>{setShow(false);setActualizar(true)}} name={nameresearcher}/>
+            < Modal sshow={sshow}  data={selecteddata} post={index} onClose={()=>{setShow(false);setActualizar(true)}} name={namer}/>
         
         </>
       )
