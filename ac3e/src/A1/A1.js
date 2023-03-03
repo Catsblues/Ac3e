@@ -53,8 +53,11 @@ const A1=()=> {
         }
         else{
           console.log(decodedToken.name);
+          const re = decodedToken.name;
           setNameresearcher(decodedToken.name);
-          console.log(nameresearcher)
+          console.log(nameresearcher);
+          setNameresearcher(re);
+          console.log(nameresearcher);
         }
       }
     }, []);
