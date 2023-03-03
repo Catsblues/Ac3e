@@ -97,9 +97,10 @@ const A8=()=> {
         .then(res => res.json())
         .then(res => setReports(res))
       }
-      if(filtro === "default"){
+      await getReports(nombre);
+      /*if(filtro === "default"){
         await getReports();
-      }
+      
       else if(filtro === "name"){
         await getReportsname();
       }
@@ -114,7 +115,7 @@ const A8=()=> {
       }
       else{
         await getReportssave();
-      }
+      }*/
     }
       fetches();
       setActualizar(false);
