@@ -54,6 +54,7 @@ const A1=()=> {
         else{
           console.log(decodedToken.name);
           setNameresearcher(decodedToken.name);
+          console.log(nameresearcher)
         }
       }
     }, []);
