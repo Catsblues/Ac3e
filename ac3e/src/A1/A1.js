@@ -38,7 +38,7 @@ const A1=()=> {
         Volume:"",
         Year:""}]);
 
-    const [nameresearcher, setNameresearcher] = useState("");
+    const [namer, setNamer] = useState("");
     const navigate = useNavigate();
       
     useEffect(() => {
@@ -55,10 +55,8 @@ const A1=()=> {
           console.log(decodedToken.name);
           const re = decodedToken.name;
           console.log(re);
-          setNameresearcher(decodedToken.name);
-          console.log(nameresearcher);
-          setNameresearcher(re);
-          console.log(nameresearcher);
+          setNamer(re);
+          
         }
       }
     }, []);
