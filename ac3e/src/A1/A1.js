@@ -56,7 +56,7 @@ const A1=()=> {
           const re = decodedToken.name;
           console.log(re);
           setNamer(re);
-          
+
         }
       }
     }, []);
@@ -64,8 +64,8 @@ const A1=()=> {
     useEffect(() => {
       const fetches = async () => {
       const getReports = async () => {
-        console.log(nameresearcher);
-        await fetch('http://20.151.235.246/api/a1researcher/'+ {nameresearcher}, {method : 'GET', headers : {'Origin' : 'http://localhost:3000', 'origin' : 'http://localhost:3000'}})
+        console.log(namer);
+        await fetch('http://20.151.235.246/api/a1researcher/'+ namer, {method : 'GET', headers : {'Origin' : 'http://localhost:3000', 'origin' : 'http://localhost:3000'}})
         .then(res => res.json())
         .then(res => setReports(res))
       }
