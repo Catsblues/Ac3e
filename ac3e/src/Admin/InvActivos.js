@@ -155,7 +155,7 @@ const InvActivos=()=> {
       
       <div className='header'> 
         <img className="logo" src={"/ac3e.png"}/>
-        <a className="statistics" href="https://app.powerbi.com/view?r=eyJrIjoiOGFhN2I3MzQtY2FlZS00YjQzLWIzNTktNTgwNDNmMWU1MTQxIiwidCI6IjAyNjI1Njc2LTMyMjctNDQwYS05YzY4LWJiNmQyOWRlNDIwNiIsImMiOjR9">Estadísticas</a>
+        <a className="statistics" href="https://app.powerbi.com/view?r=eyJrIjoiOGFhN2I3MzQtY2FlZS00YjQzLWIzNTktNTgwNDNmMWU1MTQxIiwidCI6IjAyNjI1Njc2LTMyMjctNDQwYS05YzY4LWJiNmQyOWRlNDIwNiIsImMiOjR9" target="_blank">statistics</a>
         <button className="add" onClick={(e)=>{setShowadd(true)}}>+</button>
       </div>
       <h1 className="title">Display of list of researchers</h1>
