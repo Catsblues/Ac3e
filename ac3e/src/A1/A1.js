@@ -52,6 +52,7 @@ const A1=()=> {
           navigate("/inicioAdmin");
         }
         else{
+          console.log(decodedToken.name);
           setNameresearcher(decodedToken.name);
         }
       }
