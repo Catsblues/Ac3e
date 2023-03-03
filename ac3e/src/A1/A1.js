@@ -64,7 +64,9 @@ const A1=()=> {
     useEffect(() => {
       const fetches = async () => {
       const getReports = async () => {
-        console.log(namer);
+        const token = localStorage.getItem("token");
+        const decodedToken = jwt_decode(token);
+        setNamer(decodedToken.name);
         await fetch('http://20.151.235.246/api/a1researcher/'+ namer, {method : 'GET', headers : {'Origin' : 'http://localhost:3000', 'origin' : 'http://localhost:3000'}})
         .then(res => res.json())
         .then(res => setReports(res))
