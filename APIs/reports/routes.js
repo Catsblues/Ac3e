@@ -124,6 +124,16 @@ routes.get('/a8', (req, res)=>{
         })
     })
 })
+
+routes.get('/a8researcher/:researcher', (req, res)=>{
+    req.getConnection((err, conn)=>{
+        if(err) return res.send(err)
+        conn.query('SELECT * FROM a8 WHERE researcher = ?', [req.params.researcher],(err, rows)=>{
+            if(err) return res.send(err)
+            res.json(rows)
+        })
+    })
+})
 routes.get('/a8name/:name', (req, res)=>{
     req.getConnection((err, conn)=>{
         if(err) return res.send(err)

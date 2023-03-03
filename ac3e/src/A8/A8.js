@@ -40,7 +40,7 @@ const A8=()=> {
     const [filtrostatus, setFiltrostatus] = useState("default");
     const [filtroacademic, setFiltroacademic] = useState("default");
     const [filtrosave, setFiltrosave] = useState("default");
-
+    const [namer, setNamer] = useState("");
     const navigate = useNavigate();
 
     useEffect(() => {
@@ -53,13 +53,21 @@ const A8=()=> {
         if (decodedToken.rol !== "user") {
           navigate("/inicioAdmin");
         }
+        else{
+          console.log(decodedToken.name);
+          const re = decodedToken.name;
+          setNamer(re);
+        }
       }
     }, []);
 
     useEffect(() => {
       const fetches = async () => {
-      const getReports = async () => {
-        await fetch('http://20.151.235.246/api/a8', {method : 'GET', headers : {'Origin' : 'http://localhost:3000', 'origin' : 'http://localhost:3000'}})
+        const token = localStorage.getItem("token");
+        const decodedToken = jwt_decode(token);
+        const nombre = decodedToken.name;
+      const getReports = async (nombre) => {
+        await fetch('http://20.151.235.246/api/a8researcher/' + nombre, {method : 'GET', headers : {'Origin' : 'http://localhost:3000', 'origin' : 'http://localhost:3000'}})
         .then(res => res.json())
         .then(res => setReports(res))
       }
@@ -447,7 +455,7 @@ const handlePosteriorChange = (e) => {
             if(selectAcademic === "Professional title and master"){
               //Consulta POST profesional title
               console.log("entre a profesional title");
-              let newReport1 = {name :name, run: run, gender : gender, mail: mail, thesis_status :selectThesis, title:title, academic_degree: "Undergraduate degree or professional title", degree_domination: denomination, tutor:tutor, autor_institution: tutorInstitution ,cotutor_check: cotutor_check,cotutor:coautor,coautor_institution:coautorInstitution , other:otherr, other_institution: otherInstitution,other_check: other_check,degree_u:degreeUniversity, program_starts: startProgram, thesis_starts:startThesis, thesis_end:endThesis, posterior_working:selectPosterior,institution_working:InstitutionPosterior,inv:comentario, file: filee, borrador: erased, equipment:equipment, information:information, infraestructure: infraestructure, other_resource:othercheck }
+              let newReport1 = {researcher:namer ,name :name, run: run, gender : gender, mail: mail, thesis_status :selectThesis, title:title, academic_degree: "Undergraduate degree or professional title", degree_domination: denomination, tutor:tutor, autor_institution: tutorInstitution ,cotutor_check: cotutor_check,cotutor:coautor,coautor_institution:coautorInstitution , other:otherr, other_institution: otherInstitution,other_check: other_check,degree_u:degreeUniversity, program_starts: startProgram, thesis_starts:startThesis, thesis_end:endThesis, posterior_working:selectPosterior,institution_working:InstitutionPosterior,inv:comentario, file: filee, borrador: erased, equipment:equipment, information:information, infraestructure: infraestructure, other_resource:othercheck }
             const requestInit1 = {
               method:'POST',
               headers: {'Content-Type':'application/json'},
@@ -458,7 +466,7 @@ const handlePosteriorChange = (e) => {
             .then(res => console.log(res))
             //Consulta POST master
             console.log("entre a master");
-            let newReport2 = {name :name, run: run, gender : gender, mail: mail, thesis_status :selectThesis, title:title, academic_degree: "Master or equivalent", degree_domination: denomination, tutor:tutor, autor_institution: tutorInstitution ,cotutor_check: cotutor_check,cotutor:coautor,coautor_institution:coautorInstitution,other_check: other_check ,other:otherr, other_institution: otherInstitution,degree_u:degreeUniversity, program_starts: startProgram, thesis_starts:startThesis, thesis_end:endThesis, posterior_working:selectPosterior,institution_working:InstitutionPosterior,inv:comentario, file: filee, borrador: erased, equipment:equipment, information:information, infraestructure: infraestructure, other_resource:othercheck}
+            let newReport2 = {researcher:namer,name :name, run: run, gender : gender, mail: mail, thesis_status :selectThesis, title:title, academic_degree: "Master or equivalent", degree_domination: denomination, tutor:tutor, autor_institution: tutorInstitution ,cotutor_check: cotutor_check,cotutor:coautor,coautor_institution:coautorInstitution,other_check: other_check ,other:otherr, other_institution: otherInstitution,degree_u:degreeUniversity, program_starts: startProgram, thesis_starts:startThesis, thesis_end:endThesis, posterior_working:selectPosterior,institution_working:InstitutionPosterior,inv:comentario, file: filee, borrador: erased, equipment:equipment, information:information, infraestructure: infraestructure, other_resource:othercheck}
             const requestInit2 = {
               method:'POST',
               headers: {'Content-Type':'application/json'},
@@ -470,7 +478,7 @@ const handlePosteriorChange = (e) => {
             }
             else{
               console.log("holis");
-              let newReport = {name :name, run: run, gender : gender, mail: mail, thesis_status :selectThesis, title:title, academic_degree: selectAcademic, degree_domination: denomination, tutor:tutor, autor_institution: tutorInstitution, cotutor_check: cotutor_check,cotutor:coautor,coautor_institution:coautorInstitution,other_check: other_check  ,other:otherr, other_institution: otherInstitution,degree_u:degreeUniversity, program_starts: startProgram, thesis_starts:startThesis, thesis_end:endThesis, posterior_working:selectPosterior,institution_working:InstitutionPosterior,inv:comentario, file: filee, borrador: erased, equipment:equipment, information:information, infraestructure: infraestructure, other_resource:othercheck}
+              let newReport = {researcher:namer,name :name, run: run, gender : gender, mail: mail, thesis_status :selectThesis, title:title, academic_degree: selectAcademic, degree_domination: denomination, tutor:tutor, autor_institution: tutorInstitution, cotutor_check: cotutor_check,cotutor:coautor,coautor_institution:coautorInstitution,other_check: other_check  ,other:otherr, other_institution: otherInstitution,degree_u:degreeUniversity, program_starts: startProgram, thesis_starts:startThesis, thesis_end:endThesis, posterior_working:selectPosterior,institution_working:InstitutionPosterior,inv:comentario, file: filee, borrador: erased, equipment:equipment, information:information, infraestructure: infraestructure, other_resource:othercheck}
             const requestInit = {
               method:'POST',
               headers: {'Content-Type':'application/json'},
@@ -485,7 +493,7 @@ const handlePosteriorChange = (e) => {
 
           funccion();
           setActualizar(true);
-          //window.location.reload();
+          window.location.reload();
             }}>
               
           <span>
