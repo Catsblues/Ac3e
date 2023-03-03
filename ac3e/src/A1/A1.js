@@ -66,7 +66,7 @@ const A1=()=> {
       const getReports = async () => {
         const token = localStorage.getItem("token");
         const decodedToken = jwt_decode(token);
-        nombre = decodedToken.name;
+        const nombre = decodedToken.name;
         await fetch('http://20.151.235.246/api/a1researcher/'+ nombre, {method : 'GET', headers : {'Origin' : 'http://localhost:3000', 'origin' : 'http://localhost:3000'}})
         .then(res => res.json())
         .then(res => setReports(res))
