@@ -239,7 +239,7 @@ routes.get('/name/:name', (req, res)=>{
     req.getConnection((err, conn)=>{
         if(err) return res.send(err)
 
-        conn.query('SELECT * FROM investigadores WHERE name = ?', [req.params.name],(err, rows)=>{
+        conn.query('SELECT * FROM investigadores WHERE name LIKE %?%', [req.params.name],(err, rows)=>{
             if(err) return res.send(err)
 
             res.json(rows)
