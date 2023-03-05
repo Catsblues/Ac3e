@@ -39,7 +39,7 @@ const InvActivos=()=> {
         .then(res => res.json())
         .then(res => setReports(res))}
       const getReportsname = async () => {
-        await fetch('http://localhost:9000/api/name/'+search)
+        await fetch('http://20.151.235.246/api/name/'+search)
         .then(res => res.json())
         .then(res => setReports(res))}
       const getReportstype = async () => {
