@@ -1,19 +1,24 @@
 import "./PlanillaInv.css";
+import EditarReporte from "./ComponentsAdmin/EditarReporte";
 import React, {useState, useEffect} from "react";
 import { Link, useNavigate } from "react-router-dom";
 import jwt_decode from "jwt-decode";
 
 const PlanillaInv=()=> {
 
-    const [campo, setCampo] = useState(localStorage.getItem("campo"));
+    const [campo, setCampo] = useState("default");
     const [register, setRegister] = useState("default");
-    const [filtroSelect, setFiltroSelect] = useState("hidden");
-    const [inputText, setInputText] = useState("hidden");
     const [search, setSearch] = useState("");
     const [check, setCheck] = useState(localStorage.getItem("checkInv"));
-    const [searchInv, setSearchInv] = useState(localStorage.getItem("Investigador"));
+    const [searchInv, setSearchInv] = useState("");
+    const [reports, setReports] = useState([]);
+    const [actualizar, setActualizar] = useState(false);
+    const [show, setShow] = useState(false);
+    const[selecteddata, setSelecteddata] = useState([]);
+
 
     const navigate = useNavigate();
+
     useEffect(() => {
       const token = localStorage.getItem("token");
       if (!token) {
@@ -27,227 +32,190 @@ const PlanillaInv=()=> {
       }
     }, []);
 
-    const printInv = () => {
-        var data = JSON.parse(localStorage.getItem("data"));
-        if(data !== null){
-            if(searchInv === "Zañartu, M"){
-                localStorage.setItem("showInv",JSON.stringify(data));
-            }
-            else if(searchInv === null){
-              
-              let newReport = {autor: "", coautor:"",title: "", journal: "no hay datos", doi: "", volume:"" , firstPage: "" , lastPage:""  , yearPublished:"" };
-              let lis = [];
-              lis.push(newReport);
-              localStorage.setItem("showInv",JSON.stringify(lis));
-                
-                
-            }
-            else{
-                let newList = data;
-                var report = data.find(reporte => reporte.coautor === searchInv);
-                if(report==undefined){
-                  let newReport = {autor: "", coautor: "",title: "", journal: "no hay datos", doi: "", volume:"" , firstPage: "" , lastPage:""  , yearPublished:"" };
-                  let lis = [];
-                  lis.push(newReport);
-                  localStorage.setItem("showInv",JSON.stringify(lis));
-                }
-                else{
-                  
-                  var final = new Array();
-                  
-                  while(report!=undefined){
-                    
-                    final.push(report);
-                    
-                    let auxiliarList= [];
-                    for(var i = 0; i < newList.length; i++){
-                      if(compare(report, newList[i]) === false){
-                        auxiliarList.push(newList[i]);
-                       
-                      }
-                    }
-                    newList=auxiliarList;
-                    report = newList.find(reporte => reporte.coautor === searchInv);
-                    
+    
 
-                  }
-                  
-                  localStorage.setItem("showInv", JSON.stringify(final));
-                }
+    useEffect(() => {
+    
+      const getReportsA1 = async () => {
+        await fetch('http://20.151.235.246/api/a1')
+        .then(res => res.json())
+        .then(res => setReports(res))}
+      const getReportsA1Inv = async () => {
+        await fetch('http://20.151.235.246/api/a8researcher/' + searchInv, {method : 'GET', headers : {'Origin' : 'http://localhost:3000', 'origin' : 'http://localhost:3000'}})
+        .then(res => res.json())
+        .then(res => setReports(res))
+        .then(res => console.log(res))}
+      const getReportsA8 = async () => {
+        await fetch('http://20.151.235.246/api/a8')
+        .then(res => res.json())
+        .then(res => setReports(res))}
+      if(searchInv === "" && campo === "A1"){
+           getReportsA1();console.log("A1")}
+      if(searchInv !== "" && campo === "A1"){
+          getReportsA1Inv();console.log("A1Inv")}
+      if(searchInv === "" && campo === "A8"){
+            getReportsA8();console.log("A8")}
+    setActualizar(false);
+    }, [searchInv,actualizar,campo])
 
-
-                
-            }
-        }
-        
-    }
 
     const handleChange = (valor) => {
-        setCampo(valor);
-        if(valor === "A1"){
-          localStorage.setItem("campo","A1");
-          localStorage.setItem("showInv",(localStorage.getItem("data")));
-          setTimeout(()=>{
-            window.location.reload(true);
-          });
+        setCampo(valor);    
+    }
+
+    let i_ = -1;
+    if(campo === "A1"){
+      var rep = reports.map((reporte,index) => {
+        i_+=1;
+        var id = reporte.id;
+        var researcher = reporte.researcher;
+        var doi = reporte.doi;
+        var title = reporte.title;
+        var author = reporte.autor;
+        var journal = reporte.journal;
+        var year = reporte.yearPublished;
+        var complete = reporte.complete;
+        return(
+          <>
+            <tr key={index}>
+              <td>{researcher}</td>
+              <td>{doi}</td>
+              <td>{title}</td>
+              <td>{author}</td>
+              <td>{journal}</td>
+              <td>{year}</td>
+              <td>{complete}</td>
+              <td key={index} className="botones">
+                <button className="edit" onClick={(e)=>{setShow(true); setSelecteddata(reports[index]) }}><i class="fa-solid fa-pen-to-square"></i></button>
+                <button className="delete" onClick={()=>{deletereport(id)}}><i class="fa-solid fa-trash"></i></button>
+              </td>
+            </tr>
+            
+              < EditarReporte show={show}  data={selecteddata} post={index} onClose={()=>{setShow(false);setActualizar(true)}} />
           
+          </>
+        )
+      }
+      )
+    }
+    else if(campo === "A8"){
+      var rep = reports.map((reporte,index) => {
+        i_+=1;
+        var id = reporte.id;
+        var researcher = reporte.researcher;
+        var status = reporte.thesis_status;
+        var nomStu = reporte.name;
+        var nomThe = reporte.title;
+        var degr = reporte.academic_degree;
+        var clas = reporte.borrador;
+        if(degr === "0"){
+          degr = "non-degree admitted";
         }
-        else{
-          let newReport = {autor: "", conautor: "",title: "", journal: "no hay datos", doi: "", volume:"" , firstPage: "" , lastPage:""  , yearPublished:"" };
-          let lis = [];
-          lis.push(newReport);
-          localStorage.setItem("showInv",JSON.stringify(lis));
+        if(status === "0"){
+          status = "";
         }
+        return(
+          <>
+            <tr key={index}>
+              <td>{researcher}</td>
+              <td>{status}</td>
+              <td>{nomStu}</td>
+              <td>{nomThe}</td>
+              <td>{degr}</td>
+              <td>{clas}</td>
+              <td key={index} className="botones">
+                <button className="edit" onClick={(e)=>{setShow(true); setSelecteddata(reports[index]) }}><i class="fa-solid fa-pen-to-square"></i></button>
+                <button className="delete" onClick={()=>{deletereport(id)}}><i class="fa-solid fa-trash"></i></button>
+              </td>
+            </tr>
+            
+              < EditarReporte show={show}  data={selecteddata} post={index} onClose={()=>{setShow(false);setActualizar(true)}}/>
+          
+          </>
+        )
+      }
+      )
     }
 
-    const handleRegisterChange = (e) => {
-    
-        setRegister(e.target.value)
-        
-    }
+    const handletable = (valor) => {
+      if(campo==="A1"){
+        return(
+          <table className="table table-success table-striped rounded">
+  <thead>
+    <tr>
+      <th scope="col">Researcher</th>
+      <th scope="col">DOI</th>
+      <th scope="col">Title</th>
+      <th scope="col">Authors</th>
+      <th scope="col">Journal</th>
+      <th scope="col">Year</th>
+      <th scope="col">Save Type</th>
+      <th scope="col"></th>
 
-    const filtroChange = (e) => {
-      setRegister("default");
-      if(check === ""){
-        localStorage.setItem("checkInv", "checked");
-        setCheck("checked");
-        setFiltroSelect("visible");
-        setInputText("text");   
-      }
-      else {
-          setFiltroSelect("hidden");
-          localStorage.setItem("checkInv", "");
-          setCheck("");
-          var data = JSON.parse(localStorage.getItem("data"));
-          localStorage.setItem("showInv", JSON.stringify(data));
-          localStorage.setItem("checkInv", "")
-          setTimeout(()=>{
-            window.location.reload(true);
-          });
-
-      }
-  }
-
-
-  const deleteJson = (reporte) => {
-    var data = JSON.parse(localStorage.getItem("data"));
-    let newList = [];
-    for(var i = 0; i < data.length; i++){
-      if(compare(reporte, data[i]) === false){
-        newList.push(data[i]);
-      }
-    }
-    localStorage.clear();
-    if(newList.length === 0){
-      let newReport = {autor: "", coautor:"",title: "", journal: "no hay datos", doi: "", volume:"" , firstPage: "" , lastPage:""  , yearPublished:"" };
-      newList.push(newReport);
-    }
-    localStorage.setItem("data",JSON.stringify(newList));
-    setTimeout(()=>{
-      window.location.reload(true);
-    });
-    
-  }
-
-  const inicial = () => {
-    if((localStorage.getItem("data")) == undefined){
-      let newReport = {autor: "", coautor: "",title: "", journal: "no hay datos", doi: "", volume:"" , firstPage: "" , lastPage:""  , yearPublished:"" };
-      let lis = [];
-      lis.push(newReport);
-      localStorage.setItem("data",JSON.stringify(lis));
-      localStorage.setItem("showInv",JSON.stringify(lis));
-      }
-    else{
-      
-      if(check === ""){
-        if(campo !== "A1"){
-          let newReport = {autor: "", coautor: "",title: "", journal: "no hay datos", doi: "", volume:"" , firstPage: "" , lastPage:""  , yearPublished:"" };
-          let lis = [];
-          lis.push(newReport);
-          localStorage.setItem("showInv",JSON.stringify(lis));
-          localStorage.setItem("campo","default");
-        }
-        else{
-          if(searchInv!==""){
-            printInv();
-          }
-          else{
-            let newReport = {autor: "", coautor:"",title: "", journal: "no hay datos", doi: "", volume:"" , firstPage: "" , lastPage:""  , yearPublished:"" };
-            let lis = [];
-            lis.push(newReport);
-            localStorage.setItem("showInv",JSON.stringify(lis));
-          }
-        }
-      }
-      
-      else if(check !=="checked"){
-        
-        localStorage.setItem("checkInv","");
-        setCheck("");
-        let newReport = {autor: "", coautor:"",title: "", journal: "no hay datos", doi: "", volume:"" , firstPage: "" , lastPage:""  , yearPublished:"" };
-        let lis = [];
-        lis.push(newReport);
-        localStorage.setItem("showInv",JSON.stringify(lis));
-      }
-      
+    </tr>
+  </thead>
+  <tbody>
+    {
+      rep
       
     }
-    
-    
-  }
-
-  const compare = (reportA, reportB) => {
-    
-    var Akeys = Object.keys(reportA);
-    var Bkeys = Object.keys(reportB);
-
-    if(Akeys.join("") !== Bkeys.join("")){
-      return false;
-    }
-    for(var i = 0; i < Akeys.length; i++){
-      if(reportA[Akeys[i]] !== reportB[Bkeys[i]]){
-        return false;
+  </tbody>
+</table>
+        )
       }
-    }
-    
-    return true;
-  }
+      else if(campo==="A8"){
+        return(
+          <table className="table table-success table-striped rounded">
+  <thead>
+    <tr>
+      <th scope="col">Researcher</th>
+      <th scope="col">Thesis Status</th>
+      <th scope="col">Student Name</th>
+      <th scope="col">Thesis Title</th>
+      <th scope="col">Academic Degree</th>
+      <th scope="col">Save Type</th>
+      <th scope="col"></th>
 
-  const busqueda = (e) =>{ 
-    printInv();
-    var data = JSON.parse(localStorage.getItem("showInv"));
-    let show = [];
-    for(var i = 0; i < data.length; i++){
-        if(register==="doi"){
-            if(data[i].doi===search){
-                show.push(data[i])
-            }
-        }
-        else if(register==="autor"){
-            if(data[i].autor===search){
-                show.push(data[i])
-            }
-        }
-        else if(register==="articulo"){
-            if(data[i].title===search){
-                show.push(data[i])
-            } 
-        }
-        
+    </tr>
+  </thead>
+  <tbody>
+    {
+      rep
+      
     }
+  </tbody>
+</table> 
+        )
+    }
+  }
     
-    localStorage.setItem("showInv",JSON.stringify(show));
-    setTimeout(()=>{
-      window.location.reload(true);
-    });
+       
+
+      
+ 
+    const deletereport = (id) => {
+
+      if(window.confirm("Are you sure you want to delete this report?")){    
+        const requestInit = {
+        method:'DELETE'
+        }
+        fetch('http://20.151.235.246/api/a1/'+id, requestInit)
+        .then(res => res.json())
+        .then(res => console.log(res))
+        .then(res => console.log('hola'))
+        setActualizar(true);
+      }
+    }    
+    
+    
   
-    
-}
+
+  
+
+  
 
 
-  inicial();
 
-    
 
 
     return(
@@ -262,15 +230,12 @@ const PlanillaInv=()=> {
       <a className="statistics" href="https://app.powerbi.com/view?r=eyJrIjoiOGFhN2I3MzQtY2FlZS00YjQzLWIzNTktNTgwNDNmMWU1MTQxIiwidCI6IjAyNjI1Njc2LTMyMjctNDQwYS05YzY4LWJiNmQyOWRlNDIwNiIsImMiOjR9" target="_blank">Stadistics</a>  
     </div>
     
-    <h1 className="title">Planilla personal de investigadores</h1>   
+    <h1 className="title">Planilla  de investigadores</h1>   
     <h3 className="text">Ingrese el investigador y los tipos de reporte que desee ver:</h3>
     <div className="buscador">
             <form onSubmit={ev => {ev.preventDefault()}}>
             <div>
-
-                <input type="text" name="inv" id="inv" autoComplete="off" placeholder="Investigador(a)" onChange={ev => setSearchInv(ev.target.value)} ></input>
-                
-                <select name="selectcampo" id="selectcampo" defaultValue={campo} onChange={e => handleChange(e.target.value)}>
+            <select name="selectcampo" id="selectcampo" defaultValue={campo} onChange={e => handleChange(e.target.value)}>
                     <option value="default" disabled hidden>Seleccione Campo de Reporte</option>
                     <option value="A1">A1 Isi publications</option>
                     <option value="A2">A2 Non Isi Publications</option>
@@ -288,64 +253,13 @@ const PlanillaInv=()=> {
                     <option value="A13">A13 Tec. and Know. Transfer</option>
                     <option value="A14">A14 Funding Sources</option>
                 </select>
-
-                <label>Desea filtrar los datos?</label>
-            <input type="checkbox" id="filtro" checked={check} onChange={filtroChange}></input>
-                
-                
-                <select name="selectbuscador" style={{visibility:filtroSelect}} id="selectbuscador" value={register} onChange={handleRegisterChange}>
-                    <option value="default" disabled hidden>Seleccione opción de búsqueda</option>
-                    <option value="doi">Digital Object Identifier (DOI)</option>
-                    <option value="autor">Autor(s)</option>
-                    <option value="articulo">Article Name</option>
-                </select>
-
-                <input type= {inputText} name="buscar" id="buscar" autoComplete="off" onChange={ev => setSearch(ev.target.value)} ></input>
-               
-                <button type="submit" onClick={()=>{busqueda()}}>Buscar</button>
+                <input type="text" name="inv" id="inv" autoComplete="off" placeholder="Investigador(a)" onChange={ev => setSearchInv(ev.target.value)} ></input>
             </div>
             </form>    
         </div>
 
     <div className="tabla"> 
-    <table className="table table-success table-striped">
-<thead>
-<tr>
-  <th scope="col">DOI</th>
-  <th scope="col">Article Name</th>
-  <th scope="col">Autor(s)</th>
-  <th scope="col">Journal Name</th>
-  <th scope="col">Year Published</th>
-  <th scope="col"></th>
-
-</tr>
-</thead>
-<tbody>
-{
-      
-      JSON.parse(localStorage.getItem("showInv")).map((reporte) => {
-        return(
-          <>
-            <tr>
-              <th scope="row">{reporte.doi}</th>
-              <td>{reporte.title}</td>
-              <td>{reporte.autor}</td>
-              <td>{reporte.journal}</td>
-              <td>{reporte.yearPublished}</td>
-              <div className="botones">
-                <button className="edit"><i class="fa-solid fa-pen-to-square"></i></button>
-                <button className="delete" onClick={()=>{deleteJson(reporte)}}><i class="fa-solid fa-trash"></i></button>
-              </div>
-            </tr>
-          </>
-        )
-      }
-      )
-    }
-
-
-</tbody>
-</table> 
+      {handletable(campo)} 
 </div>
 </>
     );

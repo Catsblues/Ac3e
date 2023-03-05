@@ -12,7 +12,6 @@ import A1 from "./A1/A1.js";
 import A8 from "./A8/A8.js";
 import InicioAdmin from "./Admin/InicioAdmin.js";
 import PlanillaInv from "./Admin/PlanillaInv.js";
-import PlanillaGen from "./Admin/PlanillaGen.js";
 import InvActivos from "./Admin/InvActivos.js";
 
 
@@ -26,7 +25,6 @@ function App() {
           <Route exact path="/Inicio/a1" element={<A1/>}></Route>
           <Route exact path="/Inicio/a8" element={<A8/>}></Route>
           <Route exact path="/InicioAdmin" element={<InicioAdmin/>}></Route>
-          <Route exact path="/InicioAdmin/PlanillaGen" element={<PlanillaGen/>}></Route>
           <Route exact path="/InicioAdmin/PlanillaInv" element={<PlanillaInv/>}></Route>
           <Route exact path="/InicioAdmin/PerfilInv" element={<InvActivos/>}></Route>
         </Routes>
