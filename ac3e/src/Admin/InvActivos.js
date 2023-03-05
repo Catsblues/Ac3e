@@ -39,23 +39,23 @@ const InvActivos=()=> {
         .then(res => res.json())
         .then(res => setReports(res))}
       const getReportsname = async () => {
-        await fetch('http://20.151.235.246/api/name/'+search)
+        await fetch('http://localhost:9000/api/name/'+search)
         .then(res => res.json())
         .then(res => setReports(res))}
       const getReportstype = async () => {
-        await fetch('http://20.151.235.246/api/type/'+search)
+        await fetch('http://localhost:9000/api/type/'+search)
         .then(res => res.json())
         .then(res => setReports(res))}
       const getReportsmail = async () => {
-        await fetch('http://20.151.235.246/api/mail/'+search)
+        await fetch('http://localhost:9000/api/mail/'+search)
         .then(res => res.json())
         .then(res => setReports(res))}
       const getReportsline = async () => {
-        await fetch('http://20.151.235.246/api/line/'+search)
+        await fetch('http://localhost:9000/api/line/'+search)
         .then(res => res.json())
         .then(res => setReports(res))}
       const getReportsinstitution = async () => {
-        await fetch('http://20.151.235.246/api/institution/'+search+'%')
+        await fetch('http://localhost:9000/api/institution/'+search+'%')
         .then(res => res.json())
         .then(res => setReports(res))}
       if(filtro === "default"){
