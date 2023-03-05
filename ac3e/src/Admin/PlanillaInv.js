@@ -49,12 +49,19 @@ const PlanillaInv=()=> {
         await fetch('http://20.151.235.246/api/a8')
         .then(res => res.json())
         .then(res => setReports(res))}
+      const getReportsA8Inv = async () => {
+          await fetch('http://20.151.235.246/api/a8researcher/' + searchInv, {method : 'GET', headers : {'Origin' : 'http://localhost:3000', 'origin' : 'http://localhost:3000'}})
+          .then(res => res.json())
+          .then(res => setReports(res))
+          .then(res => console.log(res))}
       if(searchInv === "" && campo === "A1"){
            getReportsA1();console.log("A1")}
       if(searchInv !== "" && campo === "A1"){
           getReportsA1Inv();console.log("A1Inv")}
       if(searchInv === "" && campo === "A8"){
             getReportsA8();console.log("A8")}
+      if(searchInv !== "" && campo === "A8"){
+            getReportsA8Inv();console.log("A8Inv")}
     setActualizar(false);
     }, [searchInv,actualizar,campo])
 
