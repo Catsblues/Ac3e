@@ -41,7 +41,7 @@ const PlanillaInv=()=> {
         .then(res => res.json())
         .then(res => setReports(res))}
       const getReportsA1Inv = async () => {
-        await fetch('http://20.151.235.246/api/a8researcher/' + searchInv, {method : 'GET', headers : {'Origin' : 'http://localhost:3000', 'origin' : 'http://localhost:3000'}})
+        await fetch('http://20.151.235.246/api/a1researcher/' + searchInv, {method : 'GET', headers : {'Origin' : 'http://localhost:3000', 'origin' : 'http://localhost:3000'}})
         .then(res => res.json())
         .then(res => setReports(res))
         .then(res => console.log(res))}
