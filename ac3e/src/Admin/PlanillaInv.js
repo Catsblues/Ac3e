@@ -1,7 +1,7 @@
 import "./PlanillaInv.css";
 import EditarReporte from "./ComponentsAdmin/EditarReporte";
-import modalA1 from "../A1/Modal";
-import modalA8 from "../A8/Modal";
+import ModalA1 from "../A1/Modal";
+import ModalA8 from "../A8/Modal";
 import React, {useState, useEffect} from "react";
 import { Link, useNavigate } from "react-router-dom";
 import jwt_decode from "jwt-decode";
@@ -101,7 +101,7 @@ const PlanillaInv=()=> {
               </td>
             </tr>
             
-              < modalA1 show={showa1}  data={selecteddata} post={index} onClose={()=>{setShowa1(false);setActualizar(true)}} />
+              < ModalA1 show={showa1}  data={selecteddata} post={index} onClose={()=>{setShowa1(false);setActualizar(true)}} />
           
           </>
         )
@@ -139,7 +139,7 @@ const PlanillaInv=()=> {
               </td>
             </tr>
             
-              < modalA8 sshow={showa8} data={selecteddata} post={index} onClose={()=>{setShowa8(false);setActualizar(true)}}/>
+              < ModalA8 sshow={showa8} data={selecteddata} post={index} onClose={()=>{setShowa8(false);setActualizar(true)}}/>
           
           </>
         )
