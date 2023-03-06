@@ -22,6 +22,29 @@ const AddA8 = ({ sshow,onClose }) => {
     const [ins, setIns] = useState("hidden");
     const [file, setFile] = useState(null);
     const [first, setFirst] = useState(0);
+    const [actualizar, setActualizar] = useState(false);
+    const [filtro, setFiltro] = useState("default");
+    const [textfilter, setTextfilter] = useState("hidden");
+    const [statusfilter, setStatusfilter] = useState("hidden");
+    const [academicfilter, setAcademicfilter] = useState("hidden");
+    const [savefilter, setSavefilter] = useState("hidden");
+   
+    const [check, setCheck] = useState(localStorage.getItem("check"));
+    
+    const [others, setOthers] = useState("hidden");
+    
+    const [Equipment, setEquipment] = useState("false");
+    const [Information, setInformation] = useState("false");
+    const [Infraestructure, setInfraestructure] = useState("false");
+    const [Othercheck, setOthercheck] = useState("false");
+    
+    const [archivosave , setArchivosave] =useState(null);
+    const [reports, setReports] = useState([]);
+    const[selecteddata, setSelecteddata] = useState([]);
+    const [filtrostatus, setFiltrostatus] = useState("default");
+    const [filtroacademic, setFiltroacademic] = useState("default");
+    const [filtrosave, setFiltrosave] = useState("default");
+    const [namer, setNamer] = useState("");
     
     const [showw, setShoww] = useState(false);
     
@@ -36,358 +59,113 @@ const AddA8 = ({ sshow,onClose }) => {
     const researcher = decodedToken.researcher;
     
     
-    
-   
-
-    const handleGenderChange = (e) => {
+    const  fileHandler = (e) => {
+        setArchivosave(e.target.files[0])
+      }
+  
+      const handleGenderChange = (e) => {
         console.log(e.target.value);
         setGender(e.target.value)
-
-    }
-
-
-
-
-    const handleStatusChange = (e) => {
-
+          
+      }
+      const handleStatusChange = (e) => {
+    
         setThesisStatus(e.target.value)
-        if (e.target.value === "Finished") {
-            setArchivo("file");
-            setPosteriorSelect("visible");
-            setIns("text");
-        }
-        else {
-            setArchivo("hidden");
-            setPosteriorSelect("hidden");
-            setIns("hidden");
-        }
-
-    }
-
-    const handleAcademicChange = (e) => {
-
-        setAcademic(e.target.value)
-
-    }
-
-    const handleResourceChange = (e) => {
-
-        setResource(e.target.value)
-
-    }
-
-    const handlePosteriorChange = (e) => {
-
-        setPosterior(e.target.value)
-
-    }
-
-  
-
-    const coautorChange = (e) => {
-        if (cotutorcheck === false) {
-            setCoautors("text");
-            cotutorcheck = true;
-        }
-        else {
-            setCoautors("hidden");
-            cotutorcheck = false;
-        }
-    }
-
-    const otherChange = (e) => {
-        if (othercheck === false) {
-            setOther("text");
-            othercheck = true;
-        }
-        else {
-            setOther("hidden");
-            othercheck = false;
-        }
-    }
-
-
-    const fileChange = (e) => {
-        setFile(e.target.files[0]);
-        console.log(file);
-        console.log(e.target.files[0]);
-        const formdata = new FormData()
-        formdata.append('pdf', file)
-        console.log(formdata);
-    }
-
-    const equipmentChange = (e) => {
-        if(equip===false){
-          equip = true;
+        if(e.target.value==="Finished"){
+          setArchivo("file");
+          setPosteriorSelect("visible");
+          setIns("text");
         }
         else{
-          equip = false;
+          setArchivo("hidden");
+          setPosteriorSelect("hidden");
+          setIns("hidden");
+        }
+        
+    }
+  
+    const handleAcademicChange = (e) => {
+      
+      setAcademic(e.target.value)
+      
+  }
+  
+  
+  
+  const handlePosteriorChange = (e) => {
+      
+    setPosterior(e.target.value)
+    
+  }
+  
+      const coautorChange = (e) => {
+        if(coautors==="hidden"){
+          setCoautors("text");
+        }
+        else{
+          setCoautors("hidden");
+        }
+      }
+  
+      const otherChange = (e) => {
+        if(others==="hidden"){
+          setOthers("text");
+        }
+        else{
+          setOthers("hidden");
+        }
+      }
+  
+      const equipmentChange = (e) => {
+        if(Equipment===""){
+          setEquipment("equipment");
+        }
+        else{
+          setEquipment("");
         }
       }
   
       const informationChange = (e) => {
-        if(info===false){
-          info = true;
+        if(Information===""){
+          setInformation("information");
         }
         else{
-          info=false;
+          setInformation("");
         }
       }
   
       const infraestructureChange = (e) => {
-        if(infra===false){
-          infra = true;
+        if(Infraestructure===""){
+          setInfraestructure("infraestructure");
         }
         else{
-          infra = false;
+          setInfraestructure("");
         }
       }
   
       const othercheckChange = (e) => {
-        if(other_s===false){
-          other_s = true;
+        if(Othercheck===""){
+          setOthercheck("equipment");
         }
         else{
-          other_s = false;
+          setOthercheck("");
         }
       }
-
-    
-    
-    
-
-    const formFunction = (ev) => {
-       
-
-
-                        if (coautors === "text") {
-                            var coautor = ev.target.coautor.value;
-                            var coautorInstitution = ev.target.coautorInstitution.value;
-                        }
-                        else {
-                            var coautor = "";
-                            var coautorInstitution = "";
-                        }
-
-                        if (other === "text") {
-                            var other = ev.target.other.value;
-                            var otherInstitution = ev.target.otherInstitution.value;
-                        }
-                        else {
-                            var other = "";
-                            var otherInstitution = "";
-                        }
-
-                        if(equip===true){
-                            var equipment = "true";
-                        }
-                        else{
-                            var equipment = "";
-                        }
-                        if(info===true){
-                            var information = "true";
-                        }
-                        else{
-                            var information = "";
-                        }
-                        if(infra===true){
-                            var infraestructure = "true";
-                        }
-                        else{
-                            var infraestructure = "";
-                        }
-                        if(other_s===true){
-                            var other_resource = "true";
-                        }
-                        else{
-                            var other_resource = "";
-                        }
-                        if(cotutorcheck===true){
-                            var cotutor_check = "true";
-                        }
-                        else{
-                            var cotutor_check = "";
-                        }
-                        if(othercheck===true){
-                            var other_check = "true";
-                        }
-                        else{
-                            var other_check = "";
-                        }
-
-                        const name = ev.target.name.value;
-                        const run = ev.target.run.value;
-                        const gender = ev.target.selectbuscador.value;
-                        const mail = ev.target.mail.value;
-                        const selectThesis = ev.target.selectThesis.value;
-                        const title = ev.target.title.value;
-                        const selectAcademic = ev.target.selectAcademic.value;
-                        const denomination = ev.target.denomination.value;
-                        const tutor = ev.target.tutor.value;
-                        const tutorInstitution = ev.target.tutorInstitution.value;
-                        const degreeUniversity = ev.target.degreeUniversity.value;
-                        const startProgram = ev.target.startProgram.value;
-                        const startThesis = ev.target.startThesis.value;
-                        const endThesis = ev.target.endThesis.value;
-                        const selectPosterior = ev.target.selectPosterior.value;
-                        const InstitutionPosterior = ev.target.InstitutionPosterior.value;
-                        const comentario = ev.target.comentario.value;
-                        const filee = "";
-                        
-                        
-
-
-                        var erased;
-                        if(name==="" || run==="" || gender==="0" || title===""|| selectAcademic==="0"|| tutor===""|| startThesis===""|| (selectThesis==="2" && (selectPosterior==="0" || InstitutionPosterior==="" || ev.target.archivo.value===null ))){
-                            
-                            erased = "erased";
-                            console.log("entre a borrador");
-                            }
-                            else{
-                            erased = "saved";
-                            console.log("no entre a borrador");
-                            }
-
-
-                        if(selectAcademic === "Professional title and master"){
-                                //Consulta PUT profesional title
-
-                            let newReport1 = {
-                                researcher: researcher,
-                                name :name, 
-                                run: run, 
-                                gender : gender, 
-                                mail: mail, 
-                                thesis_status :selectThesis, 
-                                title:title, 
-                                academic_degree: "Undergraduate degree or professional title", 
-                                degree_domination: denomination, 
-                                tutor:tutor, 
-                                cotutor:coautor, 
-                                other:other, 
-                                autor_institution: tutorInstitution,
-                                coautor_institution: coautorInstitution,
-                                cotutor_check:cotutor_check,
-                                other_institution: otherInstitution,
-                                other_check:other_check,
-                                degree_u:degreeUniversity, 
-                                program_starts: startProgram, 
-                                thesis_starts:startThesis, 
-                                thesis_end:endThesis, 
-                                posterior_working:selectPosterior,
-                                institution_working:InstitutionPosterior,
-                                inv:comentario, 
-                                file: filee, 
-                                borrador:erased,
-                                equipment:equipment,
-                                information:information,
-                                infraestructure:infraestructure,
-                                other_resource:other_resource
-
-                            }
-                            const requestInit1 = {
-                                method:'POST',
-                                headers: {'Content-Type':'application/json'},
-                                body: JSON.stringify(newReport1)
-                              }
-                              fetch('http://20.151.235.246/api/a8', requestInit1)
-                              .then(res => res.json())
-                              .then(res => console.log(res))
-                              .then(res => console.log('hola'))
-                              //Consulta PUT master
-                              let newReport2 = {
-                                researcher: researcher,
-                                name :name, 
-                                run: run, 
-                                gender : gender, 
-                                mail: mail, 
-                                thesis_status :selectThesis, 
-                                title:title, 
-                                academic_degree: "Master or equivalent", 
-                                degree_domination: denomination, 
-                                tutor:tutor, 
-                                cotutor:coautor, 
-                                other:other, 
-                                autor_institution: tutorInstitution,
-                                coautor_institution: coautorInstitution,
-                                other_institution: otherInstitution,
-                                cotutor_check:cotutor_check,
-                                other_check:other_check,
-                                degree_u:degreeUniversity, 
-                                program_starts: startProgram, 
-                                thesis_starts:startThesis, 
-                                thesis_end:endThesis,  
-                                posterior_working:selectPosterior,
-                                institution_working:InstitutionPosterior,
-                                inv:comentario, 
-                                file: filee, 
-                                borrador:erased,
-                                equipment:equipment,
-                                information:information,
-                                infraestructure:infraestructure,
-                                other_resource:other_resource
-                              }
-                              const requestInit2 = {
-                                method:'POST',
-                                headers: {'Content-Type':'application/json'},
-                                body: JSON.stringify(newReport2)
-                              }
-                              fetch('http://20.151.235.246/api/a8', requestInit2)
-                              .then(res => res.json())
-                              .then(res => console.log(res))
-                              .then(res => console.log('hola'))
-                              }
-                              else{
-                                let newReport = {
-                                    researcher: researcher,
-                                    name :name, 
-                                run: run, 
-                                gender : gender, 
-                                mail: mail, 
-                                thesis_status :selectThesis, 
-                                title:title, 
-                                academic_degree: selectAcademic, 
-                                degree_domination: denomination, 
-                                tutor:tutor, 
-                                cotutor:coautor, 
-                                other:other, 
-                                autor_institution: tutorInstitution,
-                                coautor_institution: coautorInstitution,
-                                other_institution: otherInstitution,
-                                cotutor_check:cotutor_check,
-                                other_check:other_check,
-                                degree_u:degreeUniversity, 
-                                program_starts: startProgram, 
-                                thesis_starts:startThesis, 
-                                thesis_end:endThesis,  
-                                posterior_working:selectPosterior,
-                                institution_working:InstitutionPosterior,
-                                inv:comentario, 
-                                file: filee, 
-                                borrador:erased,
-                                equipment:equipment,
-                                information:information,
-                                infraestructure:infraestructure,
-                                other_resource:other_resource
-                                };
-                              //Consulta PUT
-                              const requestInit = {
-                                method:'POST',
-                                headers: {'Content-Type':'application/json'},
-                                body: JSON.stringify(newReport)
-                              }
-                              fetch('http://20.151.235.246/api/a8', requestInit)
-                              .then(res => res.json())
-                              .then(res => console.log(res))
-                              .then(res => console.log('hola'))
-                              }
-
-                                onClose(true);
-                            
-
-                        
+  
+    const deletereport = (id) => {
+  
+      const requestInit = {
+      method:'DELETE'
+      }
+      fetch('http://20.151.235.246/api/a8/'+id, requestInit)
+      .then(res => res.json())
+      .then(res => console.log(res))
+      .then(res => console.log('hola'))
+      setActualizar(true);
     }
+   
 
+   
     
 
 
@@ -406,7 +184,155 @@ const AddA8 = ({ sshow,onClose }) => {
 
                     <form onSubmit={async (ev) => {
                          ev.preventDefault();
-                        formFunction(ev);
+                         const title = ev.target.title.value;
+                         //uploadFile
+                         if(archivosave !== null){
+                           console.log("entre");
+                           const lector = new FileReader();
+                           lector.readAsDataURL(archivosave);
+                           console.log(archivosave);
+                           lector.onload = (event) => {
+                           const data = event.target.result;
+                       
+                           const datos = new FormData();
+                           datos.append('file', data);
+                           datos.append('filename', "/home/konnits/respaldos/"+title+".pdf");
+                     
+                         fetch(
+                           "http://20.151.235.246/file/send_file",
+                         {
+                           method: "POST",
+                           body: datos
+                         }
+                         )
+                       }
+                     }
+                         const funccion = async () => {
+             
+                         
+                         if(coautors === "text"){
+                         var coautor = ev.target.coautor.value;
+                         var coautorInstitution = ev.target.coautorInstitution.value;
+                         var cotutor_check = "true";
+                         }
+                         else{
+                           var coautor = "";
+                           var coautorInstitution = "";
+                           var cotutor_check = "";
+                         }
+             
+                         if(others === "text"){
+                           console.log("var: "+ev.target.otherin.value);
+                           var otherr = ev.target.otherin.value;
+                           console.log(otherr);
+                           var otherInstitution = ev.target.otherInstitution.value;
+                           var other_check = "true";
+                           }
+                           else{
+                             var otherr = "";
+                             var otherInstitution = "";
+                             var other_check = "";
+                           }
+                         if(Equipment===""){
+                           var equipment = "true";
+                         }
+                         else{
+                           var equipment = "";
+                         }
+                         if(Information === ""){
+                           var information = "true";
+                         }
+                         else{
+                           var information = "";
+                         }
+                         if(Infraestructure === ""){
+                           var infraestructure = "true";
+                         }
+                         else{
+                           var infraestructure = "";
+                         }
+                         if(Othercheck === ""){
+                           var othercheck = "true";
+                         }
+                         else{
+                           var othercheck = "";
+                         }
+                         const name = ev.target.name.value;
+                         const run = ev.target.run.value;
+                         const gender = ev.target.selectbuscador.value;
+                         const mail = ev.target.mail.value;
+                         const selectThesis = ev.target.selectThesis.value;
+                         const title = ev.target.title.value;
+                         const selectAcademic = ev.target.selectAcademic.value;
+                         const denomination = ev.target.denomination.value;
+                         const tutor = ev.target.tutor.value;
+                         const tutorInstitution = ev.target.tutorInstitution.value;
+                         const degreeUniversity = ev.target.degreeUniversity.value;
+                         const startProgram = ev.target.startProgram.value;
+                         const startThesis = ev.target.startThesis.value;
+                         const endThesis = ev.target.endThesis.value;
+                         const selectPosterior = ev.target.selectPosterior.value;
+                         const InstitutionPosterior = ev.target.InstitutionPosterior.value;
+                         const comentario = ev.target.comentario.value;
+                         var filee= "";
+                         
+                         
+                         
+             
+                         var erased;
+                         if(name==="" || run==="" || gender==="0" || title===""|| selectAcademic==="0"|| tutor===""|| startThesis===""|| (selectThesis==="Finished" && (selectPosterior==="0" || InstitutionPosterior==="" || ev.target.archivo.value===null ))){
+                            erased = "erased";
+                            console.log("entre a borrador");
+                         }
+                         else{
+                            erased = "saved";
+                            console.log("no entre a borrador");
+                         }
+             
+                         
+                         
+                         if(selectAcademic === "Professional title and master"){
+                           //Consulta POST profesional title
+                           console.log("entre a profesional title");
+                           let newReport1 = {researcher: researcher ,name :name, run: run, gender : gender, mail: mail, thesis_status :selectThesis, title:title, academic_degree: "Undergraduate degree or professional title", degree_domination: denomination, tutor:tutor, autor_institution: tutorInstitution ,cotutor_check: cotutor_check,cotutor:coautor,coautor_institution:coautorInstitution , other:otherr, other_institution: otherInstitution,other_check: other_check,degree_u:degreeUniversity, program_starts: startProgram, thesis_starts:startThesis, thesis_end:endThesis, posterior_working:selectPosterior,institution_working:InstitutionPosterior,inv:comentario, file: filee, borrador: erased, equipment:equipment, information:information, infraestructure: infraestructure, other_resource:othercheck }
+                         const requestInit1 = {
+                           method:'POST',
+                           headers: {'Content-Type':'application/json'},
+                           body: JSON.stringify(newReport1)
+                         }
+                         fetch('http://20.151.235.246/api/a8', requestInit1)
+                         .then(res => res.json())
+                         .then(res => console.log(res))
+                         //Consulta POST master
+                         console.log("entre a master");
+                         let newReport2 = {researcher:researcher,name :name, run: run, gender : gender, mail: mail, thesis_status :selectThesis, title:title, academic_degree: "Master or equivalent", degree_domination: denomination, tutor:tutor, autor_institution: tutorInstitution ,cotutor_check: cotutor_check,cotutor:coautor,coautor_institution:coautorInstitution,other_check: other_check ,other:otherr, other_institution: otherInstitution,degree_u:degreeUniversity, program_starts: startProgram, thesis_starts:startThesis, thesis_end:endThesis, posterior_working:selectPosterior,institution_working:InstitutionPosterior,inv:comentario, file: filee, borrador: erased, equipment:equipment, information:information, infraestructure: infraestructure, other_resource:othercheck}
+                         const requestInit2 = {
+                           method:'POST',
+                           headers: {'Content-Type':'application/json'},
+                           body: JSON.stringify(newReport2)
+                         }
+                         fetch('http://20.151.235.246/api/a8', requestInit2)
+                         .then(res => res.json())
+                         .then(res => console.log(res))
+                         }
+                         else{
+                           console.log("holis");
+                           let newReport = {researcher:researcher,name :name, run: run, gender : gender, mail: mail, thesis_status :selectThesis, title:title, academic_degree: selectAcademic, degree_domination: denomination, tutor:tutor, autor_institution: tutorInstitution, cotutor_check: cotutor_check,cotutor:coautor,coautor_institution:coautorInstitution,other_check: other_check  ,other:otherr, other_institution: otherInstitution,degree_u:degreeUniversity, program_starts: startProgram, thesis_starts:startThesis, thesis_end:endThesis, posterior_working:selectPosterior,institution_working:InstitutionPosterior,inv:comentario, file: filee, borrador: erased, equipment:equipment, information:information, infraestructure: infraestructure, other_resource:othercheck}
+                         const requestInit = {
+                           method:'POST',
+                           headers: {'Content-Type':'application/json'},
+                           body: JSON.stringify(newReport)
+                         }
+                         fetch('http://20.151.235.246/api/a8', requestInit)
+                         .then(res => res.json())
+                         .then(res => console.log(res))
+                         }
+                         
+                       }
+             
+                       funccion();
+                       onClose(true);
+                       window.location.reload();
                     }}>
                         <div>
                         <label >
@@ -560,7 +486,7 @@ const AddA8 = ({ sshow,onClose }) => {
             <span style={{color:"red", marginRight:"5px", visibility:posteriorSelect}}>
             *
           </span>
-                        <input type={archivo} name="archivo" id="archivo" onChange={e => fileChange(e)} ></input>
+                        <input type={archivo} name="archivo" id="archivo" onChange={e => fileHandler(e)} ></input>
                         </label>
                         <span className="item"><i class="fa-solid fa-circle-question" style={{visibility:posteriorSelect}}><div class="innerText" >
                         Format: .pdf 20mb max or .pdf with cover, index and abstract. You must include the name of the thesis in this form to send document.
