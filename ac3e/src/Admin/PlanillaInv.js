@@ -134,7 +134,7 @@ const PlanillaInv=()=> {
               <td>{degr}</td>
               <td>{clas}</td>
               <td key={index} className="botones">
-                <button className="edit" onClick={(e)=>{setShowa8(true); setSelecteddata(reports[index]);console.log("estoy en editado") }}><i class="fa-solid fa-pen-to-square"></i></button>
+                <button className="edit" onClick={(e)=>{setShowa8(true); setSelecteddata(reports[index]);console.log("estoy en editado");console.log(showa8) }}><i class="fa-solid fa-pen-to-square"></i></button>
                 <button className="delete" onClick={()=>{deletereport(id)}}><i class="fa-solid fa-trash"></i></button>
               </td>
             </tr>
