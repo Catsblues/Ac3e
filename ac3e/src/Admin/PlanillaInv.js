@@ -139,7 +139,7 @@ const PlanillaInv=()=> {
               </td>
             </tr>
             
-              < modalA8 sshow={showa8}  data={selecteddata} post={index} onClose={()=>{setShowa8(false);setActualizar(true)}}/>
+              < modalA8 sshow={showa8} data={selecteddata} post={index} onClose={()=>{setShowa8(false);setActualizar(true)}}/>
           
           </>
         )
