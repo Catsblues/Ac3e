@@ -3,7 +3,7 @@ import React, { useState, useEffect } from "react";
 
 
 
-const Modal = ({ sshow, data, post ,onClose, name }) => {
+const Modal = ({ sshow, data, post ,onClose }) => {
 
    
     
@@ -107,7 +107,7 @@ const Modal = ({ sshow, data, post ,onClose, name }) => {
                erased = "saved";
                
             }
-            let newReport = {researcher: name,autor:author, coauthor:coauthor, title:title, journal:journal, doi:doi, volume:volume, firstpage:first, lastpage:last, yearPublished:date, comment:comment, complete:erased}  
+            let newReport = {autor:author, coauthor:coauthor, title:title, journal:journal, doi:doi, volume:volume, firstpage:first, lastpage:last, yearPublished:date, comment:comment, complete:erased}  
             const requestInit = {
               method:'PUT',
               headers: {'Content-Type':'application/json'},

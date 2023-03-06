@@ -1,5 +1,7 @@
 import "./PlanillaInv.css";
 import EditarReporte from "./ComponentsAdmin/EditarReporte";
+import modalA1 from "../A1/Modal";
+import modalA8 from "../A8/Modal";
 import React, {useState, useEffect} from "react";
 import { Link, useNavigate } from "react-router-dom";
 import jwt_decode from "jwt-decode";
@@ -13,7 +15,8 @@ const PlanillaInv=()=> {
     const [searchInv, setSearchInv] = useState("");
     const [reports, setReports] = useState([]);
     const [actualizar, setActualizar] = useState(false);
-    const [show, setShow] = useState(false);
+    const [showa1, setShowa1] = useState(false);
+    const [showa8, setShowa8] = useState(false);
     const[selecteddata, setSelecteddata] = useState([]);
 
 
@@ -93,12 +96,12 @@ const PlanillaInv=()=> {
               <td>{year}</td>
               <td>{complete}</td>
               <td key={index} className="botones">
-                <button className="edit" onClick={(e)=>{setShow(true); setSelecteddata(reports[index]) }}><i class="fa-solid fa-pen-to-square"></i></button>
+                <button className="edit" onClick={(e)=>{setShowa1(true); setSelecteddata(reports[index]) }}><i class="fa-solid fa-pen-to-square"></i></button>
                 <button className="delete" onClick={()=>{deletereport(id)}}><i class="fa-solid fa-trash"></i></button>
               </td>
             </tr>
             
-              < EditarReporte show={show}  data={selecteddata} post={index} onClose={()=>{setShow(false);setActualizar(true)}} />
+              < modalA1 show={showa1}  data={selecteddata} post={index} onClose={()=>{setShowa1(false);setActualizar(true)}} />
           
           </>
         )
@@ -131,12 +134,12 @@ const PlanillaInv=()=> {
               <td>{degr}</td>
               <td>{clas}</td>
               <td key={index} className="botones">
-                <button className="edit" onClick={(e)=>{setShow(true); setSelecteddata(reports[index]) }}><i class="fa-solid fa-pen-to-square"></i></button>
+                <button className="edit" onClick={(e)=>{setShowa8(true); setSelecteddata(reports[index]) }}><i class="fa-solid fa-pen-to-square"></i></button>
                 <button className="delete" onClick={()=>{deletereport(id)}}><i class="fa-solid fa-trash"></i></button>
               </td>
             </tr>
             
-              < EditarReporte show={show}  data={selecteddata} post={index} onClose={()=>{setShow(false);setActualizar(true)}}/>
+              < modalA8 show={showa8}  data={selecteddata} post={index} onClose={()=>{setShowa8(false);setActualizar(true)}}/>
           
           </>
         )
