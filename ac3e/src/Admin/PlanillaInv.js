@@ -1,6 +1,8 @@
 import "./PlanillaInv.css";
 import ModalA1 from "../A1/Modal";
 import ModalA8 from "../A8/Modal";
+import AddA1 from "./ComponentsAdmin/AddA1";
+import AddA8 from "./ComponentsAdmin/AddA8";
 import React, {useState, useEffect} from "react";
 import { Link, useNavigate } from "react-router-dom";
 import jwt_decode from "jwt-decode";
@@ -16,6 +18,8 @@ const PlanillaInv=()=> {
     const [actualizar, setActualizar] = useState(false);
     const [showa1, setShowa1] = useState(false);
     const [showa8, setShowa8] = useState(false);
+    const [showa1add, setShowa1add] = useState(false);
+    const [showa8add, setShowa8add] = useState(false);
     const[selecteddata, setSelecteddata] = useState([]);
 
 
@@ -222,7 +226,16 @@ const PlanillaInv=()=> {
       }
       setActualizar(true);
     } 
-  }   
+  }  
+  
+  const showAdd = () => {
+    if(campo === "A1"){
+      setShowa1add(true);
+    }
+    else if(campo === "A8"){
+      setShowa8add(true);
+    }
+  }
     
     
   
@@ -272,7 +285,12 @@ const PlanillaInv=()=> {
                 </select>
                 <input type="text" name="inv" id="inv" autoComplete="off" placeholder="Investigador(a)" onChange={ev => setSearchInv(ev.target.value)} ></input>
             </div>
-            </form>    
+            </form>   
+            <button className="add" onClick={(e)=>{showAdd()}}>+</button> 
+
+            <AddA1 sshow={showa1add} onClose={()=>{setShowa1add(false);setActualizar(true)}}/>
+            <AddA8 sshow={showa8add} onClose={()=>{setShowa8add(false);setActualizar(true)}}/>
+            
         </div>
 
     <div className="tabla"> 
