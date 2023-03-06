@@ -209,13 +209,21 @@ const PlanillaInv=()=> {
         const requestInit = {
         method:'DELETE'
         }
-        fetch('http://20.151.235.246/api/a1/'+id, requestInit)
-        .then(res => res.json())
-        .then(res => console.log(res))
-        .then(res => console.log('hola'))
-        setActualizar(true);
+        if(campo === "A1"){
+          fetch('http://20.151.235.246/api/a1/'+id, requestInit)
+          .then(res => res.json())
+          .then(res => console.log(res))
+          .then(res => console.log('hola'))
+        }
+        else if(campo === "A8"){
+          fetch('http://20.151.235.246/api/a8/'+id, requestInit)
+          .then(res => res.json())
+          .then(res => console.log(res))
+          .then(res => console.log('hola'))
       }
-    }    
+      setActualizar(true);
+    } 
+  }   
     
     
   
