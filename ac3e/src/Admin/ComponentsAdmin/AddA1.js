@@ -6,7 +6,7 @@ import jwt_decode from "jwt-decode";
 
 const AddA1 = ({ sshow, onClose }) => {
 
-   
+
     
     const [search, setSearch] = useState("");
     const [checkCoautor, setCheckCoautor] = useState("false");
@@ -36,6 +36,7 @@ const AddA1 = ({ sshow, onClose }) => {
     const token = localStorage.getItem("token");
     const decodedToken = jwt_decode(token);
     const researcher = decodedToken.researcher;
+    
 
     const searchofdoi = async (ev) => {
         const getForDOI = async() => {
@@ -82,56 +83,7 @@ const AddA1 = ({ sshow, onClose }) => {
     
     
 
-    const formFunction = (ev) => {
-       
-
-
-        const funccion = async () => {
-            const author = ev.target.autor.value;
-            if(coauthors === "text"){
-                var coauthor = ev.target.coautor.value}
-                else{
-                  var coauthor = "";
-                }
-            
-            const title = ev.target.title.value;
-            const journal = ev.target.journal.value;
-            const doi = ev.target.doi.value;
-            const volume = ev.target.volumen.value;
-            const first = ev.target.first.value;
-            const last = ev.target.last.value;
-            const date = ev.target.date.value;
-            const comment = ev.target.comment.value;
-            
-            var erased;
-            if(author==="" || title==="" || journal==="0" || doi===""|| volume==="0"|| date==="" || ( coauthors==="text" && coauthor==="")){
-               erased = "erased";
-               
-            }
-            else{
-               erased = "saved";
-               
-            }
-            let newReport = {researcher: researcher, autor:author, coauthor:coauthor, title:title, journal:journal, doi:doi, volume:volume, firstpage:first, lastpage:last, yearPublished:date, comment:comment, complete:erased}  
-            const requestInit = {
-              method:'POST',
-              headers: {'Content-Type':'application/json'},
-              body: JSON.stringify(newReport)
-            }
-            await fetch('http://20.151.235.246/api/a1', requestInit)
-            .then(res => res.json())
-            .then(res => console.log(res))
-            
-
-
-          }
-          funccion();
-          onClose(true);
-            
-                            
-
-                        
-    }
+    
 
     
 
@@ -187,10 +139,11 @@ const AddA1 = ({ sshow, onClose }) => {
                             .then(res => res.json())
                             .then(res => console.log(res))
                             .then(res => console.log('hola'))
+                            console.log(researcher);
                           }
                           funccion();
                             onClose(true);
-                          window.location.reload();
+                          //window.location.reload();
                     }}>
                         <span>
             
