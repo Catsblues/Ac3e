@@ -1,5 +1,4 @@
 import "./PlanillaInv.css";
-import EditarReporte from "./ComponentsAdmin/EditarReporte";
 import ModalA1 from "../A1/Modal";
 import ModalA8 from "../A8/Modal";
 import React, {useState, useEffect} from "react";
@@ -101,7 +100,7 @@ const PlanillaInv=()=> {
               </td>
             </tr>
             
-              < ModalA1 show={showa1}  data={selecteddata} post={index} onClose={()=>{setShowa1(false);setActualizar(true)}} />
+              < ModalA1 sshow={showa1}  data={selecteddata} post={index} onClose={()=>{setShowa1(false);setActualizar(true)}} />
           
           </>
         )
