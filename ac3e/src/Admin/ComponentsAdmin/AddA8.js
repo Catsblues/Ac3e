@@ -24,12 +24,7 @@ const AddA8 = ({ sshow,onClose }) => {
     const [first, setFirst] = useState(0);
     
     const [showw, setShoww] = useState(false);
-    var equip = (data.equipment=='true');
-    var infra = (data.infraestructure=='true');
-    var info = (data.information=='true');
-    var other_s = (data.other_resource=='true');
-    var cotutorcheck = (data.cotutor_check=='true');
-    var othercheck = (data.other_check=='true');
+    
 
 
     if (!sshow) {
@@ -40,19 +35,7 @@ const AddA8 = ({ sshow,onClose }) => {
     const decodedToken = jwt_decode(token);
     const researcher = decodedToken.researcher;
     
-    if(data.thesis_status==="Finished" && first===0){
-            
-        setPosteriorSelect("visible");
-        setArchivo("file");
-        setIns("text");
-        setFirst(1);
-    }
-    else if(data.thesis_status==="In progress" && first===0){
-            setPosteriorSelect("hidden");
-            setArchivo("hidden");
-            setIns("hidden");
-            setFirst(1);
-        }
+    
     
    
 
@@ -303,11 +286,11 @@ const AddA8 = ({ sshow,onClose }) => {
 
                             }
                             const requestInit1 = {
-                                method:'PUT',
+                                method:'POST',
                                 headers: {'Content-Type':'application/json'},
                                 body: JSON.stringify(newReport1)
                               }
-                              fetch('http://20.151.235.246/api/a8/'+data.id, requestInit1)
+                              fetch('http://20.151.235.246/api/a8', requestInit1)
                               .then(res => res.json())
                               .then(res => console.log(res))
                               .then(res => console.log('hola'))
@@ -345,11 +328,11 @@ const AddA8 = ({ sshow,onClose }) => {
                                 other_resource:other_resource
                               }
                               const requestInit2 = {
-                                method:'PUT',
+                                method:'POST',
                                 headers: {'Content-Type':'application/json'},
                                 body: JSON.stringify(newReport2)
                               }
-                              fetch('http://20.151.235.246/api/a8/'+data.id, requestInit2)
+                              fetch('http://20.151.235.246/api/a8', requestInit2)
                               .then(res => res.json())
                               .then(res => console.log(res))
                               .then(res => console.log('hola'))
@@ -389,11 +372,11 @@ const AddA8 = ({ sshow,onClose }) => {
                                 };
                               //Consulta PUT
                               const requestInit = {
-                                method:'PUT',
+                                method:'POST',
                                 headers: {'Content-Type':'application/json'},
                                 body: JSON.stringify(newReport)
                               }
-                              fetch('http://20.151.235.246/api/a8/'+data.id, requestInit)
+                              fetch('http://20.151.235.246/api/a8', requestInit)
                               .then(res => res.json())
                               .then(res => console.log(res))
                               .then(res => console.log('hola'))

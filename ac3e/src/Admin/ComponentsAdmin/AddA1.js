@@ -113,11 +113,11 @@ const AddA1 = ({ sshow, onClose }) => {
             }
             let newReport = {researcher: researcher, autor:author, coauthor:coauthor, title:title, journal:journal, doi:doi, volume:volume, firstpage:first, lastpage:last, yearPublished:date, comment:comment, complete:erased}  
             const requestInit = {
-              method:'PUT',
+              method:'POST',
               headers: {'Content-Type':'application/json'},
               body: JSON.stringify(newReport)
             }
-            await fetch('http://20.151.235.246/api/a1/'+data.id, requestInit)
+            await fetch('http://20.151.235.246/api/a1', requestInit)
             .then(res => res.json())
             .then(res => console.log(res))
             
