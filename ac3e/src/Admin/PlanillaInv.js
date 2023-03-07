@@ -98,9 +98,11 @@ const PlanillaInv=()=> {
         .then(res => res.json())
         .then(res => data8 = res)
         const data = utils.json_to_sheet(data8);
-        utils.book_append_sheet(excelData, data, "A8 Thesis Students");}
-
+        utils.book_append_sheet(excelData, data, "A8 Thesis Students")
+      }
+      
       //json to excel
+      console.log("me detecto");
       const excelData = utils.book_new();
 
       //asignación de cada página

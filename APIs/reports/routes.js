@@ -17,7 +17,7 @@ routes.get('/a1', (req, res)=>{
 routes.get('/a1saved', (req, res)=>{
     req.getConnection((err, conn)=>{
         if(err) return res.send(err)
-        conn.query('SELECT * FROM a1 WHERE complete = saved', (err, rows)=>{
+        conn.query('SELECT * FROM a1 WHERE complete = "saved"', (err, rows)=>{
             if(err) return res.send(err)
             res.json(rows)
             })
@@ -137,7 +137,7 @@ routes.get('/a8', (req, res)=>{
 routes.get('/a8saved', (req, res)=>{
     req.getConnection((err, conn)=>{
         if(err) return res.send(err)
-        conn.query('SELECT * FROM a8 WHERE borrador = saved', (err, rows)=>{
+        conn.query('SELECT * FROM a8 WHERE borrador = "saved"', (err, rows)=>{
             if(err) return res.send(err)
             res.json(rows)
             })
