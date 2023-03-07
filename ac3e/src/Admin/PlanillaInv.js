@@ -83,7 +83,7 @@ const PlanillaInv=()=> {
 
       const getsA1 = async () => {
         var data1 = [];
-        await fetch('http://20.151.235.246/api/a1')
+        await fetch('http://20.151.235.246/api/a1saved')
         .then(res => res.json())
         .then(res => data1 = res)
 
@@ -94,7 +94,7 @@ const PlanillaInv=()=> {
   
       const getsA8 = async () => {
         var data8 = [];
-        await fetch('http://20.151.235.246/api/a8')
+        await fetch('http://20.151.235.246/api/a8saved')
         .then(res => res.json())
         .then(res => data8 = res)
         const data = utils.json_to_sheet(data8);
