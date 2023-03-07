@@ -8,9 +8,7 @@ const routes = require('./routes')
 
 const app = express();
 
-app.use(cors({
-    origin: 'http://0.0.0.0'
-}));
+app.use(cors());
 
 app.set('port', 9000)
 const dbOptions = {
