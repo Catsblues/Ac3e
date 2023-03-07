@@ -107,7 +107,7 @@ const Modal = ({ sshow, data, post ,onClose }) => {
                erased = "saved";
                
             }
-            let newReport = {autor:author, coauthor:coauthor, title:title, journal:journal, doi:doi, volume:volume, firstpage:first, lastpage:last, yearPublished:date, comment:comment, complete:erased}  
+            let newReport = {authors:author, coauthor:coauthor, title:title, journal:journal, doi:doi, volume:volume, firstpage:first, lastpage:last, yearPublished:date, comment:comment, complete:erased}  
             const requestInit = {
               method:'PUT',
               headers: {'Content-Type':'application/json'},
@@ -154,7 +154,7 @@ const Modal = ({ sshow, data, post ,onClose }) => {
   <span style={{color:"red", marginRight:"5px"}}>
   *
 </span>
-  <input type="text" name="autor" id="autor" className="titulo" autoComplete="off" placeholder="Autor(s)" defaultValue={data.autor}/>
+  <input type="text" name="autor" id="autor" className="titulo" autoComplete="off" placeholder="Autor(s)" defaultValue={data.authors}/>
   
   </label>
   <span className="item"><i class="fa-solid fa-circle-question">

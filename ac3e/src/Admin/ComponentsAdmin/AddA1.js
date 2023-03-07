@@ -129,7 +129,7 @@ const AddA1 = ({ sshow, onClose }) => {
                                erased = "saved";
                                
                             }
-                            let newReport = { researcher: researcher, autor:author, coauthor:coauthor, title:title, journal:journal, doi:doi, volume:volume, firstpage:first, lastpage:last, yearPublished:date, comment:comment, complete:erased}  
+                            let newReport = { researcher: researcher, authors:author, coauthor:coauthor, title:title, journal:journal, doi:doi, volume:volume, firstpage:first, lastpage:last, yearPublished:date, comment:comment, complete:erased}  
                             const requestInit = {
                               method:'POST',
                               headers: {'Content-Type':'application/json'},

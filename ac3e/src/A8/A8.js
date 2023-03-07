@@ -494,7 +494,7 @@ const handlePosteriorChange = (e) => {
 
           funccion();
           setActualizar(true);
-          window.location.reload();
+          //window.location.reload();
             }}>
               
           <span>

@@ -266,7 +266,7 @@ const A1=()=> {
                erased = "saved";
                
             }
-            let newReport = { researcher: namer, autor:author, coauthor:coauthor, title:title, journal:journal, doi:doi, volume:volume, firstpage:first, lastpage:last, yearPublished:date, comment:comment, complete:erased}  
+            let newReport = { researcher: namer, authors:author, coauthor:coauthor, title:title, journal:journal, doi:doi, volume:volume, firstpage:first, lastpage:last, yearPublished:date, comment:comment, complete:erased}  
             const requestInit = {
               method:'POST',
               headers: {'Content-Type':'application/json'},
@@ -279,7 +279,7 @@ const A1=()=> {
           }
           funccion();
           setActualizar(true);
-          window.location.reload();
+          //window.location.reload();
             }}>
           
           <span>
