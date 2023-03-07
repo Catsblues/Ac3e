@@ -6,6 +6,8 @@ import AddA8 from "./ComponentsAdmin/AddA8";
 import React, {useState, useEffect} from "react";
 import { Link, useNavigate } from "react-router-dom";
 import jwt_decode from "jwt-decode";
+import { utils, write} from "xlsx";
+import { saveAs } from "file-saver";
 
 const PlanillaInv=()=> {
 
@@ -20,7 +22,8 @@ const PlanillaInv=()=> {
     const [showa8, setShowa8] = useState(false);
     const [showa1add, setShowa1add] = useState(false);
     const [showa8add, setShowa8add] = useState(false);
-    const[selecteddata, setSelecteddata] = useState([]);
+    const [selecteddata, setSelecteddata] = useState([]);
+    const [exportdata, setExportdata] = useState("");
 
 
     const navigate = useNavigate();
@@ -74,6 +77,38 @@ const PlanillaInv=()=> {
 
     const handleChange = (valor) => {
         setCampo(valor);    
+    }
+
+
+    const exportData = () => {
+
+      const getsA1 = async () => {
+        await fetch('http://20.151.235.246/api/a1')
+        .then(res => res.json())
+        .then(res => setExportdata(res))}
+  
+      const getsA8 = async () => {
+        await fetch('http://20.151.235.246/api/a8')
+        .then(res => res.json())
+        .then(res => setExportdata(res))}
+
+      //json to excel
+      const excelData = utils.book_new();
+
+      //asignación de cada página
+      
+      getsA1();
+      const data = utils.json_to_sheet(exportdata);
+      utils.book_append_sheet(excelData, data, "Isi Publications");
+
+      getsA8();
+      const data8 = utils.json_to_sheet(exportdata);
+      utils.book_append_sheet(excelData, data8, "Thesis Students");
+
+      const excelBuffer = write(excelData, {bookType: "xlsx", type: "array"});
+      const data1 = new Blob([excelBuffer], {type: "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet"});
+      saveAs(data1, "Reportes.xlsx");
+
     }
 
     let i_ = -1;
@@ -287,7 +322,7 @@ const PlanillaInv=()=> {
             </div>
             </form>   
             <button className="add" onClick={(e)=>{showAdd()}}>+</button> 
-
+            <button classname="exports" onClick={()=>{exportData()}}> Export data</button>
             <AddA1 sshow={showa1add} onClose={()=>{setShowa1add(false);setActualizar(true)}}/>
             <AddA8 sshow={showa8add} onClose={()=>{setShowa8add(false);setActualizar(true)}}/>
             
