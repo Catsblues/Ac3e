@@ -23,7 +23,6 @@ const PlanillaInv=()=> {
     const [showa1add, setShowa1add] = useState(false);
     const [showa8add, setShowa8add] = useState(false);
     const [selecteddata, setSelecteddata] = useState([]);
-    const [exportdata, setExportdata] = useState("");
 
 
     const navigate = useNavigate();
@@ -80,30 +79,37 @@ const PlanillaInv=()=> {
     }
 
 
-    const exportData = () => {
+    const exportData = async () => {
 
       const getsA1 = async () => {
+        var data1 = [];
         await fetch('http://20.151.235.246/api/a1')
         .then(res => res.json())
-        .then(res => setExportdata(res))}
+        .then(res => data1 = res)
+
+        const data = utils.json_to_sheet(data1);
+        utils.book_append_sheet(excelData, data, "A1 Isi Publications");
+  
+      }
   
       const getsA8 = async () => {
+        var data8 = [];
         await fetch('http://20.151.235.246/api/a8')
         .then(res => res.json())
-        .then(res => setExportdata(res))}
+        .then(res => data8 = res)
+        const data = utils.json_to_sheet(data8);
+        utils.book_append_sheet(excelData, data, "A8 Thesis Students");}
 
       //json to excel
       const excelData = utils.book_new();
 
       //asignación de cada página
       
-      getsA1();
-      const data = utils.json_to_sheet(exportdata);
-      utils.book_append_sheet(excelData, data, "Isi Publications");
+      await getsA1();
+      
 
-      getsA8();
-      const data8 = utils.json_to_sheet(exportdata);
-      utils.book_append_sheet(excelData, data8, "Thesis Students");
+      await getsA8();
+
 
       const excelBuffer = write(excelData, {bookType: "xlsx", type: "array"});
       const data1 = new Blob([excelBuffer], {type: "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet"});
