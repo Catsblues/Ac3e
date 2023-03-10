@@ -126,9 +126,9 @@ const PlanillaInv=()=> {
         var id = reporte.id;
         var researcher = reporte.researcher;
         var doi = reporte.doi;
-        var title = reporte.title;
-        var author = reporte.autor;
-        var journal = reporte.journal;
+        var title = reporte.articleTitle;
+        var author = reporte.authors;
+        var journal = reporte.journalName;
         var year = reporte.yearPublished;
         var complete = reporte.complete;
         return(
@@ -161,7 +161,7 @@ const PlanillaInv=()=> {
         var researcher = reporte.researcher;
         var status = reporte.thesis_status;
         var nomStu = reporte.name;
-        var nomThe = reporte.title;
+        var nomThe = reporte.articleTitle;
         var degr = reporte.academic_degree;
         var clas = reporte.borrador;
         if(degr === "0"){
@@ -201,9 +201,9 @@ const PlanillaInv=()=> {
     <tr>
       <th scope="col">Researcher</th>
       <th scope="col">DOI</th>
-      <th scope="col">Title</th>
+      <th scope="col">Article Title</th>
       <th scope="col">Authors</th>
-      <th scope="col">Journal</th>
+      <th scope="col">Journal Name</th>
       <th scope="col">Year</th>
       <th scope="col">Save Type</th>
       <th scope="col"></th>

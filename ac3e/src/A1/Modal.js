@@ -107,7 +107,7 @@ const Modal = ({ sshow, data, post ,onClose }) => {
                erased = "saved";
                
             }
-            let newReport = {authors:author, coauthor:coauthor, title:title, journal:journal, doi:doi, volume:volume, firstpage:first, lastpage:last, yearPublished:date, comment:comment, complete:erased}  
+            let newReport = {authors:author, coauthor:coauthor, articleTitle:title, journalName:journal, doi:doi, volume:volume, firstPage:first, lastPage:last, yearPublished:date, comment:comment, complete:erased}  
             const requestInit = {
               method:'PUT',
               headers: {'Content-Type':'application/json'},
@@ -189,13 +189,13 @@ const Modal = ({ sshow, data, post ,onClose }) => {
   <span style={{color:"red", marginRight:"5px" }}>
   *
 </span>
-<input type="text" name="title" id="title" className="titulo" style={{marginRight:"10px"}} autoComplete="off" placeholder="Article Title" defaultValue={data.title}/>
+<input type="text" name="title" id="title" className="titulo" style={{marginRight:"10px"}} autoComplete="off" placeholder="Article Title" defaultValue={data.articleTitle}/>
 </label>
 <label >
   <span style={{color:"red", marginRight:"5px" }}>
   *
 </span>
-            <input type="text" name="journal" id="journal" className="journal" style={{marginRight:"10px"}} autoComplete="off" placeholder="Journal Name" defaultValue={data.journal}/>
+            <input type="text" name="journal" id="journal" className="journal" style={{marginRight:"10px"}} autoComplete="off" placeholder="Journal Name" defaultValue={data.journalName}/>
   </label>
   <label >
   <span style={{color:"red", marginRight:"5px" }}>
@@ -212,8 +212,8 @@ const Modal = ({ sshow, data, post ,onClose }) => {
 </span>
             <input type="text" name="volumen" id="volumen" className="volumen" autoComplete="off" placeholder="Volume" defaultValue={data.volume}/> 
   </label>
-  <input type="text" name="first" id="first" className="first" autoComplete="off" placeholder="First page" defaultValue={data.firstpage}/> 
-  <input type="text" name="last" id="last" className="last" style={{marginRight:"10px"}} autoComplete="off" placeholder="Last page" defaultValue={data.lastpage} />
+  <input type="text" name="first" id="first" className="first" autoComplete="off" placeholder="First page" defaultValue={data.firstPage}/> 
+  <input type="text" name="last" id="last" className="last" style={{marginRight:"10px"}} autoComplete="off" placeholder="Last page" defaultValue={data.lastPage} />
   <label >
   <span style={{color:"red", marginRight:"5px" }}>
   *

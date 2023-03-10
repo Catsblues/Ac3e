@@ -196,9 +196,9 @@ const A1=()=> {
       i_+=1;
       var id = reporte.id;
       var doi = reporte.doi;
-      var title = reporte.title;
-      var author = reporte.autor;
-      var journal = reporte.journal;
+      var title = reporte.articleTitle;
+      var author = reporte.authors;
+      var journal = reporte.journalName;
       var year = reporte.yearPublished;
       var complete = reporte.complete;
       return(
@@ -266,7 +266,7 @@ const A1=()=> {
                erased = "saved";
                
             }
-            let newReport = { researcher: namer, authors:author, coauthor:coauthor, title:title, journal:journal, doi:doi, volume:volume, firstpage:first, lastpage:last, yearPublished:date, comment:comment, complete:erased}  
+            let newReport = { researcher: namer, authors:author, coauthor:coauthor, articleTitle:title, journalName:journal, doi:doi, volume:volume, firstPage:first, lastPage:last, yearPublished:date, comment:comment, complete:erased}  
             const requestInit = {
               method:'POST',
               headers: {'Content-Type':'application/json'},
@@ -279,7 +279,7 @@ const A1=()=> {
           }
           funccion();
           setActualizar(true);
-          //window.location.reload();
+          window.location.reload();
             }}>
           
           <span>
@@ -376,9 +376,9 @@ const A1=()=> {
   <thead>
     <tr>
       <th scope="col">DOI</th>
-      <th scope="col">Title</th>
+      <th scope="col">Article Title</th>
       <th scope="col">Authors</th>
-      <th scope="col">Journal</th>
+      <th scope="col">Journal Name</th>
       <th scope="col">Year</th>
       <th scope="col">Save Type</th>
       <th scope="col"></th>
