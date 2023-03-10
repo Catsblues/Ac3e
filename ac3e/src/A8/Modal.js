@@ -37,14 +37,14 @@ const Modal = ({ sshow, data, post ,onClose }) => {
     }
     
     
-    if(data.thesis_status==="Finished" && first===0){
+    if(data.thesisStatus==="Finished" && first===0){
             
         setPosteriorSelect("visible");
         setArchivo("file");
         setIns("text");
         setFirst(1);
     }
-    else if(data.thesis_status==="In progress" && first===0){
+    else if(data.thesisStatus==="In progress" && first===0){
             setPosteriorSelect("hidden");
             setArchivo("hidden");
             setIns("hidden");
@@ -267,13 +267,13 @@ const Modal = ({ sshow, data, post ,onClose }) => {
                                 //Consulta PUT profesional title
 
                             let newReport1 = {
-                                name :name, 
+                                studentName :name, 
                                 run: run, 
                                 gender : gender, 
-                                mail: mail, 
-                                thesis_status :selectThesis, 
-                                title:title, 
-                                academic_degree: "Undergraduate degree or professional title", 
+                                studentMail: mail, 
+                                thesisStatus :selectThesis, 
+                                thesisTitle:title, 
+                                academicDegree: "Undergraduate degree or professional title", 
                                 degree_domination: denomination, 
                                 tutor:tutor, 
                                 cotutor:coautor, 
@@ -309,13 +309,13 @@ const Modal = ({ sshow, data, post ,onClose }) => {
                               .then(res => console.log('hola'))
                               //Consulta PUT master
                               let newReport2 = {
-                                name :name, 
+                                studentName :name, 
                                 run: run, 
                                 gender : gender, 
-                                mail: mail, 
-                                thesis_status :selectThesis, 
-                                title:title, 
-                                academic_degree: "Master or equivalent", 
+                                studentMail: mail, 
+                                thesisStatus :selectThesis, 
+                                thesisTitle:title, 
+                                academicDegree: "Master or equivalent", 
                                 degree_domination: denomination, 
                                 tutor:tutor, 
                                 cotutor:coautor, 
@@ -351,13 +351,13 @@ const Modal = ({ sshow, data, post ,onClose }) => {
                               }
                               else{
                                 let newReport = {
-                                    name :name, 
+                                    studentName :name, 
                                 run: run, 
                                 gender : gender, 
-                                mail: mail, 
-                                thesis_status :selectThesis, 
-                                title:title, 
-                                academic_degree: selectAcademic, 
+                                studentMail: mail, 
+                                thesisStatus :selectThesis, 
+                                thesisTitle:title, 
+                                academicDegree: selectAcademic, 
                                 degree_domination: denomination, 
                                 tutor:tutor, 
                                 cotutor:coautor, 
@@ -424,7 +424,7 @@ const Modal = ({ sshow, data, post ,onClose }) => {
             <span style={{color:"red", marginRight:"5px"}}>
             *
           </span>
-                        <input type="text" name="name" id="name" className="autor" autoComplete="off" defaultValue={data.name} placeholder="Student Name" />
+                        <input type="text" name="name" id="name" className="autor" autoComplete="off" defaultValue={data.studentName} placeholder="Student Name" />
                         </label>
                         <span className="item"><i class="fa-solid fa-circle-question"><div class="innerText">
                                 First name and last name.
@@ -459,14 +459,14 @@ const Modal = ({ sshow, data, post ,onClose }) => {
                         </select>
                         </label>
 
-                        <input type="text" name="mail" id="mail" className="journal" autoComplete="off" defaultValue={data.mail} placeholder="mail" />
+                        <input type="text" name="mail" id="mail" className="journal" autoComplete="off" defaultValue={data.studentMail} placeholder="mail" />
                         </div>
                         <div>
                         <label >
             <span style={{color:"red", marginRight:"5px"}}>
             *
           </span>
-                        <input type="text" name="title" id="title" className="journal" autoComplete="off"  defaultValue={data.title} placeholder="Thesis Title" />
+                        <input type="text" name="title" id="title" className="journal" autoComplete="off"  defaultValue={data.thesisTitle} placeholder="Thesis Title" />
                         </label>
                         </div>
                         <div>
@@ -474,7 +474,7 @@ const Modal = ({ sshow, data, post ,onClose }) => {
             <span style={{color:"red", marginRight:"5px"}}>
             *
           </span>
-                        <select name="selectAcademic" id="selectAcademic" defaultValue={data.academic_degree} onChange={e => handleAcademicChange(e)}>
+                        <select name="selectAcademic" id="selectAcademic" defaultValue={data.academicDegree} onChange={e => handleAcademicChange(e)}>
                             <option value="0" disabled hidden>Academic Degree</option>
                             <option value="Undergraduate degree or professional title">Undergraduate degree or professional title</option>
                             <option value="Master or equivalent">Master o equivalent</option>
@@ -559,7 +559,7 @@ const Modal = ({ sshow, data, post ,onClose }) => {
             <span style={{color:"red", marginRight:"5px"}}>
             *
           </span>
-                        <select name="selectThesis" id="selectThesis" defaultValue={data.thesis_status} onChange={e => handleStatusChange(e)}>
+                        <select name="selectThesis" id="selectThesis" defaultValue={data.thesisStatus} onChange={e => handleStatusChange(e)}>
                             <option value="0" disabled hidden>Thesis Status</option>
                             <option value="In Progress">In Progress</option>
                             <option value="Finished">Finished</option>

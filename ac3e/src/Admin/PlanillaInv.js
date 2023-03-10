@@ -160,7 +160,7 @@ const PlanillaInv=()=> {
         var id = reporte.id;
         var researcher = reporte.researcher;
         var status = reporte.thesis_status;
-        var nomStu = reporte.name;
+        var nomStu = reporte.studentName;
         var nomThe = reporte.articleTitle;
         var degr = reporte.academic_degree;
         var clas = reporte.borrador;

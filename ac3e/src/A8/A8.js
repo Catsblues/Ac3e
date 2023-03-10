@@ -297,10 +297,10 @@ const handlePosteriorChange = (e) => {
     var rep = reports.map((reporte,index) => {
       i_+=1;
       var id = reporte.id;
-      var status = reporte.thesis_status;
-      var nomStu = reporte.name;
-      var nomThe = reporte.title;
-      var degr = reporte.academic_degree;
+      var status = reporte.thesisStatus;
+      var nomStu = reporte.studentName;
+      var nomThe = reporte.thesisTitle;
+      var degr = reporte.academicDegree;
       var clas = reporte.borrador;
       if(degr === "0"){
         degr = "non-degree admitted";
@@ -456,7 +456,7 @@ const handlePosteriorChange = (e) => {
             if(selectAcademic === "Professional title and master"){
               //Consulta POST profesional title
               console.log("entre a profesional title");
-              let newReport1 = {researcher:namer ,name :name, run: run, gender : gender, mail: mail, thesis_status :selectThesis, title:title, academic_degree: "Undergraduate degree or professional title", degree_domination: denomination, tutor:tutor, autor_institution: tutorInstitution ,cotutor_check: cotutor_check,cotutor:coautor,coautor_institution:coautorInstitution , other:otherr, other_institution: otherInstitution,other_check: other_check,degree_u:degreeUniversity, program_starts: startProgram, thesis_starts:startThesis, thesis_end:endThesis, posterior_working:selectPosterior,institution_working:InstitutionPosterior,inv:comentario, file: filee, borrador: erased, equipment:equipment, information:information, infraestructure: infraestructure, other_resource:othercheck }
+              let newReport1 = {researcher:namer , studentName :name, run: run, gender : gender, studentMail: mail, thesisStatus :selectThesis, thesisTitle:title, academicDegree: "Undergraduate degree or professional title", degree_domination: denomination, tutor:tutor, autor_institution: tutorInstitution ,cotutor_check: cotutor_check,cotutor:coautor,coautor_institution:coautorInstitution , other:otherr, other_institution: otherInstitution,other_check: other_check,degree_u:degreeUniversity, program_starts: startProgram, thesis_starts:startThesis, thesis_end:endThesis, posterior_working:selectPosterior,institution_working:InstitutionPosterior,inv:comentario, file: filee, borrador: erased, equipment:equipment, information:information, infraestructure: infraestructure, other_resource:othercheck }
             const requestInit1 = {
               method:'POST',
               headers: {'Content-Type':'application/json'},
@@ -467,7 +467,7 @@ const handlePosteriorChange = (e) => {
             .then(res => console.log(res))
             //Consulta POST master
             console.log("entre a master");
-            let newReport2 = {researcher:namer,name :name, run: run, gender : gender, mail: mail, thesis_status :selectThesis, title:title, academic_degree: "Master or equivalent", degree_domination: denomination, tutor:tutor, autor_institution: tutorInstitution ,cotutor_check: cotutor_check,cotutor:coautor,coautor_institution:coautorInstitution,other_check: other_check ,other:otherr, other_institution: otherInstitution,degree_u:degreeUniversity, program_starts: startProgram, thesis_starts:startThesis, thesis_end:endThesis, posterior_working:selectPosterior,institution_working:InstitutionPosterior,inv:comentario, file: filee, borrador: erased, equipment:equipment, information:information, infraestructure: infraestructure, other_resource:othercheck}
+            let newReport2 = {researcher:namer,studentName :name, run: run, gender : gender, studentMail: mail, thesisStatus :selectThesis, thesisTitle:title, academicDegree: "Master or equivalent", degree_domination: denomination, tutor:tutor, autor_institution: tutorInstitution ,cotutor_check: cotutor_check,cotutor:coautor,coautor_institution:coautorInstitution,other_check: other_check ,other:otherr, other_institution: otherInstitution,degree_u:degreeUniversity, program_starts: startProgram, thesis_starts:startThesis, thesis_end:endThesis, posterior_working:selectPosterior,institution_working:InstitutionPosterior,inv:comentario, file: filee, borrador: erased, equipment:equipment, information:information, infraestructure: infraestructure, other_resource:othercheck}
             const requestInit2 = {
               method:'POST',
               headers: {'Content-Type':'application/json'},
@@ -479,7 +479,7 @@ const handlePosteriorChange = (e) => {
             }
             else{
               console.log("holis");
-              let newReport = {researcher:namer,name :name, run: run, gender : gender, mail: mail, thesis_status :selectThesis, title:title, academic_degree: selectAcademic, degree_domination: denomination, tutor:tutor, autor_institution: tutorInstitution, cotutor_check: cotutor_check,cotutor:coautor,coautor_institution:coautorInstitution,other_check: other_check  ,other:otherr, other_institution: otherInstitution,degree_u:degreeUniversity, program_starts: startProgram, thesis_starts:startThesis, thesis_end:endThesis, posterior_working:selectPosterior,institution_working:InstitutionPosterior,inv:comentario, file: filee, borrador: erased, equipment:equipment, information:information, infraestructure: infraestructure, other_resource:othercheck}
+              let newReport = {researcher:namer, studentName :name, run: run, gender : gender, studentMail: mail, thesisStatus :selectThesis, thesisTitle:title, academicDegree: selectAcademic, degree_domination: denomination, tutor:tutor, autor_institution: tutorInstitution, cotutor_check: cotutor_check,cotutor:coautor,coautor_institution:coautorInstitution,other_check: other_check  ,other:otherr, other_institution: otherInstitution,degree_u:degreeUniversity, program_starts: startProgram, thesis_starts:startThesis, thesis_end:endThesis, posterior_working:selectPosterior,institution_working:InstitutionPosterior,inv:comentario, file: filee, borrador: erased, equipment:equipment, information:information, infraestructure: infraestructure, other_resource:othercheck}
             const requestInit = {
               method:'POST',
               headers: {'Content-Type':'application/json'},
